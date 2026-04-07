@@ -1,0 +1,11 @@
+*
+!*/
+!*.cs
+!*.csproj
+!*.config
+!*.sln
+!*.props
+!*.md
+!/TGS/
+!/Launcher/
+/Build/
