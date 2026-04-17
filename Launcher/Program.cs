@@ -17,11 +17,11 @@ namespace Launcher
     internal static class Program
     {
         // Input
-        private const string SOURCE_CODE_PROJECT_FOLDER_PATH = @"..\..\..\..\TGS";
-        private const string BASE_MAP_PATH = @"..\..\..\..\TGSMap.w3x";
+        private const string SOURCE_CODE_PROJECT_FOLDER_PATH = @"..\..\..\..\..\TGS";
+        private const string BASE_MAP_PATH = @"..\..\..\..\..\TGSMap.w3x";
 
         // Output
-        private const string OUTPUT_FOLDER_PATH = @"..\..\..\..\artifacts";
+        private const string OUTPUT_FOLDER_PATH = @"..\..\..\..\..\artifacts";
         private const string OUTPUT_SCRIPT_NAME = @"war3map.lua";
         private const string OUTPUT_MAP_NAME = @"target.w3x";
 
