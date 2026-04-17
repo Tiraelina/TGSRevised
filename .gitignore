@@ -9,3 +9,5 @@
 !/TGS/
 !/Launcher/
 /Build/
+Constants.cs
+Regions.cs
