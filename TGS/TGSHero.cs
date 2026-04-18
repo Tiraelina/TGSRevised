@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TGS.Spells;
 using WCSharp.Api;
 using WCSharp.Events;
+using static WCSharp.Api.Common;
+using static WCSharp.Api.Blizzard;
 
 namespace TGS;
 
@@ -15,8 +17,8 @@ public class TGSHero
         TGSAbilities.ByUnit[unit] = this;
         TGSAbilities.ByPlayer[owner] = this;
         trigger ItemPickup = trigger.Create();
-        Common.TriggerRegisterUnitEvent(ItemPickup, Unit, Common.EVENT_UNIT_PICKUP_ITEM);
-        Common.TriggerAddAction(ItemPickup, OnItemChange);
+        TriggerRegisterUnitEvent(ItemPickup, Unit, EVENT_UNIT_PICKUP_ITEM);
+        TriggerAddAction(ItemPickup, OnItemChange);
         PlayerUnitEvents.Register(UnitEvent.PawnsItem, OnItemChange, Unit);
         PlayerUnitEvents.Register(UnitEvent.DropsItem, OnItemChange, Unit);
     }
@@ -95,14 +97,47 @@ public class TGSHero
                 }
             }
         }
-        // foreach (NormalAbility Ability in HeroData.NormalAbilities)
-        // {
-        //     if (Ability != null)
-        //     {
-        //         ability AbilityInstance = Hero.GetAbility(Ability.LearnedId);
-        //         AbilityInstance.SetTooltipNormalExtended_aub1(Hero.GetAbilityLevel(Ability.LearnedId), "CAT");
-        //     }
-        // }
+        UpdateTooltips();
+    }
+
+    public void UpdateTooltips()
+    {
+        if (GetLocalPlayer() == Owner)
+        {
+            foreach (NormalAbility Ability in NormalAbilities)
+            {
+                if (Ability != null)
+                {
+                    Ability.UpdateTooltip(Ability, Unit);
+                }
+            }
+            Special.UpdateTooltip(Special, Unit);
+            Ultimate.UpdateTooltip(Ultimate, Unit);
+        }
+    }
+
+    public void UpdateTooltip(NormalAbility Ability)
+    {
+        if (GetLocalPlayer() == Owner)
+        {
+            Ability.UpdateTooltip(Ability, Unit);
+        }
+    }
+
+    public void UpdateTooltip(SpecialAbility Ability)
+    {
+        if (GetLocalPlayer() == Owner)
+        {
+            Special.UpdateTooltip(Special, Unit);
+        }
+    }
+
+    public void UpdateTooltip(UltimateAbility Ability)
+    {
+        if (GetLocalPlayer() == Owner)
+        {
+            Ultimate.UpdateTooltip(Ultimate, Unit);
+        }
     }
 
     public void ResetItemStats()
@@ -177,20 +212,20 @@ public class TGSHero
     // Events
     private static void OnItemPickup()
     {
-        if (Common.GetManipulatedItem().Type != itemtype.Powerup)
+        if (GetManipulatedItem().Type != itemtype.Powerup)
         {
             return;
         }
 
-        TGSHero TGSHero = Get(Common.GetTriggerUnit());
+        TGSHero TGSHero = Get(GetTriggerUnit());
         if (TGSHero == null)
         {
             return;
         }
 
-        int ItemId = Common.GetManipulatedItem().TypeId;
+        int ItemId = GetManipulatedItem().TypeId;
 #if DEBUG
-        Common.DisplayTextToPlayer(Common.GetLocalPlayer(), 0, 0, $"Picked up item ID: {ItemId} (hex {(uint)ItemId:X8}) | Registered normals: {NormalAbility.GetByItemId(ItemId).MaxLevel}");
+        DisplayTextToPlayer(GetLocalPlayer(), 0, 0, $"Picked up item ID: {ItemId} (hex {(uint)ItemId:X8}) | Registered normals: {NormalAbility.GetByItemId(ItemId).MaxLevel}");
 #endif
 
         if (NormalAbility.GetByItemId(ItemId) is { } Normal)
@@ -319,13 +354,13 @@ public class TGSHero
 
     private static void OnChatCommand()
     {
-        TGSHero TGSHero = Get(Common.GetTriggerPlayer());
+        TGSHero TGSHero = Get(GetTriggerPlayer());
         if (TGSHero == null)
         {
             return;
         }
 
-        string Message = Common.GetEventPlayerChatString();
+        string Message = GetEventPlayerChatString();
         string Letter;
 
         switch (Message.Length)
@@ -340,7 +375,6 @@ public class TGSHero
                 return;
         }
 
-        //Letter = Letter.ToUpper();
         switch (Letter)
         {
             case "Q" when TGSHero.NormalAbilities[0] != null:
@@ -362,7 +396,7 @@ public class TGSHero
                 UnlearnUltimate(TGSHero, TGSHero.Ultimate);
                 break;
             case "Z":
-                Common.GetTriggerPlayer().DisplayTextTo("You can't unlearn your innate skill, Tony.");
+                GetTriggerPlayer().DisplayTextTo("You can't unlearn your innate skill, Tony.");
                 break;
         }
     }
@@ -430,8 +464,8 @@ public class TGSHero
     {
         if (InAbility.Name == "Mass Teleport")
         {
-            InTGSHero.Unit.RemoveAbility(Common.FourCC("AHm2"));
-            InTGSHero.Unit.RemoveAbility(Common.FourCC("AHm3"));
+            InTGSHero.Unit.RemoveAbility(FourCC("AHm2"));
+            InTGSHero.Unit.RemoveAbility(FourCC("AHm3"));
         }
 
         InTGSHero.Owner.Lumber += UltimateAbility.LumberCost - 1;
@@ -442,11 +476,11 @@ public class TGSHero
 
     private static void UnlearnMessage(TGSHero InTGSHero, string InName)
     {
-        string Msg = $"{Common.GetPlayerName(InTGSHero.Owner)} unlearned |cffff8000{InName}|r";
-        if (Common.GetLocalPlayer() == InTGSHero.Owner || Common.IsPlayerAlly(Common.GetLocalPlayer(), InTGSHero.Owner))
+        string Msg = $"{GetPlayerName(InTGSHero.Owner)} unlearned |cffff8000{InName}|r";
+        if (GetLocalPlayer() == InTGSHero.Owner || IsPlayerAlly(GetLocalPlayer(), InTGSHero.Owner))
         {
-            Common.GetLocalPlayer().DisplayTextTo(Msg);
-            Common.StartSound(Blizzard.bj_questHintSound);
+            GetLocalPlayer().DisplayTextTo(Msg);
+            StartSound(bj_questHintSound);
         }
     }
 
@@ -470,26 +504,26 @@ public class TGSHero
 
     private static void OnLevelUp()
     {
-        if (Common.GetTriggerUnit().Level < 10)
+        if (GetTriggerUnit().Level < 10)
         {
-            Common.GetTriggerPlayer().Lumber += 2;
+            GetTriggerPlayer().Lumber += 2;
         }
 
-        TGSHero LevelingTGSHero = Get(Common.GetTriggerPlayer());
+        TGSHero LevelingTGSHero = Get(GetTriggerPlayer());
         if (LevelingTGSHero != null)
         {
-            SpecialAbility SpecialAbil = Get(Common.GetTriggerPlayer()).Special;
+            SpecialAbility SpecialAbil = Get(GetTriggerPlayer()).Special;
             if (SpecialAbil != null)
             {
-                Common.GetTriggerUnit().SetAbilityLevel(SpecialAbil.AbilityId, Common.GetLevelingUnit().Level / 2);
+                GetTriggerUnit().SetAbilityLevel(SpecialAbil.AbilityId, GetLevelingUnit().Level / 2);
             }
         }
 
-        TGSAbilities.HeroToBaseAbility.TryGetValue(Common.GetTriggerUnit().UnitType, out int Value);
-        Blizzard.SetUnitAbilityLevelSwapped(Value, Common.GetTriggerUnit(), Common.GetLevelingUnit().Level / 2);
-        if (TGSAbilities.HeroToBaseAbility[Common.GetTriggerUnit().UnitType] == Common.FourCC("A0LD"))
+        TGSAbilities.HeroToBaseAbility.TryGetValue(GetTriggerUnit().UnitType, out int Value);
+        SetUnitAbilityLevelSwapped(Value, GetTriggerUnit(), GetLevelingUnit().Level / 2);
+        if (TGSAbilities.HeroToBaseAbility[GetTriggerUnit().UnitType] == FourCC("A0LD"))
         {
-            Common.GetTriggerUnit().SetAbilityLevel(Common.FourCC("A0KA"), Common.GetLevelingUnit().Level / 2);
+            GetTriggerUnit().SetAbilityLevel(FourCC("A0KA"), GetLevelingUnit().Level / 2);
         }
     }
 }

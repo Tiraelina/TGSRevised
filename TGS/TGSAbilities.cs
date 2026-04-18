@@ -123,7 +123,12 @@ public class TGSAbilities
         new NormalAbility("Chain Lightning", ITEM_I010_CHAIN_LIGHTNING_NUKE, ABILITY_A0LI_CHAIN_LIGHTNING_Q, ABILITY_A0LM_CHAIN_LIGHTNING_W, ABILITY_A0LN_CHAIN_LIGHTNING_E,
             ABILITY_A0LO_CHAIN_LIGHTNING_R);
         new NormalAbility("Critical Strike", ITEM_I00U_CRITICAL_STRIKE_PASSIVE, ABILITY_A001_CRITICAL_STRIKE_Q, ABILITY_A0J7_CRITICAL_STRIKE_W, ABILITY_A0OC_CRITICAL_STRIKE_E,
-            ABILITY_A0OD_CRITICAL_STRIKE_R);
+            ABILITY_A0OD_CRITICAL_STRIKE_R,(NormalAbility, unit) =>
+            {
+                int Level = unit.GetAbilityLevel(NormalAbility.LearnedId);
+                string Tooltip = $"{Color.Good}{5 * Level}%|r chance to deal {Color.Good}200%|r damage.";
+                BlzSetAbilityExtendedTooltip(NormalAbility.LearnedId,Tooltip,Level - 1);
+            });
         new NormalAbility("Endurance Aura", ITEM_I00Y_ENDURANCE_AURA_AURA, ABILITY_AOAE_ENDURANCE_AURA_Q, ABILITY_A01G_ENDURANCE_AURA_W, ABILITY_A01H_ENDURANCE_AURA_E, ABILITY_A01I_ENDURANCE_AURA_R);
         NormalAbility Farsight = new NormalAbility("Far Sight", ITEM_I011_FAR_SIGHT_UTILITY, ABILITY_AOFS_FAR_SIGHT_Q, ABILITY_A01J_FAR_SIGHT_W, ABILITY_A01K_FAR_SIGHT_E, ABILITY_A01L_FAR_SIGHT_R);
         Farsight.MaxLevel = 3; // Far Sight only has 3 levels
@@ -142,7 +147,12 @@ public class TGSAbilities
         new NormalAbility("Chain Death Coil", ITEM_I02D_CHAIN_DEATH_COIL_UTILITY, ABILITY_A065_CHAIN_DEATH_COIL_Q, ABILITY_A06A_CHAIN_DEATH_COIL_W, ABILITY_A06B_CHAIN_DEATH_COIL_E,
             ABILITY_A06C_CHAIN_DEATH_COIL_R);
         new NormalAbility("Death Pact", ITEM_I019_DEATH_PACT_UTILITY, ABILITY_AUDP_DEATH_PACT_Q, ABILITY_A02M_DEATH_PACT_W, ABILITY_A02N_DEATH_PACT_E, ABILITY_A02O_DEATH_PACT_R);
-        new NormalAbility("Feedback", ITEM_I07Z_FEEDBACK_PASSIVE, ABILITY_A04Q_FEEDBACK_Q, ABILITY_A04R_FEEDBACK_W, ABILITY_A04S_FEEDBACK_E, ABILITY_A0OF_FEEDBACK_R, OrbType.Feedback);
+        new NormalAbility("Feedback", ITEM_I07Z_FEEDBACK_PASSIVE, ABILITY_A04Q_FEEDBACK_Q, ABILITY_A04R_FEEDBACK_W, ABILITY_A04S_FEEDBACK_E, ABILITY_A0OF_FEEDBACK_R,(NormalAbility, unit) =>
+        {
+            int Level = unit.GetAbilityLevel(NormalAbility.LearnedId);
+            string Tooltip = $"Burns {Color.Good}{2 + 8 * Level}|r mana each attack, causing half as damage|r. {Color.Good}{40 * Level}|r bonus damage against summons.";
+            BlzSetAbilityExtendedTooltip(NormalAbility.LearnedId,Tooltip,Level - 1);
+        }, OrbType.Feedback);
         new NormalAbility("Frost Armor", ITEM_I01H_FROST_ARMOR_AUTOCAST, ABILITY_AUFU_FROST_ARMOR_AUTOCAST_Q, ABILITY_A02P_FROST_ARMOR_AUTOCAST_W, ABILITY_A02Q_FROST_ARMOR_AUTOCAST_E,
             ABILITY_A02R_FROST_ARMOR_AUTOCAST_R);
         new NormalAbility("Frost Nova", ITEM_I01G_FROST_NOVA_NUKE, ABILITY_AUFN_FROST_NOVA_Q, ABILITY_A02S_FROST_NOVA_W, ABILITY_A02T_FROST_NOVA_E, ABILITY_A02U_FROST_NOVA_R);
@@ -154,7 +164,12 @@ public class TGSAbilities
         new NormalAbility("Unholy Aura", ITEM_I01A_DEPRESSION_AURA_AURA, ABILITY_A037_UNHOLY_AURA_Q, ABILITY_A038_UNHOLY_AURA_W, ABILITY_A039_UNHOLY_AURA_E, ABILITY_A03A_UNHOLY_AURA_R);
         new NormalAbility("Entangling Roots", ITEM_I00K_ENTANGLING_ROOTS_NUKE, ABILITY_A00R_ENTANGLING_ROOTS_Q, ABILITY_A00P_ENTANGLING_ROOTS_W, ABILITY_A07M_ENTANGLING_ROOTS_E,
             ABILITY_A07O_ENTANGLING_ROOTS_R);
-        new NormalAbility("Evasion", ITEM_I00E_EVASION_PASSIVE, ABILITY_A01D_EVASION_Q, ABILITY_A01E_EVASION_W, ABILITY_A01F_EVASION_E, ABILITY_A0OE_EVASION_R);
+        new NormalAbility("Evasion", ITEM_I00E_EVASION_PASSIVE, ABILITY_A01D_EVASION_Q, ABILITY_A01E_EVASION_W, ABILITY_A01F_EVASION_E, ABILITY_A0OE_EVASION_R,(NormalAbility, unit) =>
+        {
+            int Level = unit.GetAbilityLevel(NormalAbility.LearnedId);
+            string Tooltip = $"{Color.Good}{10 + Level}%|r chance to to {Color.Info}evade|r an attack.";
+            BlzSetAbilityExtendedTooltip(NormalAbility.LearnedId,Tooltip,Level - 1);
+        });
         new NormalAbility("Diffusion Flare", ITEM_I091_DIFFUSION_FLARE_UTILITY, ABILITY_A0FL_DIFFUSION_FLARE_Q, ABILITY_A03H_DIFFUSION_FLARE_W, ABILITY_A03I_DIFFUSION_FLARE_E,
             ABILITY_A03J_DIFFUSION_FLARE_R);
         new NormalAbility("Fan of Knives", ITEM_I00O_FAN_OF_KNIVES_NUKE, ABILITY_AEFK_FAN_OF_KNIVES_Q, ABILITY_A03K_FAN_OF_KNIVES_W, ABILITY_A03L_FAN_OF_KNIVES_E, ABILITY_A03M_FAN_OF_KNIVES_R);
@@ -168,16 +183,31 @@ public class TGSAbilities
         new NormalAbility("Thorns Aura", ITEM_I00M_THORNS_AURA_AURA, ABILITY_AEAH_THORNS_AURA_Q, ABILITY_A042_THORNS_AURA_W, ABILITY_A043_THORNS_AURA_E, ABILITY_A044_THORNS_AURA_R);
         new NormalAbility("Trueshot Aura", ITEM_I00I_TRUESHOT_AURA_AURA, ABILITY_AEAR_TRUESHOT_AURA_Q, ABILITY_A045_TRUESHOT_AURA_W, ABILITY_A046_TRUESHOT_AURA_E, ABILITY_A047_TRUESHOT_AURA_R);
         new NormalAbility("Acid Bomb", ITEM_I08U_ACID_BOMB_ACTIVE, ABILITY_ANAB_ACID_BOMB_Q, ABILITY_A048_ACID_BOMB_W, ABILITY_A049_ACID_BOMB_E, ABILITY_A04A_ACID_BOMB_R);
-        new NormalAbility("Black Arrow", ITEM_I01T_BLACK_ARROW_AUTOCAST, ABILITY_A06G_BLACK_ARROW_Q, ABILITY_A06H_BLACK_ARROW_W, ABILITY_A06I_BLACK_ARROW_E, ABILITY_A0LW_BLACK_ARROW_R, OrbType.BlackArrow);
+        new NormalAbility("Black Arrow", ITEM_I01T_BLACK_ARROW_AUTOCAST, ABILITY_A06G_BLACK_ARROW_Q, ABILITY_A06H_BLACK_ARROW_W, ABILITY_A06I_BLACK_ARROW_E, ABILITY_A0LW_BLACK_ARROW_R,(NormalAbility, unit) =>
+        {
+            int Level = unit.GetAbilityLevel(NormalAbility.LearnedId);
+            string Tooltip = $"Adds {7.5f * Level} bonus damage to attacks.|nCosts |cff8080ff8 Mana|r on hit.|nUnits killed while under the effect of Black Arrow will turn into skeletons with stats that scale with you.";
+            BlzSetAbilityExtendedTooltip(NormalAbility.LearnedId,Tooltip,Level - 1);
+        }, OrbType.BlackArrow);
         new NormalAbility("Breath of Fire", ITEM_I01W_BREATH_OF_FIRE_ACTIVE, ABILITY_ANBF_BREATH_OF_FIRE_Q, ABILITY_A04E_BREATH_OF_FIRE_W, ABILITY_A04F_BREATH_OF_FIRE_E,
             ABILITY_A04G_BREATH_OF_FIRE_R);
         new NormalAbility("Cleaving Attack", ITEM_I027_CLEAVING_ATTACK_PASSIVE, ABILITY_A03E_CLEAVING_ATTACK_Q, ABILITY_A03F_CLEAVING_ATTACK_W, ABILITY_A03G_CLEAVING_ATTACK_E,
-            ABILITY_A05L_CLEAVING_ATTACK_R);
+            ABILITY_A05L_CLEAVING_ATTACK_R,(NormalAbility, unit) =>
+            {
+                int Level = unit.GetAbilityLevel(NormalAbility.LearnedId);
+                string Tooltip = $"Strike an additional {Color.Good}{Math.Max(2, Level / 2)}|r targets in melee.|n{Color.Info}All melee heroes hit an additional target.|r";
+                BlzSetAbilityExtendedTooltip(NormalAbility.LearnedId,Tooltip,Level - 1);
+            });
         new NormalAbility("Cluster Rockets", ITEM_I08M_CLUSTER_ROCKETS_NUKE, ABILITY_ANCS_CLUSTER_ROCKETS_Q, ABILITY_A04K_CLUSTER_ROCKETS_W, ABILITY_A04L_CLUSTER_ROCKETS_E,
             ABILITY_A04M_CLUSTER_ROCKETS_R);
         new NormalAbility("Cold Arrows", ITEM_I01P_COLD_ARROWS_AUTOCAST, ABILITY_AHCA_COLD_ARROWS_Q, ABILITY_A04N_COLD_ARROWS_W, ABILITY_A04O_COLD_ARROWS_E, ABILITY_A04P_COLD_ARROWS_R);
         new NormalAbility("Drunken Brawler", ITEM_I01Y_DRUNKEN_BRAWLER_PASSIVE, ABILITY_A04H_DRUNKEN_BRAWLER_Q, ABILITY_A04I_DRUNKEN_BRAWLER_W, ABILITY_A04J_DRUNKEN_BRAWLER_E,
-            ABILITY_A0CG_DRUNKEN_BRAWLER_R);
+            ABILITY_A0CG_DRUNKEN_BRAWLER_R,(NormalAbility, unit) =>
+            {
+                int Level = unit.GetAbilityLevel(NormalAbility.LearnedId);
+                string Tooltip = $"{Color.Good}{5.0f + Math.Max(1.0f, Level / 2.0f)}%|r chance to deal {Color.Good}200%|r damage.|n{Color.Good}10%|r chance to to {Color.Info}evade|r an attack.";
+                BlzSetAbilityExtendedTooltip(NormalAbility.LearnedId,Tooltip,Level - 1);
+            });
         new NormalAbility("Drunken Haze", ITEM_I01X_DRUNKEN_HAZE_ACTIVE, ABILITY_ANDH_DRUNKEN_HAZE_Q, ABILITY_A04T_DRUNKEN_HAZE_W, ABILITY_A04U_DRUNKEN_HAZE_E, ABILITY_A04V_DRUNKEN_HAZE_R);
         new NormalAbility("Engineering Upgrade", ITEM_I08N_ENGINEERING_UPGRADE_PASSIVE, ABILITY_ANEG_ENGINEERING_UPGRADE_Q, ABILITY_A04W_ENGINEERING_UPGRADE_W, ABILITY_A04X_ENGINEERING_UPGRADE_E,
             ABILITY_A04Y_ENGINEERING_UPGRADE_R);
@@ -273,14 +303,16 @@ public class UltimateAbility : ILearnedAbility
     public int MaxLevel { get; set; }
     public string ExtendedTooltip { get; set; }
     public OrbType OrbType { get; set; }
+    public Action<UltimateAbility, unit> UpdateTooltip;
 
-    public UltimateAbility(string name, int itemId, int abilityId)
+    public UltimateAbility(string name, int itemId, int abilityId, Action<UltimateAbility, unit> InUpdateTooltip = null)
     {
         Name = name;
         ItemId = itemId;
         AbilityId = abilityId;
         MaxLevel = 3;
         TGSAbilities.UltimateByItemId.Add(itemId, this);
+        UpdateTooltip = InUpdateTooltip;
     }
 
     public int AbilityId { get; private set; }
@@ -311,6 +343,7 @@ public class UltimateAbility : ILearnedAbility
             InTGSHero.Unit.AddAbility(AbilityId);
             InTGSHero.Unit.SetAbilityLevel(AbilityId, InTGSHero.SlotLevels[4]);
             LearnMessage(InTGSHero);
+            InTGSHero.UpdateTooltip(this);
             return true;
         }
 
@@ -327,13 +360,9 @@ public class UltimateAbility : ILearnedAbility
 
         InTGSHero.SlotLevels[4]++;
         InTGSHero.Unit.SetAbilityLevel(AbilityId, InTGSHero.SlotLevels[4]);
+        InTGSHero.UpdateTooltip(this);
         LearnMessage(InTGSHero);
         return true;
-    }
-
-    public void UpdateTooltip(string Tooltip)
-    {
-        // Set Ultimate tooltip
     }
 
     private bool HandleMassTeleportUpgrade(TGSHero InTGSHero)
@@ -380,16 +409,17 @@ public class SpecialAbility : ILearnedAbility
     public string Name { get; set; }
     public int ItemId { get; set; }
     public int MaxLevel { get; set; }
-    public string ExtendedTooltip { get; set; }
     public OrbType OrbType { get; set; }
+    public Action<SpecialAbility, unit> UpdateTooltip;
 
-    public SpecialAbility(string name, int itemId, int abilityId)
+    public SpecialAbility(string name, int itemId, int abilityId, Action<SpecialAbility, unit> InUpdateTooltip = null)
     {
         Name = name;
         ItemId = itemId;
         AbilityId = abilityId;
         MaxLevel = 1;
         TGSAbilities.SpecialByItemId.Add(itemId, this);
+        UpdateTooltip = InUpdateTooltip;
     }
 
     public int AbilityId { get; private set; }
@@ -416,6 +446,7 @@ public class SpecialAbility : ILearnedAbility
         InTGSHero.Special = this;
         InTGSHero.Unit.AddAbility(AbilityId);
         InTGSHero.Unit.SetAbilityLevel(AbilityId, InTGSHero.Unit.Level / 2);
+        InTGSHero.UpdateTooltip(this);
         LearnMessage(InTGSHero);
 
         return true;
@@ -430,11 +461,6 @@ public class SpecialAbility : ILearnedAbility
             StartSound(bj_questHintSound);
         }
     }
-
-    public void UpdateTooltip(string Tooltip)
-    {
-        // Update special tooltip
-    }
 }
 
 public class NormalAbility : ILearnedAbility
@@ -444,10 +470,10 @@ public class NormalAbility : ILearnedAbility
     public string Name { get; set; }
     public int ItemId { get; set; }
     public int MaxLevel { get; set; }
-    public string ExtendedTooltip { get; set; }
     public OrbType OrbType { get; set; }
+    public Action<NormalAbility, unit> UpdateTooltip;
 
-    public NormalAbility(string InName, int InItemId, int Q, int W, int E, int R, OrbType InOrbType = OrbType.None)
+    public NormalAbility(string InName, int InItemId, int Q, int W, int E, int R, Action<NormalAbility, unit> InUpdateTooltip = null, OrbType InOrbType = OrbType.None)
     {
         Name = InName;
         ItemId = InItemId;
@@ -461,6 +487,7 @@ public class NormalAbility : ILearnedAbility
         OrbType = InOrbType;
 
         TGSAbilities.NormalByItemId.Add(InItemId, this);
+        UpdateTooltip = InUpdateTooltip;
     }
 
     public int[] AbilityIds { get; } = new int[4]; // Q, W, E, R
@@ -505,6 +532,7 @@ public class NormalAbility : ILearnedAbility
             InTGSHero.SlotLevels[TargetSlot] = Math.Max(1, InTGSHero.SlotLevels[TargetSlot]);
             InTGSHero.Unit.AddAbility(AbilityIds[TargetSlot]);
             InTGSHero.Unit.SetAbilityLevel(AbilityIds[TargetSlot], InTGSHero.SlotLevels[TargetSlot]);
+            InTGSHero.UpdateTooltip(this);
             LearnMessage(InTGSHero, TargetSlot);
             if (OrbType != OrbType.None)
             {
@@ -544,7 +572,7 @@ public class NormalAbility : ILearnedAbility
                 || AbilityIds[TargetSlot] == ABILITY_A01F_EVASION_E
                 || AbilityIds[TargetSlot] == ABILITY_A0OE_EVASION_R)
             {
-                InTGSHero.EvasionEvade = 0.09f + (0.01f * InTGSHero.SlotLevels[TargetSlot]);
+                InTGSHero.EvasionEvade = 0.1f + (0.01f * InTGSHero.SlotLevels[TargetSlot]);
                 InTGSHero.AttackEvasionChance = InTGSHero.EvasionEvade + InTGSHero.EvasionBrawler + InTGSHero.ItemMods.EvasionChance;
             }
             return true;
@@ -553,11 +581,6 @@ public class NormalAbility : ILearnedAbility
         InTGSHero.Owner.DisplayTextTo("Maximum normal abilities reached. Lumber returned.");
         InTGSHero.Owner.Lumber += LumberCost;
         return false;
-    }
-
-    public void UpdateTooltip(string Tooltip)
-    {
-        // Update normal tooltip
     }
 
     private bool CanLevelUp(TGSHero InTGSHero, int InSlot)
@@ -570,6 +593,7 @@ public class NormalAbility : ILearnedAbility
     {
         InTGSHero.SlotLevels[InSlot]++;
         InTGSHero.Unit.SetAbilityLevel(AbilityIds[InSlot], InTGSHero.SlotLevels[InSlot]);
+        InTGSHero.UpdateTooltip(this);
         LearnMessage(InTGSHero, InSlot);
         if (OrbType != OrbType.None)
         {
@@ -612,7 +636,7 @@ public class NormalAbility : ILearnedAbility
             || AbilityIds[InSlot] == ABILITY_A01F_EVASION_E
             || AbilityIds[InSlot] == ABILITY_A0OE_EVASION_R)
         {
-            InTGSHero.EvasionEvade = 0.09f + (0.01f * InTGSHero.SlotLevels[InSlot]);
+            InTGSHero.EvasionEvade = 0.1f + (0.01f * InTGSHero.SlotLevels[InSlot]);
             InTGSHero.AttackEvasionChance = InTGSHero.EvasionEvade + InTGSHero.EvasionBrawler + InTGSHero.ItemMods.EvasionChance;
         }
     }
@@ -645,12 +669,10 @@ public interface ILearnedAbility
     public string Name { get; protected set; }
     public int ItemId { get; protected set; }
     public int MaxLevel { get; set; }
-    public string ExtendedTooltip { get; set; }
     public OrbType OrbType { get; set; }
 
     public bool AddToHero(TGSHero InTGSHero);
     public void LearnMessage(TGSHero InTGSHero, int InSlot = 0);
-    public void UpdateTooltip(string Tooltip);
 }
 
 internal enum AbilitySlot
