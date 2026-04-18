@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using TGS.Spells;
 using WCSharp.Api;
-using WCSharp.Events;
 using static Constants;
 using static WCSharp.Api.Common;
 using static WCSharp.Api.Blizzard;
 
 namespace TGS;
 
-public class HeroData
+public class TGSAbilities
 {
     public static List<int> AbilityMax = new();
     public static Dictionary<int, int> HeroToBaseAbility = new();
-    public static readonly Dictionary<unit, Hero> ByUnit = new();
-    public static readonly Dictionary<player, Hero> ByPlayer = new();
+    public static readonly Dictionary<unit, TGSHero> ByUnit = new();
+    public static readonly Dictionary<player, TGSHero> ByPlayer = new();
     public static readonly Dictionary<int, NormalAbility> NormalByItemId = new();
     public static readonly Dictionary<int, SpecialAbility> SpecialByItemId = new();
     public static readonly Dictionary<int, UltimateAbility> UltimateByItemId = new();
@@ -48,7 +47,7 @@ public class HeroData
         AbilityMax.Add(10);
         AbilityMax.Add(10);
         AbilityMax.Add(10);
-        Hero.Initialize();
+        TGSHero.Initialize();
 
         RegisterAbilities();
         InitAbilLookups();
@@ -266,475 +265,6 @@ public class HeroData
     }
 }
 
-public class Hero
-{
-    public Hero(unit unit, player owner)
-    {
-        Unit = unit;
-        Owner = owner;
-        HeroData.ByUnit[unit] = this;
-        HeroData.ByPlayer[owner] = this;
-        trigger ItemPickup = trigger.Create();
-        TriggerRegisterUnitEvent(ItemPickup, Unit, EVENT_UNIT_PICKUP_ITEM);
-        TriggerAddAction(ItemPickup, OnItemChange);
-        PlayerUnitEvents.Register(UnitEvent.PawnsItem, OnItemChange, Unit);
-        PlayerUnitEvents.Register(UnitEvent.DropsItem, OnItemChange, Unit);
-    }
-
-    public unit Unit { get; }
-    public player Owner { get; }
-    public int[] SlotLevels { get; } = new int[5];
-    public NormalAbility[] NormalAbilities { get; } = new NormalAbility[4];
-    public SpecialAbility Special { get; set; }
-    public UltimateAbility Ultimate { get; set; }
-    public List<IOrbEffect> Orbs = new();
-    public Dictionary<OrbType, IOrbEffect> OrbLookup = new();
-
-    // Attack
-    public float AttackCritChance = 0.0f;
-    public float AttackCritMult = 2.0f;
-    public float AttackLifeSteal = 0.0f;
-    public float AttackEvasionChance = 0.0f;
-    public float AttackMissChance = 0.0f;
-    public int AttackMultiTargets = 1;
-    public float AttackMultiMult = 0.5f;
-
-    // Spell
-    public float SpellStrengthScaling = 0.0f;
-    public float SpellAgilityScaling = 0.0f;
-    public float SpellIntelligenceScaling = 0.0f;
-    public float SpellLifeSteal = 0.0f;
-    public float SpellCritChance = 0.0f;
-    public float SpellCritMult = 1.5f;
-    
-    // Ability mods
-    public float CritChanceCrit = 0.0f;
-    public float CritChanceBrawler = 0.0f;
-    public float EvasionEvade = 0.0f;
-    public float EvasionBrawler = 0.0f;
-    public int CleaveMultiTargets = 1;
-    
-    // Item mods
-    public ItemData ItemMods = new();
-
-    private static Hero Get(unit InUnit)
-    {
-        return HeroData.ByUnit[InUnit];
-    }
-
-    private static Hero Get(player InPlayer)
-    {
-        return HeroData.ByPlayer[InPlayer];
-    }
-
-    public void OnItemChange()
-    {
-        ResetItemStats();
-        for (int i = 0; i <= 5; i++)
-        {
-            item CurrentItem = Unit.ItemAtOrDefault(i);
-            if (CurrentItem != null)
-            {
-                Items.ItemLookup.TryGetValue(CurrentItem.TypeId, out ItemData itemData);
-                if (itemData != null)
-                {
-                    ItemMods.AttackSpeed += itemData.AttackSpeed;
-                    ItemMods.HealthRegen += itemData.HealthRegen;
-                    ItemMods.ManaRegen += itemData.ManaRegen;
-                    ItemMods.BaseDamage += itemData.BaseDamage;
-                    ItemMods.SpellBonus += itemData.SpellBonus;
-                    ItemMods.CleaveCount += itemData.CleaveCount;
-                    ItemMods.CleaveBonus += itemData.CleaveBonus;
-                    ItemMods.EvasionChance += itemData.EvasionChance;
-                }
-            }
-        }
-        // foreach (NormalAbility Ability in HeroData.NormalAbilities)
-        // {
-        //     if (Ability != null)
-        //     {
-        //         ability AbilityInstance = Hero.GetAbility(Ability.LearnedId);
-        //         AbilityInstance.SetTooltipNormalExtended_aub1(Hero.GetAbilityLevel(Ability.LearnedId), "CAT");
-        //     }
-        // }
-    }
-
-    public void ResetItemStats()
-    {
-        ItemMods.AttackSpeed = 0.0f;
-        ItemMods.HealthRegen = 0.0f;
-        ItemMods.ManaRegen = 0.0f;
-        ItemMods.BaseDamage = 0.0f;
-        ItemMods.SpellBonus = 0.0f;
-        ItemMods.CleaveCount = 0;
-        ItemMods.CleaveBonus = 0.0f;
-        ItemMods.EvasionChance = 0.0f;
-    }
-
-    public int GetAttribute(AttributeType InType)
-    {
-        switch (InType)
-        {
-            case AttributeType.None:
-            {
-                return 0;
-            }
-            case AttributeType.Str:
-            {
-                return Unit.Strength;
-            }
-            case AttributeType.Agi:
-            {
-                return Unit.Agility;
-            }
-            case AttributeType.Int:
-            {
-                return Unit.Intelligence;
-            }
-            case AttributeType.All:
-            {
-                return Unit.Strength + Unit.Agility + Unit.Intelligence;
-            }
-        }
-
-        return 0;
-    }
-
-    public int GetAbilityLevel(int InItemId)
-    {
-        for (int i = 0; i <= 3; i++)
-        {
-            if (NormalAbilities[i].ItemId == InItemId)
-            {
-                return SlotLevels[i];
-            }
-        }
-
-        if (Special.ItemId == InItemId)
-        {
-            return Unit.Level / 2;
-        }
-
-        if (Ultimate.ItemId == InItemId)
-        {
-            return SlotLevels[5];
-        }
-
-        return 0;
-    }
-
-    // Events
-    private static void OnItemPickup()
-    {
-        if (GetManipulatedItem().Type != itemtype.Powerup)
-        {
-            return;
-        }
-
-        Hero Hero = Get(GetTriggerUnit());
-        if (Hero == null)
-        {
-            return;
-        }
-
-        int ItemId = GetManipulatedItem().TypeId;
-#if DEBUG
-        DisplayTextToPlayer(GetLocalPlayer(), 0, 0, $"Picked up item ID: {ItemId} (hex {(uint)ItemId:X8}) | Registered normals: {NormalAbility.GetByItemId(ItemId).MaxLevel}");
-#endif
-
-        if (NormalAbility.GetByItemId(ItemId) is { } Normal)
-        {
-            Normal.AddToHero(Hero);
-        }
-        else if (SpecialAbility.GetByItemId(ItemId) is { } Special)
-        {
-            Special.AddToHero(Hero);
-        }
-        else if (UltimateAbility.GetByItemId(ItemId) is { } Ultimate)
-        {
-            Ultimate.AddToHero(Hero);
-        }
-    }
-
-    public void AddOrb(OrbType InOrbType, int InOrbLevel)
-    {
-        if (OrbLookup.ContainsKey(InOrbType))
-        {
-            OrbLookup.TryGetValue(InOrbType, out IOrbEffect Orb);
-            if (InOrbLevel !> Orb.Level)
-            {
-                return;
-            }
-            RemoveOrb(InOrbType);
-        }
-
-        switch (InOrbType)
-        {
-            case OrbType.Feedback:
-            {
-                Feedback Orb = new();
-                Orb.Aquire(Unit, InOrbLevel);
-                Orbs.Add(Orb);
-                OrbLookup.Add(InOrbType, Orb);
-                break;
-            }
-            case OrbType.Spawner:
-            {
-                BlackArrow Orb = new();
-                Orb.Aquire(Unit, InOrbLevel);
-                Orbs.Add(Orb);
-                OrbLookup.Add(InOrbType, Orb);
-                break;
-            }
-            // case OrbType.Corruption:
-            // {
-            //     Corruption Orb = new();
-            //     Orb.Aquired(Unit, InOrbLevel);
-            //     Orbs.Add(Orb);
-            //     OrbLookup.Add(InOrbType, Orb);
-            //     break;
-            // }
-            // case OrbType.Fire:
-            // {
-            //     Fire Orb = new();
-            //     Orb.Aquired(Unit, InOrbLevel);
-            //     Orbs.Add(Orb);
-            //     OrbLookup.Add(InOrbType, Orb);
-            //     break;
-            // }
-            // case OrbType.Slow:
-            // {
-            //     Slow Orb = new();
-            //     Orb.Aquired(Unit, InOrbLevel);
-            //     Orbs.Add(Orb);
-            //     OrbLookup.Add(InOrbType, Orb);
-            //     break;
-            // }
-            // case OrbType.Poison:
-            // {
-            //     Poison Orb = new();
-            //     Orb.Aquired(Unit, InOrbLevel);
-            //     Orbs.Add(Orb);
-            //     OrbLookup.Add(InOrbType, Orb);
-            //     break;
-            // }
-            // case OrbType.Incinerate:
-            // {
-            //     Incinerate Orb = new();
-            //     Orb.Aquired(Unit, InOrbLevel);
-            //     Orbs.Add(Orb);
-            //     OrbLookup.Add(InOrbType, Orb);
-            //     break;
-            // }
-            // case OrbType.Pillage:
-            // {
-            //     Pillage Orb = new();
-            //     Orb.Aquired(Unit, InOrbLevel);
-            //     Orbs.Add(Orb);
-            //     OrbLookup.Add(InOrbType, Orb);
-            //     break;
-            // }
-            // case OrbType.Purge:
-            // {
-            //     Purge Orb = new();
-            //     Orb.Aquired(Unit, InOrbLevel);
-            //     Orbs.Add(Orb);
-            //     OrbLookup.Add(InOrbType, Orb);
-            //     break;
-            // }
-            default:
-                throw new ArgumentOutOfRangeException(nameof(InOrbType), InOrbType, null);
-        }
-    }
-
-    public void RemoveOrb(OrbType InOrbType)
-    {
-        if (OrbLookup.ContainsKey(InOrbType))
-        {
-            OrbLookup.TryGetValue(InOrbType, out IOrbEffect Orb);
-            OrbLookup.Remove(InOrbType);
-            Orb.Remove();
-            Orbs.Remove(Orb);
-        }
-    }
-
-    private static void OnChatCommand()
-    {
-        Hero Hero = Get(GetTriggerPlayer());
-        if (Hero == null)
-        {
-            return;
-        }
-
-        string Message = GetEventPlayerChatString();
-        string Letter;
-
-        switch (Message.Length)
-        {
-            case >= 10 when Message.Substring(0, 9) == "-unlearn ":
-                Letter = Message.Substring(9, 1).ToUpper();
-                break;
-            case >= 4 when Message.Substring(0, 3) == "-u ":
-                Letter = Message.Substring(3, 1).ToUpper();
-                break;
-            default:
-                return;
-        }
-
-        //Letter = Letter.ToUpper();
-        switch (Letter)
-        {
-            case "Q" when Hero.NormalAbilities[0] != null:
-                UnlearnNormal(Hero, 0, Hero.NormalAbilities[0]);
-                break;
-            case "W" when Hero.NormalAbilities[1] != null:
-                UnlearnNormal(Hero, 1, Hero.NormalAbilities[1]);
-                break;
-            case "E" when Hero.NormalAbilities[2] != null:
-                UnlearnNormal(Hero, 2, Hero.NormalAbilities[2]);
-                break;
-            case "R" when Hero.NormalAbilities[3] != null:
-                UnlearnNormal(Hero, 3, Hero.NormalAbilities[3]);
-                break;
-            case "X" when Hero.Special != null:
-                UnlearnSpecial(Hero, Hero.Special);
-                break;
-            case "T" when Hero.Ultimate != null:
-                UnlearnUltimate(Hero, Hero.Ultimate);
-                break;
-            case "Z":
-                GetTriggerPlayer().DisplayTextTo("You can't unlearn your innate skill, Tony.");
-                break;
-        }
-    }
-
-    private static void UnlearnNormal(Hero InHero, int InSlot, NormalAbility InAbility)
-    {
-        InHero.Owner.Lumber += NormalAbility.LumberCost - 1;
-        InHero.Unit.RemoveAbility(InAbility.AbilityIds[InSlot]);
-        if (InHero.NormalAbilities[InSlot].OrbType != OrbType.None)
-        {
-            InHero.RemoveOrb(InHero.NormalAbilities[InSlot].OrbType);
-        }
-
-        if (InAbility.AbilityIds[InSlot] == ABILITY_ANCA_CLEAVING_ATTACK_Q
-            || InAbility.AbilityIds[InSlot] == ABILITY_A04H_CLEAVING_ATTACK_W
-            || InAbility.AbilityIds[InSlot] == ABILITY_A04I_CLEAVING_ATTACK_E
-            || InAbility.AbilityIds[InSlot] == ABILITY_A04J_CLEAVING_ATTACK_R)
-        {
-            InHero.CleaveMultiTargets = 0;
-            InHero.AttackMultiTargets = InHero.ItemMods.CleaveCount;
-        }
-
-        if (InAbility.AbilityIds[InSlot] == ABILITY_AOCR_CRITICAL_STRIKE_Q
-            || InAbility.AbilityIds[InSlot] == ABILITY_A01D_CRITICAL_STRIKE_W
-            || InAbility.AbilityIds[InSlot] == ABILITY_A01E_CRITICAL_STRIKE_E
-            || InAbility.AbilityIds[InSlot] == ABILITY_A01F_CRITICAL_STRIKE_R)
-        {
-            InHero.CritChanceCrit = 0.0f;
-            InHero.AttackCritChance = InHero.CritChanceBrawler;
-        }
-
-        if (InAbility.AbilityIds[InSlot] == ABILITY_ANDB_DRUNKEN_BRAWLER_Q
-            || InAbility.AbilityIds[InSlot] == ABILITY_A04Q_DRUNKEN_BRAWLER_W
-            || InAbility.AbilityIds[InSlot] == ABILITY_A04R_DRUNKEN_BRAWLER_E
-            || InAbility.AbilityIds[InSlot] == ABILITY_A04S_DRUNKEN_BRAWLER_R)
-        {
-            InHero.CritChanceBrawler = 0.0f;
-            InHero.EvasionBrawler = 0.0f;
-            InHero.AttackCritChance = InHero.CritChanceCrit;
-            InHero.AttackEvasionChance = InHero.EvasionEvade + InHero.ItemMods.EvasionChance;
-        }
-
-        if (InAbility.AbilityIds[InSlot] == ABILITY_AEEV_EVASION_Q
-            || InAbility.AbilityIds[InSlot] == ABILITY_A03E_EVASION_W
-            || InAbility.AbilityIds[InSlot] == ABILITY_A03F_EVASION_E
-            || InAbility.AbilityIds[InSlot] == ABILITY_A03G_EVASION_R)
-        {
-            InHero.EvasionEvade = 0.0f;
-            InHero.AttackEvasionChance = InHero.EvasionBrawler + InHero.ItemMods.EvasionChance;
-        }
-        InHero.NormalAbilities[InSlot] = null;
-        UnlearnMessage(InHero, InAbility.Name);
-
-    }
-
-    private static void UnlearnSpecial(Hero InHero, SpecialAbility InAbility)
-    {
-        InHero.Owner.Lumber += SpecialAbility.LumberCost - 1;
-        InHero.Unit.RemoveAbility(InAbility.AbilityId);
-        InHero.Special = null;
-        UnlearnMessage(InHero, InAbility.Name);
-    }
-
-    private static void UnlearnUltimate(Hero InHero, UltimateAbility InAbility)
-    {
-        if (InAbility.Name == "Mass Teleport")
-        {
-            InHero.Unit.RemoveAbility(FourCC("AHm2"));
-            InHero.Unit.RemoveAbility(FourCC("AHm3"));
-        }
-
-        InHero.Owner.Lumber += UltimateAbility.LumberCost - 1;
-        InHero.Unit.RemoveAbility(InAbility.AbilityId);
-        InHero.Ultimate = null;
-        UnlearnMessage(InHero, InAbility.Name);
-    }
-
-    private static void UnlearnMessage(Hero InHero, string InName)
-    {
-        string Msg = $"{GetPlayerName(InHero.Owner)} unlearned |cffff8000{InName}|r";
-        if (GetLocalPlayer() == InHero.Owner || IsPlayerAlly(GetLocalPlayer(), InHero.Owner))
-        {
-            GetLocalPlayer().DisplayTextTo(Msg);
-            StartSound(bj_questHintSound);
-        }
-    }
-
-    public static void Initialize()
-    {
-        trigger Unlearn = trigger.Create();
-        for (int i = 0; i <= 11; i++)
-        {
-            player CurrentPlayer = player.Create(i);
-            if (CurrentPlayer.Controller == mapcontrol.User)
-            {
-                Unlearn.RegisterPlayerChatEvent(CurrentPlayer, "-unlearn ", false);
-                Unlearn.RegisterPlayerChatEvent(CurrentPlayer, "-u ", false);
-            }
-        }
-
-        Unlearn.AddAction(OnChatCommand);
-        PlayerUnitEvents.Register(UnitTypeEvent.PicksUpItem, OnItemPickup);
-        PlayerUnitEvents.Register(HeroTypeEvent.Levels, OnLevelUp);
-    }
-
-    private static void OnLevelUp()
-    {
-        if (GetTriggerUnit().Level < 10)
-        {
-            GetTriggerPlayer().Lumber += 2;
-        }
-
-        Hero LevelingHero = Get(GetTriggerPlayer());
-        if (LevelingHero != null)
-        {
-            SpecialAbility SpecialAbil = Get(GetTriggerPlayer()).Special;
-            if (SpecialAbil != null)
-            {
-                GetTriggerUnit().SetAbilityLevel(SpecialAbil.AbilityId, GetLevelingUnit().Level / 2);
-            }
-        }
-
-        HeroData.HeroToBaseAbility.TryGetValue(GetTriggerUnit().UnitType, out int Value);
-        SetUnitAbilityLevelSwapped(Value, GetTriggerUnit(), GetLevelingUnit().Level / 2);
-        if (HeroData.HeroToBaseAbility[GetTriggerUnit().UnitType] == FourCC("A0LD"))
-        {
-            GetTriggerUnit().SetAbilityLevel(FourCC("A0KA"), GetLevelingUnit().Level / 2);
-        }
-    }
-}
-
 public class UltimateAbility : ILearnedAbility
 {
     public const int LumberCost = 8;
@@ -750,14 +280,14 @@ public class UltimateAbility : ILearnedAbility
         ItemId = itemId;
         AbilityId = abilityId;
         MaxLevel = 3;
-        HeroData.UltimateByItemId.Add(itemId, this);
+        TGSAbilities.UltimateByItemId.Add(itemId, this);
     }
 
     public int AbilityId { get; private set; }
 
     public static UltimateAbility GetByItemId(int ItemId)
     {
-        if (HeroData.UltimateByItemId.TryGetValue(ItemId, out UltimateAbility Ability))
+        if (TGSAbilities.UltimateByItemId.TryGetValue(ItemId, out UltimateAbility Ability))
         {
             return Ability;
         }
@@ -765,39 +295,39 @@ public class UltimateAbility : ILearnedAbility
         return null;
     }
 
-    public bool AddToHero(Hero InHero)
+    public bool AddToHero(TGSHero InTGSHero)
     {
-        if (InHero.Ultimate != null && InHero.Ultimate != this)
+        if (InTGSHero.Ultimate != null && InTGSHero.Ultimate != this)
         {
-            InHero.Owner.DisplayTextTo("You already have an ultimate ability. Lumber returned.");
-            InHero.Owner.Lumber += LumberCost;
+            InTGSHero.Owner.DisplayTextTo("You already have an ultimate ability. Lumber returned.");
+            InTGSHero.Owner.Lumber += LumberCost;
             return false;
         }
 
-        if (InHero.Ultimate == null)
+        if (InTGSHero.Ultimate == null)
         {
-            InHero.Ultimate = this;
-            InHero.SlotLevels[4] = Math.Max(1, InHero.SlotLevels[4]);
-            InHero.Unit.AddAbility(AbilityId);
-            InHero.Unit.SetAbilityLevel(AbilityId, InHero.SlotLevels[4]);
-            LearnMessage(InHero);
+            InTGSHero.Ultimate = this;
+            InTGSHero.SlotLevels[4] = Math.Max(1, InTGSHero.SlotLevels[4]);
+            InTGSHero.Unit.AddAbility(AbilityId);
+            InTGSHero.Unit.SetAbilityLevel(AbilityId, InTGSHero.SlotLevels[4]);
+            LearnMessage(InTGSHero);
             return true;
         }
 
         // Leveling existing ultimate
         if (Name == "Mass Teleport")
-            return HandleMassTeleportUpgrade(InHero);
+            return HandleMassTeleportUpgrade(InTGSHero);
 
-        if (InHero.SlotLevels[4] >= MaxLevel)
+        if (InTGSHero.SlotLevels[4] >= MaxLevel)
         {
-            InHero.Owner.DisplayTextTo("Ultimate already at max level. Lumber returned.");
-            InHero.Owner.Lumber += LumberCost;
+            InTGSHero.Owner.DisplayTextTo("Ultimate already at max level. Lumber returned.");
+            InTGSHero.Owner.Lumber += LumberCost;
             return false;
         }
 
-        InHero.SlotLevels[4]++;
-        InHero.Unit.SetAbilityLevel(AbilityId, InHero.SlotLevels[4]);
-        LearnMessage(InHero);
+        InTGSHero.SlotLevels[4]++;
+        InTGSHero.Unit.SetAbilityLevel(AbilityId, InTGSHero.SlotLevels[4]);
+        LearnMessage(InTGSHero);
         return true;
     }
 
@@ -806,37 +336,37 @@ public class UltimateAbility : ILearnedAbility
         // Set Ultimate tooltip
     }
 
-    private bool HandleMassTeleportUpgrade(Hero InHero)
+    private bool HandleMassTeleportUpgrade(TGSHero InTGSHero)
     {
-        int Level = InHero.SlotLevels[4];
+        int Level = InTGSHero.SlotLevels[4];
         switch (Level)
         {
             case 1:
-                InHero.Unit.RemoveAbility(FourCC("AHmt"));
-                InHero.Unit.AddAbility(FourCC("AHm2"));
-                InHero.SlotLevels[4] = 2;
-                InHero.Unit.SetAbilityLevel(FourCC("AHm2"), 2);
+                InTGSHero.Unit.RemoveAbility(FourCC("AHmt"));
+                InTGSHero.Unit.AddAbility(FourCC("AHm2"));
+                InTGSHero.SlotLevels[4] = 2;
+                InTGSHero.Unit.SetAbilityLevel(FourCC("AHm2"), 2);
                 break;
             case 2:
-                InHero.Unit.RemoveAbility(FourCC("AHm2"));
-                InHero.Unit.AddAbility(FourCC("AHm3"));
-                InHero.SlotLevels[4] = 3;
-                InHero.Unit.SetAbilityLevel(FourCC("AHm3"), 3);
+                InTGSHero.Unit.RemoveAbility(FourCC("AHm2"));
+                InTGSHero.Unit.AddAbility(FourCC("AHm3"));
+                InTGSHero.SlotLevels[4] = 3;
+                InTGSHero.Unit.SetAbilityLevel(FourCC("AHm3"), 3);
                 break;
             default:
-                InHero.Owner.DisplayTextTo("Mass Teleport already at max level.");
-                InHero.Owner.Lumber += LumberCost;
+                InTGSHero.Owner.DisplayTextTo("Mass Teleport already at max level.");
+                InTGSHero.Owner.Lumber += LumberCost;
                 return false;
         }
 
-        LearnMessage(InHero);
+        LearnMessage(InTGSHero);
         return true;
     }
 
-    public void LearnMessage(Hero InHero, int InSlot = 0)
+    public void LearnMessage(TGSHero InTGSHero, int InSlot = 0)
     {
-        string Msg = $"{InHero.Owner.Name} learned |cffff8000{Name}|r [|cffffcc00Level {InHero.SlotLevels[4]}|r]";
-        if (GetLocalPlayer() == InHero.Owner || IsPlayerAlly(GetLocalPlayer(), InHero.Owner))
+        string Msg = $"{InTGSHero.Owner.Name} learned |cffff8000{Name}|r [|cffffcc00Level {InTGSHero.SlotLevels[4]}|r]";
+        if (GetLocalPlayer() == InTGSHero.Owner || IsPlayerAlly(GetLocalPlayer(), InTGSHero.Owner))
         {
             GetLocalPlayer().DisplayTextTo(Msg);
             StartSound(bj_questHintSound);
@@ -859,14 +389,14 @@ public class SpecialAbility : ILearnedAbility
         ItemId = itemId;
         AbilityId = abilityId;
         MaxLevel = 1;
-        HeroData.SpecialByItemId.Add(itemId, this);
+        TGSAbilities.SpecialByItemId.Add(itemId, this);
     }
 
     public int AbilityId { get; private set; }
 
     public static SpecialAbility GetByItemId(int itemId)
     {
-        if (HeroData.SpecialByItemId.TryGetValue(itemId, out SpecialAbility Ability))
+        if (TGSAbilities.SpecialByItemId.TryGetValue(itemId, out SpecialAbility Ability))
         {
             return Ability;
         }
@@ -874,27 +404,27 @@ public class SpecialAbility : ILearnedAbility
         return null;
     }
 
-    public bool AddToHero(Hero InHero)
+    public bool AddToHero(TGSHero InTGSHero)
     {
-        if (InHero.Special != null)
+        if (InTGSHero.Special != null)
         {
-            InHero.Owner.DisplayTextTo("You already have a special ability. Lumber returned.");
-            InHero.Owner.Lumber += LumberCost;
+            InTGSHero.Owner.DisplayTextTo("You already have a special ability. Lumber returned.");
+            InTGSHero.Owner.Lumber += LumberCost;
             return false;
         }
 
-        InHero.Special = this;
-        InHero.Unit.AddAbility(AbilityId);
-        InHero.Unit.SetAbilityLevel(AbilityId, InHero.Unit.Level / 2);
-        LearnMessage(InHero);
+        InTGSHero.Special = this;
+        InTGSHero.Unit.AddAbility(AbilityId);
+        InTGSHero.Unit.SetAbilityLevel(AbilityId, InTGSHero.Unit.Level / 2);
+        LearnMessage(InTGSHero);
 
         return true;
     }
 
-    public void LearnMessage(Hero InHero, int InSlot = 0)
+    public void LearnMessage(TGSHero InTGSHero, int InSlot = 0)
     {
-        string Msg = $"{InHero.Owner.Name} learned |cffff8000{Name}|r";
-        if (GetLocalPlayer() == InHero.Owner || IsPlayerAlly(GetLocalPlayer(), InHero.Owner))
+        string Msg = $"{InTGSHero.Owner.Name} learned |cffff8000{Name}|r";
+        if (GetLocalPlayer() == InTGSHero.Owner || IsPlayerAlly(GetLocalPlayer(), InTGSHero.Owner))
         {
             GetLocalPlayer().DisplayTextTo(Msg);
             StartSound(bj_questHintSound);
@@ -930,14 +460,14 @@ public class NormalAbility : ILearnedAbility
 
         OrbType = InOrbType;
 
-        HeroData.NormalByItemId.Add(InItemId, this);
+        TGSAbilities.NormalByItemId.Add(InItemId, this);
     }
 
     public int[] AbilityIds { get; } = new int[4]; // Q, W, E, R
 
     public static NormalAbility GetByItemId(int itemId)
     {
-        if (HeroData.NormalByItemId.TryGetValue(itemId, out NormalAbility Ability))
+        if (TGSAbilities.NormalByItemId.TryGetValue(itemId, out NormalAbility Ability))
         {
             return Ability;
         }
@@ -945,24 +475,24 @@ public class NormalAbility : ILearnedAbility
         return null;
     }
 
-    public bool AddToHero(Hero InHero)
+    public bool AddToHero(TGSHero InTGSHero)
     {
         // Find existing slot or empty one
         int TargetSlot = -1;
         for (int i = 0; i <= 3; i++)
         {
-            if (InHero.NormalAbilities[i] == this)
+            if (InTGSHero.NormalAbilities[i] == this)
             {
-                if (!CanLevelUp(InHero, i))
+                if (!CanLevelUp(InTGSHero, i))
                 {
-                    return RefundLumber(InHero, LumberCost);
+                    return RefundLumber(InTGSHero, LumberCost);
                 }
 
-                LevelUpExisting(InHero, i);
+                LevelUpExisting(InTGSHero, i);
                 return true;
             }
 
-            if (InHero.NormalAbilities[i] == null && TargetSlot == -1)
+            if (InTGSHero.NormalAbilities[i] == null && TargetSlot == -1)
             {
                 TargetSlot = i;
             }
@@ -971,14 +501,14 @@ public class NormalAbility : ILearnedAbility
         if (TargetSlot != -1)
         {
             LearnedId = AbilityIds[TargetSlot];
-            InHero.NormalAbilities[TargetSlot] = this;
-            InHero.SlotLevels[TargetSlot] = Math.Max(1, InHero.SlotLevels[TargetSlot]);
-            InHero.Unit.AddAbility(AbilityIds[TargetSlot]);
-            InHero.Unit.SetAbilityLevel(AbilityIds[TargetSlot], InHero.SlotLevels[TargetSlot]);
-            LearnMessage(InHero, TargetSlot);
+            InTGSHero.NormalAbilities[TargetSlot] = this;
+            InTGSHero.SlotLevels[TargetSlot] = Math.Max(1, InTGSHero.SlotLevels[TargetSlot]);
+            InTGSHero.Unit.AddAbility(AbilityIds[TargetSlot]);
+            InTGSHero.Unit.SetAbilityLevel(AbilityIds[TargetSlot], InTGSHero.SlotLevels[TargetSlot]);
+            LearnMessage(InTGSHero, TargetSlot);
             if (OrbType != OrbType.None)
             {
-                InHero.AddOrb(OrbType, InHero.SlotLevels[TargetSlot]);
+                InTGSHero.AddOrb(OrbType, InTGSHero.SlotLevels[TargetSlot]);
             }
 
             if (AbilityIds[TargetSlot] == ABILITY_ANCA_CLEAVING_ATTACK_Q
@@ -986,7 +516,7 @@ public class NormalAbility : ILearnedAbility
                 || AbilityIds[TargetSlot] == ABILITY_A04I_CLEAVING_ATTACK_E
                 || AbilityIds[TargetSlot] == ABILITY_A04J_CLEAVING_ATTACK_R)
             {
-                InHero.AttackMultiTargets = InHero.ItemMods.CleaveCount + Math.Max(2, InHero.SlotLevels[TargetSlot] / 2);
+                InTGSHero.AttackMultiTargets = InTGSHero.ItemMods.CleaveCount + Math.Max(2, InTGSHero.SlotLevels[TargetSlot] / 2);
             }
 
             if (AbilityIds[TargetSlot] == ABILITY_AOCR_CRITICAL_STRIKE_Q
@@ -994,8 +524,8 @@ public class NormalAbility : ILearnedAbility
                 || AbilityIds[TargetSlot] == ABILITY_A01E_CRITICAL_STRIKE_E
                 || AbilityIds[TargetSlot] == ABILITY_A01F_CRITICAL_STRIKE_R)
             {
-                InHero.CritChanceCrit = 0.05f * InHero.SlotLevels[TargetSlot];
-                InHero.AttackCritChance = InHero.CritChanceCrit + InHero.CritChanceBrawler;
+                InTGSHero.CritChanceCrit = 0.05f * InTGSHero.SlotLevels[TargetSlot];
+                InTGSHero.AttackCritChance = InTGSHero.CritChanceCrit + InTGSHero.CritChanceBrawler;
             }
 
             if (AbilityIds[TargetSlot] == ABILITY_ANDB_DRUNKEN_BRAWLER_Q
@@ -1003,10 +533,10 @@ public class NormalAbility : ILearnedAbility
                 || AbilityIds[TargetSlot] == ABILITY_A04R_DRUNKEN_BRAWLER_E
                 || AbilityIds[TargetSlot] == ABILITY_A04S_DRUNKEN_BRAWLER_R)
             {
-                InHero.CritChanceBrawler = 0.05f + Math.Max(0.01f, InHero.SlotLevels[TargetSlot] / 2.0f);
-                InHero.AttackCritChance = InHero.CritChanceCrit + InHero.CritChanceBrawler;
-                InHero.EvasionBrawler = 0.1f;
-                InHero.AttackEvasionChance = InHero.EvasionEvade + InHero.EvasionBrawler + InHero.ItemMods.EvasionChance;
+                InTGSHero.CritChanceBrawler = 0.05f + Math.Max(0.01f, InTGSHero.SlotLevels[TargetSlot] / 2.0f);
+                InTGSHero.AttackCritChance = InTGSHero.CritChanceCrit + InTGSHero.CritChanceBrawler;
+                InTGSHero.EvasionBrawler = 0.1f;
+                InTGSHero.AttackEvasionChance = InTGSHero.EvasionEvade + InTGSHero.EvasionBrawler + InTGSHero.ItemMods.EvasionChance;
             }
 
             if (AbilityIds[TargetSlot] == ABILITY_AEEV_EVASION_Q
@@ -1014,14 +544,14 @@ public class NormalAbility : ILearnedAbility
                 || AbilityIds[TargetSlot] == ABILITY_A03F_EVASION_E
                 || AbilityIds[TargetSlot] == ABILITY_A03G_EVASION_R)
             {
-                InHero.EvasionEvade = 0.09f + (0.01f * InHero.SlotLevels[TargetSlot]);
-                InHero.AttackEvasionChance = InHero.EvasionEvade + InHero.EvasionBrawler + InHero.ItemMods.EvasionChance;
+                InTGSHero.EvasionEvade = 0.09f + (0.01f * InTGSHero.SlotLevels[TargetSlot]);
+                InTGSHero.AttackEvasionChance = InTGSHero.EvasionEvade + InTGSHero.EvasionBrawler + InTGSHero.ItemMods.EvasionChance;
             }
             return true;
         }
 
-        InHero.Owner.DisplayTextTo("Maximum normal abilities reached. Lumber returned.");
-        InHero.Owner.Lumber += LumberCost;
+        InTGSHero.Owner.DisplayTextTo("Maximum normal abilities reached. Lumber returned.");
+        InTGSHero.Owner.Lumber += LumberCost;
         return false;
     }
 
@@ -1030,22 +560,22 @@ public class NormalAbility : ILearnedAbility
         // Update normal tooltip
     }
 
-    private bool CanLevelUp(Hero InHero, int InSlot)
+    private bool CanLevelUp(TGSHero InTGSHero, int InSlot)
     {
-        int CurrentLevel = InHero.Unit.GetAbilityLevel(AbilityIds[InSlot]);
-        return CurrentLevel < MaxLevel && CurrentLevel < HeroData.AbilityMax[InHero.Unit.HeroLevel];
+        int CurrentLevel = InTGSHero.Unit.GetAbilityLevel(AbilityIds[InSlot]);
+        return CurrentLevel < MaxLevel && CurrentLevel < TGSAbilities.AbilityMax[InTGSHero.Unit.HeroLevel];
     }
 
-    private void LevelUpExisting(Hero InHero, int InSlot)
+    private void LevelUpExisting(TGSHero InTGSHero, int InSlot)
     {
-        InHero.SlotLevels[InSlot]++;
-        InHero.Unit.SetAbilityLevel(AbilityIds[InSlot], InHero.SlotLevels[InSlot]);
-        LearnMessage(InHero, InSlot);
+        InTGSHero.SlotLevels[InSlot]++;
+        InTGSHero.Unit.SetAbilityLevel(AbilityIds[InSlot], InTGSHero.SlotLevels[InSlot]);
+        LearnMessage(InTGSHero, InSlot);
         if (OrbType != OrbType.None)
         {
-            if (InHero.OrbLookup.TryGetValue(OrbType, out IOrbEffect Value))
+            if (InTGSHero.OrbLookup.TryGetValue(OrbType, out IOrbEffect Value))
             {
-                Value.Level = InHero.SlotLevels[InSlot];
+                Value.Level = InTGSHero.SlotLevels[InSlot];
             }
         }
 
@@ -1054,7 +584,7 @@ public class NormalAbility : ILearnedAbility
             || AbilityIds[InSlot] == ABILITY_A04I_CLEAVING_ATTACK_E
             || AbilityIds[InSlot] == ABILITY_A04J_CLEAVING_ATTACK_R)
         {
-            InHero.AttackMultiTargets = InHero.ItemMods.CleaveCount + Math.Max(2, InHero.SlotLevels[InSlot] / 2);
+            InTGSHero.AttackMultiTargets = InTGSHero.ItemMods.CleaveCount + Math.Max(2, InTGSHero.SlotLevels[InSlot] / 2);
         }
 
         if (AbilityIds[InSlot] == ABILITY_AOCR_CRITICAL_STRIKE_Q
@@ -1062,8 +592,8 @@ public class NormalAbility : ILearnedAbility
             || AbilityIds[InSlot] == ABILITY_A01E_CRITICAL_STRIKE_E
             || AbilityIds[InSlot] == ABILITY_A01F_CRITICAL_STRIKE_R)
         {
-            InHero.CritChanceCrit = 0.05f * InHero.SlotLevels[InSlot];
-            InHero.AttackCritChance = InHero.CritChanceCrit + InHero.CritChanceBrawler;
+            InTGSHero.CritChanceCrit = 0.05f * InTGSHero.SlotLevels[InSlot];
+            InTGSHero.AttackCritChance = InTGSHero.CritChanceCrit + InTGSHero.CritChanceBrawler;
         }
 
         if (AbilityIds[InSlot] == ABILITY_ANDB_DRUNKEN_BRAWLER_Q
@@ -1071,10 +601,10 @@ public class NormalAbility : ILearnedAbility
             || AbilityIds[InSlot] == ABILITY_A04R_DRUNKEN_BRAWLER_E
             || AbilityIds[InSlot] == ABILITY_A04S_DRUNKEN_BRAWLER_R)
         {
-            InHero.CritChanceBrawler = 0.05f + Math.Max(0.01f, InHero.SlotLevels[InSlot] / 2.0f);
-            InHero.AttackCritChance = InHero.CritChanceCrit + InHero.CritChanceBrawler;
-            InHero.EvasionBrawler = 0.1f;
-            InHero.AttackEvasionChance = InHero.EvasionEvade + InHero.EvasionBrawler + InHero.ItemMods.EvasionChance;
+            InTGSHero.CritChanceBrawler = 0.05f + Math.Max(0.01f, InTGSHero.SlotLevels[InSlot] / 2.0f);
+            InTGSHero.AttackCritChance = InTGSHero.CritChanceCrit + InTGSHero.CritChanceBrawler;
+            InTGSHero.EvasionBrawler = 0.1f;
+            InTGSHero.AttackEvasionChance = InTGSHero.EvasionEvade + InTGSHero.EvasionBrawler + InTGSHero.ItemMods.EvasionChance;
         }
 
         if (AbilityIds[InSlot] == ABILITY_AEEV_EVASION_Q
@@ -1082,30 +612,30 @@ public class NormalAbility : ILearnedAbility
             || AbilityIds[InSlot] == ABILITY_A03F_EVASION_E
             || AbilityIds[InSlot] == ABILITY_A03G_EVASION_R)
         {
-            InHero.EvasionEvade = 0.09f + (0.01f * InHero.SlotLevels[InSlot]);
-            InHero.AttackEvasionChance = InHero.EvasionEvade + InHero.EvasionBrawler + InHero.ItemMods.EvasionChance;
+            InTGSHero.EvasionEvade = 0.09f + (0.01f * InTGSHero.SlotLevels[InSlot]);
+            InTGSHero.AttackEvasionChance = InTGSHero.EvasionEvade + InTGSHero.EvasionBrawler + InTGSHero.ItemMods.EvasionChance;
         }
     }
 
-    public void LearnMessage(Hero InHero, int InSlot)
+    public void LearnMessage(TGSHero InTGSHero, int InSlot)
     {
-        string Msg = $"{InHero.Owner.Name} learned |cffff8000{Name}|r [|cffffcc00Level {InHero.SlotLevels[InSlot]}|r]";
-        if (GetLocalPlayer() == InHero.Owner || GetLocalPlayer().IsAlly(InHero.Owner))
+        string Msg = $"{InTGSHero.Owner.Name} learned |cffff8000{Name}|r [|cffffcc00Level {InTGSHero.SlotLevels[InSlot]}|r]";
+        if (GetLocalPlayer() == InTGSHero.Owner || GetLocalPlayer().IsAlly(InTGSHero.Owner))
         {
             GetLocalPlayer().DisplayTextTo(Msg);
             StartSound(bj_questHintSound);
         }
     }
 
-    private bool RefundLumber(Hero InHero, int InLumber)
+    private bool RefundLumber(TGSHero InTGSHero, int InLumber)
     {
-        if (GetLocalPlayer() == InHero.Owner)
+        if (GetLocalPlayer() == InTGSHero.Owner)
         {
             GetLocalPlayer().DisplayTextTo("Cannot level this ability further. Lumber returned.");
             StartSound(bj_questHintSound);
         }
 
-        InHero.Owner.Lumber += InLumber;
+        InTGSHero.Owner.Lumber += InLumber;
         return false;
     }
 }
@@ -1118,8 +648,8 @@ public interface ILearnedAbility
     public string ExtendedTooltip { get; set; }
     public OrbType OrbType { get; set; }
 
-    public bool AddToHero(Hero InHero);
-    public void LearnMessage(Hero InHero, int InSlot = 0);
+    public bool AddToHero(TGSHero InTGSHero);
+    public void LearnMessage(TGSHero InTGSHero, int InSlot = 0);
     public void UpdateTooltip(string Tooltip);
 }
 

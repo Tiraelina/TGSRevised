@@ -29,7 +29,7 @@ public class HolyLightNova
         GroupEnumUnitsInRange(Targets, Target.X, Target.Y, 250.0f + (10.0f * Level), Condition(null));
         foreach (unit NearestUnit in Targets.ToList())
         {
-            if (SpellsCore.IsValidTarget(NearestUnit))
+            if (TGSSpells.IsValidTarget(NearestUnit))
             {
                 if (NearestUnit.IsEnemyTo(Caster.Owner))
                 {

@@ -595,7 +595,7 @@ public static class Summons
             float ItemAttackSpeed = 0.0f;
             float ItemHealthRegen = 0.0f;
             float ItemManaRegen = 0.0f;
-            HeroData.ByPlayer.TryGetValue(Summon.Owner, out Hero SummonerHero);
+            TGSAbilities.ByPlayer.TryGetValue(Summon.Owner, out TGSHero SummonerHero);
             if (SummonerHero != null)
             {
                 ItemBaseDamage = SummonerHero.ItemMods.BaseDamage;

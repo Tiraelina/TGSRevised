@@ -70,7 +70,7 @@ public class HealingWave : BasicMissile
                     {
                         if (!IsUnitInGroup(NearestUnit, Excluded)
                             && NearestUnit.IsAllyTo(Caster.Owner)
-                            && SpellsCore.IsValidTarget(NearestUnit))
+                            && TGSSpells.IsValidTarget(NearestUnit))
                         {
                             Active = true;
                             Excluded.Add(NearestUnit);

@@ -14,7 +14,7 @@ namespace TGS;
 public static class Globals
 {
     public static Dictionary<int, PlayerColor> PlayerColors = new();
-    public static Dictionary<player, PlayerData> Players = new();
+    public static Dictionary<player, TGSPlayer> Players = new();
     public static List<player> ConditionFilter = new();
     public static List<player> HumConditionFilter = new();
     public static List<player> OrcConditionFilter = new();
@@ -419,7 +419,7 @@ public static class Globals
     private static void InitPlayers()
     {
         player CurrentPlayer = GetEnumPlayer();
-        Players.Add(CurrentPlayer, new PlayerData(CurrentPlayer));
+        Players.Add(CurrentPlayer, new TGSPlayer(CurrentPlayer));
         CurrentPlayer.SetState(playerstate.GivesBounty, 1);
         if (GetPlayerController(CurrentPlayer) == mapcontrol.Computer)
         {

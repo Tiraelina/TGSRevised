@@ -23,7 +23,7 @@ public class PocketFactory : AbilityMissile
 
     public override void OnImpact()
     {
-        SpellsCore.PocketFactoryLookup.TryGetValue(AbilityLevel, out int UnitId);
+        TGSSpells.PocketFactoryLookup.TryGetValue(AbilityLevel, out int UnitId);
         if (UnitId != 0)
         {
             new PocketFactoryUnit(Caster, AbilityLevel, TargetX, TargetY).Cast();
@@ -55,7 +55,7 @@ public class PocketFactoryUnit
 
     public void Cast()
     {
-        SpellsCore.PocketFactoryLookup.TryGetValue(AbilityLevel, out int UnitId);
+        TGSSpells.PocketFactoryLookup.TryGetValue(AbilityLevel, out int UnitId);
         if (UnitId != 0)
         {
             Factory = unit.Create(Caster.Owner, UnitId, TargetX, TargetY);
@@ -66,7 +66,7 @@ public class PocketFactoryUnit
             FactoryDeath = trigger.Create();
             FactoryDeath.RegisterUnitEvent(Factory, EVENT_UNIT_DEATH);
             FactoryDeath.AddAction(Cleanup);
-            SpellsCore.ClockwerkGoblinLookup.TryGetValue(AbilityLevel, out int GoblinUnitId);
+            TGSSpells.ClockwerkGoblinLookup.TryGetValue(AbilityLevel, out int GoblinUnitId);
             if (GoblinUnitId != 0)
             {
                 GoblinId = GoblinUnitId;

@@ -1,5 +1,5 @@
 ﻿using static Constants;
-using static TGS.Creeps.CreepsCore;
+using static TGS.Creeps.TGSCreeps;
 using static TGS.Util;
 
 namespace TGS.Creeps;

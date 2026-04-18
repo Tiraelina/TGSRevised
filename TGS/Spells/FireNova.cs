@@ -35,7 +35,7 @@ public class FireNova
         foreach (unit NearestUnit in Targets.ToList())
         {
             if (NearestUnit.IsEnemyTo(Caster.Owner)
-                && SpellsCore.IsValidTarget(NearestUnit))
+                && TGSSpells.IsValidTarget(NearestUnit))
             {
                 Dummy.AddAbility(Constants.ABILITY_ANSO_SOUL_BURN_FIRE_NOVA_DOT);
                 Dummy.SetAbilityLevel(Constants.ABILITY_ANSO_SOUL_BURN_FIRE_NOVA_DOT, Level);

@@ -113,7 +113,7 @@ namespace TGS
                 InitCounter += 1;
                 Research.Init();
                 InitCounter += 1;
-                Creeps.CreepsCore.Init();
+                Creeps.TGSCreeps.Init();
                 InitCounter += 1;
                 HeroSelection.Init();
                 InitCounter += 1;
@@ -121,7 +121,7 @@ namespace TGS
                 InitCounter += 1;
                 Leaderboard.Init();
                 InitCounter += 1;
-                HeroData.Init();
+                TGSAbilities.Init();
                 InitCounter += 1;
                 Items.Init();
                 InitCounter += 1;
@@ -129,7 +129,7 @@ namespace TGS
                 InitCounter += 1;
                 Summons.Init();
                 InitCounter += 1;
-                SpellsCore.Init();
+                TGSSpells.Init();
                 InitCounter += 1;
             }
             catch (Exception ex)

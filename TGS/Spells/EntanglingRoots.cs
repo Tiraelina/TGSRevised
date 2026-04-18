@@ -41,7 +41,7 @@ public class EntanglingRoots : AbilityMissile
 
     public override void OnCollision(unit unit)
     {
-        if (unit.IsEnemyTo(Caster.Owner) && SpellsCore.IsValidTarget(unit))
+        if (unit.IsEnemyTo(Caster.Owner) && TGSSpells.IsValidTarget(unit))
         {
             unit Dummy = DummySystem.GetDummy(unit.X, unit.Y, Caster.Owner);
             Dummy.AddAbility(DummyAbilityId);

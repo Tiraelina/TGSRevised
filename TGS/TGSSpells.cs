@@ -45,12 +45,12 @@ public class SpellScaling
         DamageBase = InBase;
         DamageBonus = InBonus;
         Scalar = InScalar;
-        SpellsCore.SpellScalingList[Index] = this;
+        TGSSpells.SpellScalingList[Index] = this;
     }
 
     public float GetDamage(unit InHero)
     {
-        if (HeroData.ByUnit.TryGetValue(InHero, out Hero Value))
+        if (TGSAbilities.ByUnit.TryGetValue(InHero, out TGSHero Value))
         {
             int Attribute = Value.GetAttribute(ScalingAttribute);
             int AbilLevel = Value.GetAbilityLevel(ItemId);
@@ -64,7 +64,7 @@ public class SpellScaling
     }
 }
 
-public static class SpellsCore
+public static class TGSSpells
 {
     public static Dictionary<int, int> PocketFactoryLookup = new();
     public static Dictionary<int, int> ClockwerkGoblinLookup = new();
@@ -218,7 +218,7 @@ public static class SpellsCore
                 SpellReductionFinal = 0.75f;
             }
 
-            HeroData.ByUnit.TryGetValue(DamageSource, out var SourceHero);
+            TGSAbilities.ByUnit.TryGetValue(DamageSource, out var SourceHero);
             int Index = (int)Math.Round(EventDamage - 3000.0);
             if (Index > 0)
             {
@@ -296,7 +296,7 @@ public static class SpellsCore
             && BlzGetEventIsAttack()
             && BlzGetEventDamageType() != DAMAGE_TYPE_ENHANCED)
         {
-            HeroData.ByUnit.TryGetValue(DamageSource, out var SourceHero);
+            TGSAbilities.ByUnit.TryGetValue(DamageSource, out var SourceHero);
             
             // MISS
             if (GetRandomReal(0f,1f) < SourceHero.AttackMissChance)
@@ -307,13 +307,13 @@ public static class SpellsCore
                 return true;
             }
 
-            Hero TargetHero;
+            TGSHero TargetTGSHero;
             if (DamageTarget.IsUnitType(unittype.Hero))
             {
-                if (HeroData.ByUnit.TryGetValue(DamageTarget, out TargetHero))
+                if (TGSAbilities.ByUnit.TryGetValue(DamageTarget, out TargetTGSHero))
                 {
                     // EVASION
-                    float EvasionBonus = TargetHero.AttackEvasionChance + TargetHero.ItemMods.EvasionChance;
+                    float EvasionBonus = TargetTGSHero.AttackEvasionChance + TargetTGSHero.ItemMods.EvasionChance;
                     if (GetRandomReal(0f, 1f) < EvasionBonus)
                     {
                         BlzSetEventDamage(0.0f);
@@ -350,7 +350,7 @@ public static class SpellsCore
                             && IsValidTarget(NearestUnit))
                         {
                             Excluded.Add(NearestUnit);
-                            Players.TryGetValue(SourceHero.Owner, out PlayerData Data);
+                            Players.TryGetValue(SourceHero.Owner, out TGSPlayer Data);
                             float CleaveBonus = SourceHero.AttackMultiMult + SourceHero.ItemMods.CleaveBonus;
                             NearestUnit.Damage(DamageSource, EventDamage * CleaveBonus, ATTACK_TYPE_HERO, DAMAGE_TYPE_ENHANCED);
                             MakeTag(EventDamage / 2, NearestUnit, TagType.CleaveCrit);
@@ -400,7 +400,7 @@ public static class SpellsCore
                     {
                         Excluded.Add(NearestUnit);
                         NearestUnit.Damage(DamageSource, EventDamage / 2, ATTACK_TYPE_HERO, DAMAGE_TYPE_ENHANCED);
-                        Players.TryGetValue(SourceHero.Owner, out PlayerData Data);
+                        Players.TryGetValue(SourceHero.Owner, out TGSPlayer Data);
                         float CleaveBonus = SourceHero.AttackMultiMult + SourceHero.ItemMods.CleaveBonus;
                         MakeTag(EventDamage * CleaveBonus, NearestUnit, TagType.Cleave);
                         HitTargets += 1;
@@ -583,7 +583,7 @@ public static class SpellsCore
             }
             case ABILITY_A005_PASSIVE_BUSTER_X:
             {
-                Players.TryGetValue(GetSpellTargetUnit().Owner, out PlayerData Data);
+                Players.TryGetValue(GetSpellTargetUnit().Owner, out TGSPlayer Data);
                 if (Data != null)
                 {
                     Data.PassiveBusterActivate();

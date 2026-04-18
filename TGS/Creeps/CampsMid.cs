@@ -1,6 +1,6 @@
 ﻿using WCSharp.Api;
 using static Constants;
-using static TGS.Creeps.CreepsCore;
+using static TGS.Creeps.TGSCreeps;
 using static TGS.Util;
 using static TGS.Globals;
 using static WCSharp.Api.Common;

@@ -30,7 +30,7 @@ public class Disarm
         foreach (unit NearestUnit in Targets.ToList())
         {
             if (NearestUnit.IsEnemyTo(Caster.Owner)
-                && SpellsCore.IsValidTarget(NearestUnit))
+                && TGSSpells.IsValidTarget(NearestUnit))
             {
                 Dummy.AddAbility(FourCC("Acrs"));
                 Dummy.SetAbilityLevel(FourCC("Acrs"), Level);

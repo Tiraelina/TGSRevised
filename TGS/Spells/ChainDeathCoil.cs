@@ -63,7 +63,7 @@ public class ChainDeathCoil : BasicMissile
                 if (!IsUnitInGroup(NearestUnit, Excluded)
                     && ((NearestUnit.IsEnemyTo(Caster.Owner) && bEnemy)
                         || (NearestUnit.IsAllyTo(Caster.Owner) && !bEnemy))
-                    && SpellsCore.IsValidTarget(NearestUnit))
+                    && TGSSpells.IsValidTarget(NearestUnit))
                 {
                     Active = true;
                     Excluded.Add(NearestUnit);

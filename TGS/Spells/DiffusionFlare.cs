@@ -48,7 +48,7 @@ public class DiffusionFlare : AbilityMissile
 
     public override void OnCollision(unit unit)
     {
-        if (unit.IsEnemyTo(Caster.Owner) && SpellsCore.IsValidTarget(unit))
+        if (unit.IsEnemyTo(Caster.Owner) && TGSSpells.IsValidTarget(unit))
         {
             Mana = unit.Mana;
             if (Mana > 0.0f && !unit.IsUnitType(unittype.Summoned))

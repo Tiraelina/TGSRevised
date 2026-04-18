@@ -68,7 +68,7 @@ public class ChainLightning : BasicMissile
                     {
                         if (!IsUnitInGroup(NearestUnit, Excluded)
                             && NearestUnit.IsEnemyTo(Caster.Owner)
-                            && SpellsCore.IsValidTarget(NearestUnit))
+                            && TGSSpells.IsValidTarget(NearestUnit))
                         {
                             Active = true;
                             Excluded.Add(NearestUnit);

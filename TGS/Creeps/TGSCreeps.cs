@@ -9,7 +9,7 @@ using static WCSharp.Api.Blizzard;
 
 namespace TGS.Creeps;
 
-public static class CreepsCore
+public static class TGSCreeps
 {
     private static int CreepUpgradeTick = 100;
 #if DEBUG
@@ -143,7 +143,7 @@ public class CreepCamp
         OnCleared = onCleared;
         OnRespawn = onRespawn;
         Units.Add(new CampGroup());
-        CreepsCore.CreepCamps.Add(this);
+        TGSCreeps.CreepCamps.Add(this);
     }
 
     public Camp Camp { get; init; }
@@ -166,7 +166,7 @@ public class CreepCamp
 #endif
         Army.AddCreepToArmy(killedUnit, killingUnit);
         UnitGroup.Remove(killedUnit);
-        CreepsCore.UnitToCamp.Remove(killedUnit);
+        TGSCreeps.UnitToCamp.Remove(killedUnit);
         Drops.DropItem(killedUnit);
         if (UnitGroup.Count == 0)
         {
@@ -181,7 +181,7 @@ public class CreepCamp
             }
 
             RespawnTimer.Start(RespawnTime, false, RespawnCamp);
-            CreepsCore.UpgradeCreeps();
+            TGSCreeps.UpgradeCreeps();
             OnCleared?.Invoke(this);
         }
     }
@@ -198,7 +198,7 @@ public class CreepCamp
         Location.Add(new Point(inUnit.X, inUnit.Y));
         Rotation.Add(inUnit.Facing);
         inUnit.UserData = (int)lootID;
-        CreepsCore.UnitToCamp[inUnit] = this;
+        TGSCreeps.UnitToCamp[inUnit] = this;
         Units.First().CampUnitIDs.Add(new CampUnits(inUnit.UnitType, lootID));
     }
 
@@ -211,7 +211,7 @@ public class CreepCamp
         {
             unit SpawnedUnit = unit.Create(player.Create(PLAYER_NEUTRAL_AGGRESSIVE), Units[CampLevel].CampUnitIDs[i].CampUnit, Location[i].X, Location[i].Y, Rotation[i]);
             SpawnedUnit.UserData = (int)Units[CampLevel].CampUnitIDs[i].LootID;
-            CreepsCore.UnitToCamp.Add(SpawnedUnit, this);
+            TGSCreeps.UnitToCamp.Add(SpawnedUnit, this);
             UnitGroup.Add(SpawnedUnit);
         }
 
@@ -220,6 +220,6 @@ public class CreepCamp
 
     public static CreepCamp GetCampForUnit(unit killedUnit)
     {
-        return CreepsCore.UnitToCamp[killedUnit];
+        return TGSCreeps.UnitToCamp[killedUnit];
     }
 }

@@ -24,7 +24,7 @@ public enum OrbType
     Purge,
 }
 
-public class PlayerData
+public class TGSPlayer
 {
     public static unit PassiveEnabler;
     public static timer PassiveBusterTimer;
@@ -34,7 +34,7 @@ public class PlayerData
     public timer DeathTimer;
     public timerdialog DeathTimerDialog;
     public unit Hero;
-    public Hero HeroData;
+    public TGSHero TGSHeroData;
     public int HeroId;
     public int HeroKills;
     public string Name;
@@ -42,7 +42,7 @@ public class PlayerData
     public int Row;
     public int UnitKills;
 
-    public PlayerData(player InPlayer)
+    public TGSPlayer(player InPlayer)
     {
         Player = InPlayer;
         if (Player.Controller == mapcontrol.Computer)
@@ -67,7 +67,7 @@ public class PlayerData
     public void SetHero(unit InHero)
     {
         Hero = InHero;
-        HeroData = new Hero(Hero, Player);
+        TGSHeroData = new TGSHero(Hero, Player);
         HeroId = Hero.UnitType;
         Hero.AddAbility(ABILITY_A0JU_RETURN);
         Player.Lumber += 6;

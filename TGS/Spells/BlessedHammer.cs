@@ -53,7 +53,7 @@ public class BlessedHammer : OrbitalMissile
 
     public override void OnCollision(unit unit)
     {
-        if (SpellsCore.IsValidTarget(unit))
+        if (TGSSpells.IsValidTarget(unit))
         {
             UnitDamageTarget(Caster, unit, Damage, true, false, ATTACK_TYPE_MAGIC, DAMAGE_TYPE_UNKNOWN, WEAPON_TYPE_WHOKNOWS);
         }
