@@ -199,6 +199,7 @@ public static class TGSSpells
         unit DamageSource = GetEventDamageSource();
         unit DamageTarget = BlzGetEventDamageTarget();
         float EventDamage = GetEventDamage();
+        bool bEnemy = DamageSource.Owner.IsEnemy(DamageTarget.Owner);
         
         // Channeling is showing 0 tags too
         if (EventDamage <= 0.0f)
@@ -211,7 +212,7 @@ public static class TGSSpells
             && DamageSource.IsUnitType(unittype.Hero)
             && !BlzGetEventIsAttack())
         {
-            
+            TagType OutTag = TagType.Spell;
             float SpellReductionFinal = 1.0f;
             if (UnitHasBuffBJ(DamageTarget, BUFF_B00F_DEPRESSION_AURA))
             {
@@ -230,21 +231,10 @@ public static class TGSSpells
                 if (GetRandomReal(0f, 1f) < SourceHero.SpellCritChance)
                 {
                     DamageOut *= SourceHero.SpellCritMult;
-                    BlzSetEventDamage(DamageOut);
-                    MakeTag(DamageOut, DamageTarget, TagType.SpellCrit);
-                
-                    // CRIT LIFE STEAL
-                    if (SourceHero.SpellLifeSteal > 0.0f)
-                    {
-                        float HealAmount = DamageOut * SourceHero.SpellLifeSteal;
-                        MakeTag(HealAmount, DamageSource, TagType.Heal);
-                        DamageSource.Heal(HealAmount);
-                        BlzSetEventDamageType(DAMAGE_TYPE_ENHANCED);
-                    }
-                    return true;
+                    OutTag = TagType.SpellCrit;
                 }
                 BlzSetEventDamage(DamageOut);
-                MakeTag(DamageOut, DamageTarget, TagType.Spell);
+                MakeTag(DamageOut, DamageTarget, OutTag);
                 
                 // LIFE STEAL
                 if (SourceHero.SpellLifeSteal > 0.0f)
@@ -262,22 +252,11 @@ public static class TGSSpells
             if (GetRandomReal(0f, 1f) < SourceHero.SpellCritChance)
             {
                 ScaleDamage *= SourceHero.SpellCritMult;
-                BlzSetEventDamage(ScaleDamage);
-                MakeTag(ScaleDamage, DamageTarget, TagType.SpellCrit);
-                
-                // CRIT LIFE STEAL
-                if (SourceHero.SpellLifeSteal > 0.0f)
-                {
-                    float HealAmount = ScaleDamage * SourceHero.SpellLifeSteal;
-                    MakeTag(HealAmount, DamageSource, TagType.Heal);
-                    DamageSource.Heal(HealAmount);
-                    BlzSetEventDamageType(DAMAGE_TYPE_ENHANCED);
-                }
-                return true;
+                OutTag = TagType.SpellCrit;
             }
 
             BlzSetEventDamage(ScaleDamage);
-            MakeTag(ScaleDamage, DamageTarget, TagType.Spell);
+            MakeTag(ScaleDamage, DamageTarget, OutTag);
                 
             // LIFE STEAL
             if (SourceHero.SpellLifeSteal > 0.0f)
@@ -312,8 +291,8 @@ public static class TGSSpells
             {
                 if (TGSAbilities.ByUnit.TryGetValue(DamageTarget, out TargetTGSHero))
                 {
-                    // EVASION
-                    float EvasionBonus = TargetTGSHero.AttackEvasionChance + TargetTGSHero.ItemMods.EvasionChance;
+                    // EVASION - Clamped at 50%
+                    float EvasionBonus = Math.Min(TargetTGSHero.AttackEvasionChance + TargetTGSHero.ItemMods.EvasionChance, 0.5f);
                     if (GetRandomReal(0f, 1f) < EvasionBonus)
                     {
                         BlzSetEventDamage(0.0f);
@@ -323,66 +302,25 @@ public static class TGSSpells
                     }
                 }
             }
+            TagType OutTag = TagType.Normal;
 
             // CRIT
             if (GetRandomReal(0f,1f) < SourceHero.AttackCritChance)
+            {
+                EventDamage *= SourceHero.AttackCritMult;
+                OutTag = TagType.Crit;
+            }
+
+            // BASIC ATTACK
+            if (bEnemy)
             {
                 foreach (IOrbEffect Orb in SourceHero.Orbs)
                 {
                     Orb.OnHit(DamageSource, DamageTarget, ref EventDamage);
                 }
-                EventDamage *= SourceHero.AttackCritMult;
-                BlzSetEventDamage(EventDamage);
-                MakeTag(EventDamage, DamageTarget, TagType.Crit);
-                
-                // CRIT CLEAVE
-                if (DamageSource.AttackRange1 < 150)
-                {
-                    int HitTargets = 0;
-                    group Excluded = group.Create();
-                    Excluded.Add(DamageTarget);
-                    group Targets = group.Create();
-                    GroupEnumUnitsInRange(Targets, DamageTarget.X, DamageTarget.Y, 200.0f, Condition(null));
-                    foreach (unit NearestUnit in Targets.ToList())
-                    {
-                        if (!IsUnitInGroup(NearestUnit, Excluded)
-                            && NearestUnit.IsEnemyTo(DamageSource.Owner)
-                            && IsValidTarget(NearestUnit))
-                        {
-                            Excluded.Add(NearestUnit);
-                            Players.TryGetValue(SourceHero.Owner, out TGSPlayer Data);
-                            float CleaveBonus = SourceHero.AttackMultiMult + SourceHero.ItemMods.CleaveBonus;
-                            NearestUnit.Damage(DamageSource, EventDamage * CleaveBonus, ATTACK_TYPE_HERO, DAMAGE_TYPE_ENHANCED);
-                            MakeTag(EventDamage / 2, NearestUnit, TagType.CleaveCrit);
-                            HitTargets += 1;
-                            if (HitTargets > SourceHero.AttackMultiTargets)
-                            {
-                                Excluded.Dispose();
-                                Targets.Dispose();
-                                break;
-                            }
-                        }
-                    }
-                }
-                
-                // CRIT LIFE STEAL
-                if (SourceHero.AttackLifeSteal > 0.0f)
-                {
-                    float HealAmount = EventDamage * SourceHero.AttackLifeSteal;
-                    MakeTag(HealAmount, DamageSource, TagType.Heal);
-                    DamageSource.Heal(HealAmount);
-                    BlzSetEventDamageType(DAMAGE_TYPE_ENHANCED);
-                }
-                return true;
-            }
-
-            // BASIC ATTACK
-            foreach (IOrbEffect Orb in SourceHero.Orbs)
-            {
-                Orb.OnHit(DamageSource, DamageTarget, ref EventDamage);
             }
             BlzSetEventDamage(EventDamage);
-            MakeTag(EventDamage, DamageTarget, TagType.Normal);
+            MakeTag(EventDamage, DamageTarget, OutTag);
             
             // CLEAVE
             if (DamageSource.AttackRange1 < 150)
@@ -400,9 +338,15 @@ public static class TGSSpells
                     {
                         Excluded.Add(NearestUnit);
                         NearestUnit.Damage(DamageSource, EventDamage / 2, ATTACK_TYPE_HERO, DAMAGE_TYPE_ENHANCED);
-                        Players.TryGetValue(SourceHero.Owner, out TGSPlayer Data);
                         float CleaveBonus = SourceHero.AttackMultiMult + SourceHero.ItemMods.CleaveBonus;
-                        MakeTag(EventDamage * CleaveBonus, NearestUnit, TagType.Cleave);
+                        if (OutTag == TagType.Crit)
+                        {
+                            MakeTag(EventDamage * CleaveBonus, NearestUnit, TagType.CleaveCrit);
+                        }
+                        else
+                        {
+                            MakeTag(EventDamage * CleaveBonus, NearestUnit, TagType.Cleave);
+                        }
                         HitTargets += 1;
                         if (HitTargets > SourceHero.AttackMultiTargets)
                         {
