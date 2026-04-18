@@ -186,7 +186,6 @@ public static class TGSSpells
             {
                 BlzSetEventDamage(EventDamage + EventDamage * DamageSource.Intelligence / 4.0f / 100.0f);
             }
-            //BlzSetAbilityExtendedTooltip(ABILITY_AHDS_DIVINE_SHIELD_Q, "CAT", 1);
             return true;
         }
 

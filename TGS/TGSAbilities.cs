@@ -301,7 +301,6 @@ public class UltimateAbility : ILearnedAbility
     public string Name { get; set; }
     public int ItemId { get; set; }
     public int MaxLevel { get; set; }
-    public string ExtendedTooltip { get; set; }
     public OrbType OrbType { get; set; }
     public Action<UltimateAbility, unit> UpdateTooltip;
 
