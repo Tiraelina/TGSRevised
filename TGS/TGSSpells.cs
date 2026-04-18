@@ -337,8 +337,8 @@ public static class TGSSpells
                         && IsValidTarget(NearestUnit))
                     {
                         Excluded.Add(NearestUnit);
-                        NearestUnit.Damage(DamageSource, EventDamage / 2, ATTACK_TYPE_HERO, DAMAGE_TYPE_ENHANCED);
                         float CleaveBonus = SourceHero.AttackMultiMult + SourceHero.ItemMods.CleaveBonus;
+                        NearestUnit.Damage(DamageSource, EventDamage * CleaveBonus, ATTACK_TYPE_HERO, DAMAGE_TYPE_ENHANCED);
                         if (OutTag == TagType.Crit)
                         {
                             MakeTag(EventDamage * CleaveBonus, NearestUnit, TagType.CleaveCrit);
@@ -348,7 +348,7 @@ public static class TGSSpells
                             MakeTag(EventDamage * CleaveBonus, NearestUnit, TagType.Cleave);
                         }
                         HitTargets += 1;
-                        if (HitTargets > SourceHero.AttackMultiTargets)
+                        if (HitTargets == SourceHero.AttackMultiTargets)
                         {
                             Excluded.Dispose();
                             Targets.Dispose();
