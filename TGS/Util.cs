@@ -2,6 +2,7 @@
 using TGS.Creeps;
 using WCSharp.Api;
 using WCSharp.Api.Enums;
+using static Constants;
 using static WCSharp.Api.Common;
 
 namespace TGS;
@@ -236,7 +237,7 @@ public static class Util
     public static void SetShopState(unit Shop, bool Enabled)
     {
         Shop.NeutralBuildingShowsMinimapIcon = Enabled;
-        Shop.DisableAbility(FourCC("Aneu"), !Enabled, !Enabled);
+        Shop.DisableAbility(ABILITY_ANEU_SELECT_HERO, !Enabled, !Enabled);
         if (Enabled)
         {
             if (Globals.ShopEffects.TryGetValue(Shop, out effect Fire))
@@ -327,21 +328,21 @@ public static class Util
 
     public static bool IsOrcSpiritwalker()
     {
-        return GetFilterUnit().UnitType == FourCC("ospw")
+        return GetFilterUnit().UnitType == UNIT_OSPW_SPIRIT_WALKER
                && GetFilterUnit().Owner == player.Create(11)
                && GetUnitState(GetFilterUnit(), UNIT_STATE_MANA) >= 150;
     }
 
     public static bool IsHumSorc()
     {
-        return GetFilterUnit().UnitType == FourCC("hsor")
+        return GetFilterUnit().UnitType == UNIT_HSOR_SORCERESS
                && GetFilterUnit().Owner == player.Create(5)
                && GetFilterUnit().Mana >= 110;
     }
 
     public static bool IsHumSpellbreaker()
     {
-        return GetFilterUnit().UnitType == FourCC("hspt")
+        return GetFilterUnit().UnitType == UNIT_HSPT_SUMMONER_UPDATED_FROM_SPELLBREAKER_6_14_2025
                && GetFilterUnit().Owner == player.Create(5);
     }
 

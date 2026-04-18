@@ -36,9 +36,9 @@ public static class Research
         new ResearchTech(32, UPGRADE_RHME_MITHRIL_FORGED_SWORDS_III, 5, "Mithril Forged Swords");
         new ResearchTech(34, UPGRADE_RHME_MITHRIL_FORGED_SWORDS_III, 6, "Mithril Forged Swords");
 
-        new ResearchTech(3, UPGRADE_RHAR_IRON_PLATING_STEEL_PLATING_MITHRIL_PLATING, 1, "Iron Plating");
-        new ResearchTech(12, UPGRADE_RHAR_IRON_PLATING_STEEL_PLATING_MITHRIL_PLATING, 2, "Steel Plating");
-        new ResearchTech(21, UPGRADE_RHAR_IRON_PLATING_STEEL_PLATING_MITHRIL_PLATING, 3, "Mithril Plating");
+        new ResearchTech(3, UPGRADE_RHAR_IRON_PLATING, 1, "Iron Plating");
+        new ResearchTech(12, UPGRADE_RHAR_IRON_PLATING, 2, "Steel Plating");
+        new ResearchTech(21, UPGRADE_RHAR_IRON_PLATING, 3, "Mithril Plating");
 
         new ResearchTech(4, UPGRADE_RHRA_IMBUED_GUNPOWDER_III, 1, "Black Gunpowder");
         new ResearchTech(13, UPGRADE_RHRA_IMBUED_GUNPOWDER_III, 2, "Refined Gunpowder");
@@ -47,29 +47,29 @@ public static class Research
         new ResearchTech(33, UPGRADE_RHRA_IMBUED_GUNPOWDER_III, 5, "Imbued Gunpowder II");
         new ResearchTech(35, UPGRADE_RHRA_IMBUED_GUNPOWDER_III, 6, "Imbued Gunpowder III");
 
-        new ResearchTech(5, UPGRADE_RHLA_STUDDED_LEATHER_ARMOR_REINFORCED_LEATHER_ARMOR_DRAGONHIDE_ARMOR, 1, "Studded Leather Armour");
-        new ResearchTech(14, UPGRADE_RHLA_STUDDED_LEATHER_ARMOR_REINFORCED_LEATHER_ARMOR_DRAGONHIDE_ARMOR, 2, "Reinforced Leather Armour");
-        new ResearchTech(23, UPGRADE_RHLA_STUDDED_LEATHER_ARMOR_REINFORCED_LEATHER_ARMOR_DRAGONHIDE_ARMOR, 3, "Dragonhide Armour");
+        new ResearchTech(5, UPGRADE_RHLA_STUDDED_LEATHER_ARMOR, 1, "Studded Leather Armour");
+        new ResearchTech(14, UPGRADE_RHLA_STUDDED_LEATHER_ARMOR, 2, "Reinforced Leather Armour");
+        new ResearchTech(23, UPGRADE_RHLA_STUDDED_LEATHER_ARMOR, 3, "Dragonhide Armour");
 
         new ResearchTech(1, UPGRADE_RHDE_DEFEND, 1, "Defend");
         new ResearchTech(7, UPGRADE_RHRI_LONG_RIFLES, 1, "Long Rifles");
         new ResearchTech(25, UPGRADE_RHAN_ANIMAL_WAR_TRAINING, 1, "Animal War Training");
         new ResearchTech(10, UPGRADE_RHHB_STORM_HAMMERS, 1, "Storm Hammers");
-        new ResearchTech(16, FourCC("Rhcd"), 1, "Cloud");
+        new ResearchTech(16, UPGRADE_RHCD_CLOUD, 1, "Cloud");
         new ResearchTech(27, UPGRADE_RHRT_BARRAGE, 1, "Barrage");
-        new ResearchTech(28, FourCC("Rhgb"), 1, "Flying Machine Bombs");
-        new ResearchTech(26, FourCC("Rhfs"), 1, "Fragmentation Shards");
-        new ResearchTech(29, FourCC("Rhfc"), 1, "Flak Cannons");
+        new ResearchTech(28, UPGRADE_RHGB_FLYING_MACHINE_BOMBS, 1, "Flying Machine Bombs");
+        new ResearchTech(26, UPGRADE_RHFS_FRAGMENTATION_SHARDS, 1, "Fragmentation Shards");
+        new ResearchTech(29, UPGRADE_RHFC_FLAK_CANNONS, 1, "Flak Cannons");
 
-        new ResearchTech(8, FourCC("Rhpt"), 1, "Priest Adept Training");
-        new ResearchTech(17, FourCC("Rhpt"), 2, "Priest Master Training");
-        new ResearchTech(9, FourCC("Rhst"), 1, "Sorceress Adept Training");
-        new ResearchTech(19, FourCC("Rhst"), 2, "Sorceress Master Training");
+        new ResearchTech(8, UPGRADE_RHPT_PRIEST_MASTER_TRAINING, 1, "Priest Adept Training");
+        new ResearchTech(17, UPGRADE_RHPT_PRIEST_MASTER_TRAINING, 2, "Priest Master Training");
+        new ResearchTech(9, UPGRADE_RHST_SORCERESS_MASTER_TRAINING, 1, "Sorceress Adept Training");
+        new ResearchTech(19, UPGRADE_RHST_SORCERESS_MASTER_TRAINING, 2, "Sorceress Master Training");
         new ResearchTech(18, UPGRADE_RHSS_CONTROL_MAGIC, 1, "Control Magic");
 
-        new ResearchTech(6, FourCC("Rhac"), 1, "Improved Masonry");
-        new ResearchTech(15, FourCC("Rhac"), 2, "Advanced Masonry");
-        new ResearchTech(24, FourCC("Rhac"), 3, "Imbued Masonry");
+        new ResearchTech(6, UPGRADE_RHAC_IMPROVED_MASONRY, 1, "Improved Masonry");
+        new ResearchTech(15, UPGRADE_RHAC_IMPROVED_MASONRY, 2, "Advanced Masonry");
+        new ResearchTech(24, UPGRADE_RHAC_IMPROVED_MASONRY, 3, "Imbued Masonry");
 
         new ResearchTech(36, UPGRADE_R002_DEPRESSION_AURA, 1, "Depression Aura");
         for (int i = 37; i <= 87; i++)
@@ -92,30 +92,30 @@ public static class Research
         new ResearchTech(132, UPGRADE_RORA_ARCANITE_RANGED_WEAPONS_III, 5, "Arcanite Ranged Weapons");
         new ResearchTech(134, UPGRADE_RORA_ARCANITE_RANGED_WEAPONS_III, 6, "Arcanite Ranged Weapons");
 
-        new ResearchTech(104, UPGRADE_ROAR_STEEL_ARMOR_THORIUM_ARMOR_ARCANITE_ARMOR, 1, "Steel Armour");
-        new ResearchTech(112, UPGRADE_ROAR_STEEL_ARMOR_THORIUM_ARMOR_ARCANITE_ARMOR, 2, "Thorium Armour");
-        new ResearchTech(121, UPGRADE_ROAR_STEEL_ARMOR_THORIUM_ARMOR_ARCANITE_ARMOR, 3, "Arcanite Armour");
+        new ResearchTech(104, UPGRADE_ROAR_STEEL_ARMOR, 1, "Steel Armour");
+        new ResearchTech(112, UPGRADE_ROAR_STEEL_ARMOR, 2, "Thorium Armour");
+        new ResearchTech(121, UPGRADE_ROAR_STEEL_ARMOR, 3, "Arcanite Armour");
 
         new ResearchTech(102, UPGRADE_ROBS_BRUTE_STRENGTH, 1, "Berserker Strength");
-        new ResearchTech(126, FourCC("Robk"), 1, "Berserker Upgrade");
-        new ResearchTech(101, UPGRADE_ROTR_TROLL_REGENERATION_IMPROVED_TROLL_REGENERATION_ADVANCED_TROLL_REGENERATION, 1, "Troll Regeneration");
-        new ResearchTech(127, FourCC("Robf"), 1, "Burning Oil");
+        new ResearchTech(126, UPGRADE_ROBK_BERSERKER_UPGRADE, 1, "Berserker Upgrade");
+        new ResearchTech(101, UPGRADE_ROTR_TROLL_REGENERATION, 1, "Troll Regeneration");
+        new ResearchTech(127, UPGRADE_ROBF_BURNING_OIL, 1, "Burning Oil");
         new ResearchTech(114, UPGRADE_ROVS_ENVENOMED_SPEARS, 1, "Envenomed Spears");
         new ResearchTech(107, UPGRADE_ROEN_ENSNARE, 1, "Ensnare");
-        new ResearchTech(116, FourCC("Rows"), 1, "Pulverize");
+        new ResearchTech(116, UPGRADE_ROWS_PULVERIZE, 1, "Pulverize");
         new ResearchTech(128, UPGRADE_ROLF_LIQUID_FIRE, 1, "Liquid Fire");
-        new ResearchTech(125, FourCC("Rwdm"), 1, "War Drums Damage Increase");
+        new ResearchTech(125, UPGRADE_RWDM_WAR_DRUMS_DAMAGE_INCREASE, 1, "War Drums Damage Increase");
 
-        new ResearchTech(108, FourCC("Rost"), 1, "Shaman Adept Training");
-        new ResearchTech(117, FourCC("Rost"), 2, "Shaman Master Training");
-        new ResearchTech(109, UPGRADE_ROWD_WITCH_DOCTOR_ADEPT_TRAINING_WITCH_DOCTOR_MASTER_TRAINING, 1, "Witch Doctor Adept Training");
-        new ResearchTech(118, UPGRADE_ROWD_WITCH_DOCTOR_ADEPT_TRAINING_WITCH_DOCTOR_MASTER_TRAINING, 2, "Witch Doctor Master Training");
-        new ResearchTech(110, FourCC("Rowt"), 1, "Spirit Walker Adept Training");
-        new ResearchTech(119, FourCC("Rowt"), 2, "Spirit Walker Master Training");
+        new ResearchTech(108, UPGRADE_ROST_SHAMAN_ADEPT_TRAINING, 1, "Shaman Adept Training");
+        new ResearchTech(117, UPGRADE_ROST_SHAMAN_ADEPT_TRAINING, 2, "Shaman Master Training");
+        new ResearchTech(109, UPGRADE_ROWD_WITCH_DOCTOR_ADEPT_TRAINING, 1, "Witch Doctor Adept Training");
+        new ResearchTech(118, UPGRADE_ROWD_WITCH_DOCTOR_ADEPT_TRAINING, 2, "Witch Doctor Master Training");
+        new ResearchTech(110, UPGRADE_ROWT_SPIRIT_WALKER_ADEPT_TRAINING, 1, "Spirit Walker Adept Training");
+        new ResearchTech(119, UPGRADE_ROWT_SPIRIT_WALKER_ADEPT_TRAINING, 2, "Spirit Walker Master Training");
 
-        new ResearchTech(106, UPGRADE_ROSP_SPIKED_BARRICADES_IMPROVED_SPIKED_BARRICADES_ADVANCED_SPIKED_BARRICADES, 1, "Spiked Barricades");
-        new ResearchTech(115, UPGRADE_ROSP_SPIKED_BARRICADES_IMPROVED_SPIKED_BARRICADES_ADVANCED_SPIKED_BARRICADES, 2, "Improved Spiked Barricades");
-        new ResearchTech(124, UPGRADE_ROSP_SPIKED_BARRICADES_IMPROVED_SPIKED_BARRICADES_ADVANCED_SPIKED_BARRICADES, 3, "Advanced Spiked Barricades");
+        new ResearchTech(106, UPGRADE_ROSP_SPIKED_BARRICADES, 1, "Spiked Barricades");
+        new ResearchTech(115, UPGRADE_ROSP_SPIKED_BARRICADES, 2, "Improved Spiked Barricades");
+        new ResearchTech(124, UPGRADE_ROSP_SPIKED_BARRICADES, 3, "Advanced Spiked Barricades");
         new ResearchTech(123, UPGRADE_RORB_REINFORCED_DEFENSES, 1, "Reinforced Defenses");
 
         new ResearchTech(135, UPGRADE_R002_DEPRESSION_AURA, 1, "Depression Aura");

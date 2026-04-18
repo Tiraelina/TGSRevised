@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TGS.Spells;
 using WCSharp.Api;
 using WCSharp.Events;
+using static Constants;
 using static WCSharp.Api.Common;
 using static WCSharp.Api.Blizzard;
 
@@ -464,8 +465,8 @@ public class TGSHero
     {
         if (InAbility.Name == "Mass Teleport")
         {
-            InTGSHero.Unit.RemoveAbility(FourCC("AHm2"));
-            InTGSHero.Unit.RemoveAbility(FourCC("AHm3"));
+            InTGSHero.Unit.RemoveAbility(ABILITY_AHM2_MASS_TELEPORT_LVL2_T);
+            InTGSHero.Unit.RemoveAbility(ABILITY_AHM3_MASS_TELEPORT_LVL3_T);
         }
 
         InTGSHero.Owner.Lumber += UltimateAbility.LumberCost - 1;
@@ -521,9 +522,9 @@ public class TGSHero
 
         TGSAbilities.HeroToBaseAbility.TryGetValue(GetTriggerUnit().UnitType, out int Value);
         SetUnitAbilityLevelSwapped(Value, GetTriggerUnit(), GetLevelingUnit().Level / 2);
-        if (TGSAbilities.HeroToBaseAbility[GetTriggerUnit().UnitType] == FourCC("A0LD"))
+        if (TGSAbilities.HeroToBaseAbility[GetTriggerUnit().UnitType] == ABILITY_A0LD_DEVOUR_Z_LITTLE_TIMMY_DEFUNCT)
         {
-            GetTriggerUnit().SetAbilityLevel(FourCC("A0KA"), GetLevelingUnit().Level / 2);
+            GetTriggerUnit().SetAbilityLevel(ABILITY_A0KA_DEVOUR_CARGO, GetLevelingUnit().Level / 2);
         }
     }
 }

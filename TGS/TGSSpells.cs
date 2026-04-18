@@ -589,15 +589,15 @@ public static class TGSSpells
     {
         LeapAttackUnit = GetSpellAbilityUnit();
         PlaySoundOnUnitBJ(LeapAttackSound[GetRandomInt(0, 2)], 100, LeapAttackUnit);
-        LeapAttackUnit.AddAbility(FourCC("Arav"));
-        LeapAttackUnit.RemoveAbility(FourCC("Arav"));
+        LeapAttackUnit.AddAbility(ABILITY_ARAV_STORM_CROW_FORM);
+        LeapAttackUnit.RemoveAbility(ABILITY_ARAV_STORM_CROW_FORM);
         LeapAttackStart = GetUnitLoc(LeapAttackUnit);
         LeapAttackTarget = GetSpellTargetLoc();
         LeapAttackSpeed = FastUtil.DistanceBetweenPoints(LeapAttackStart.X, LeapAttackStart.Y, LeapAttackTarget.X, LeapAttackTarget.Y) / 20.0f;
         LeapAttackUnit.SetAnimation("slam");
         LeapAttackUnit.SetTimeScale(0.8826f);
         LeapAttackUnit.SetPathing(false);
-        LeapAttackUnit.AddAbility(FourCC("Aeth"));
+        LeapAttackUnit.AddAbility(ABILITY_AETH_GHOST);
         LeapAttackMove = timer.Create();
         LeapAttackMove.Start(0.05f, true, LeapAttackMovement);
     }
@@ -614,7 +614,7 @@ public static class TGSSpells
             effect LeapEffect = effect.Create(@"Abilities\Spells\Orc\WarStomp\WarStompCaster.mdl", LeapAttackTarget.X, LeapAttackTarget.Y);
             LeapEffect.Dispose();
             LeapAttackUnit.SetPathing(true);
-            LeapAttackUnit.RemoveAbility(FourCC("Aeth"));
+            LeapAttackUnit.RemoveAbility(ABILITY_AETH_GHOST);
             EnumDestructablesInCircleBJ(250.00f, LeapAttackTarget, SmokeTrees);
             LeapAttackUnit.SetPosition(LeapAttackTarget.X, LeapAttackTarget.Y);
             LeapUnit.Dispose();

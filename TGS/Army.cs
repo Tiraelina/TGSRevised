@@ -84,9 +84,9 @@ public static class Army
 
         NewFactory = new Factory(player.Create(12), HumAviaryTop);
         Spawns.Clear();
-        Spawns.Add(new FactorySpawn(FourCC("hdhw"), UNIT_NWS1_ELDER_DRAGONHAWK_RIDER, false, 1));
+        Spawns.Add(new FactorySpawn(UNIT_HDHW_DRAGONHAWK_RIDER, UNIT_NWS1_ELDER_DRAGONHAWK_RIDER, false, 1));
         Spawns.Add(new FactorySpawn(UNIT_HGRY_BRONZE_WHELP_GRYPHON, UNIT_NSER_BLACK_DRAKE, true, 0));
-        Spawns.Add(new FactorySpawn(FourCC("hgyr"), UNIT_NBEE_FLYING_FORTRESS, false, 0));
+        Spawns.Add(new FactorySpawn(UNIT_HGRY_BRONZE_WHELP_GRYPHON, UNIT_NBEE_FLYING_FORTRESS, false, 0));
         foreach (FactorySpawn SpawnedUnit in Spawns)
         {
             NewFactory.AddSpawn(SpawnedUnit);
@@ -116,7 +116,7 @@ public static class Army
         NewFactory = new Factory(player.Create(12), HumSanctumTop);
         Spawns.Clear();
         Spawns.Add(new FactorySpawn(UNIT_HMPR_DRUID, UNIT_NEMI_BISHOP, false, 1));
-        Spawns.Add(new FactorySpawn(FourCC("hsor"), UNIT_NHYM_ARCHMAGE, true, 0));
+        Spawns.Add(new FactorySpawn(UNIT_HSOR_SORCERESS, UNIT_NHYM_ARCHMAGE, true, 0));
         Spawns.Add(new FactorySpawn(UNIT_HSPT_SUMMONER_UPDATED_FROM_SPELLBREAKER_6_14_2025, UNIT_NBEL_MAGE_SLAYER, true, 0));
         foreach (FactorySpawn SpawnedUnit in Spawns)
         {
@@ -146,8 +146,8 @@ public static class Army
 
         NewFactory = new Factory(player.Create(12), HumWorkshopTop);
         Spawns.Clear();
-        Spawns.Add(new FactorySpawn(FourCC("hmtm"), UNIT_HBEW_BALLISTA, true, 1));
-        Spawns.Add(new FactorySpawn(FourCC("hmtt"), UNIT_HRDH_FORTIFIED_SIEGE_ENGINE, false, 0));
+        Spawns.Add(new FactorySpawn(UNIT_HMTM_MORTAR_TEAM, UNIT_HBEW_BALLISTA, true, 1));
+        Spawns.Add(new FactorySpawn(UNIT_HMTT_SIEGE_ENGINE, UNIT_HRDH_FORTIFIED_SIEGE_ENGINE, false, 0));
         foreach (FactorySpawn SpawnedUnit in Spawns)
         {
             NewFactory.AddSpawn(SpawnedUnit);
@@ -211,9 +211,9 @@ public static class Army
 
         NewFactory = new Factory(player.Create(15), OrcBeastiaryTop);
         Spawns.Clear();
-        Spawns.Add(new FactorySpawn(UNIT_OWYV_WINDRACER, FourCC("nrdr"), true, 1));
+        Spawns.Add(new FactorySpawn(UNIT_OWYV_WINDRACER, UNIT_NRDR_RED_DRAKE, true, 1));
         Spawns.Add(new FactorySpawn(UNIT_OTBR_BUTTRIDER, UNIT_NZEP_ZEPPELIN_ORC, false, 0));
-        Spawns.Add(new FactorySpawn(FourCC("okod"), UNIT_NCKB_SUCCUBUS, false, 0));
+        Spawns.Add(new FactorySpawn(UNIT_OKOD_KODO_BEAST, UNIT_NCKB_SUCCUBUS, false, 0));
         foreach (FactorySpawn SpawnedUnit in Spawns)
         {
             NewFactory.AddSpawn(SpawnedUnit);
@@ -244,7 +244,7 @@ public static class Army
         Spawns.Clear();
         Spawns.Add(new FactorySpawn(UNIT_OSHM_SCHWAMAN, UNIT_NCHW_WITCH_ARROW, true, 1));
         Spawns.Add(new FactorySpawn(UNIT_ODOC_MEDICINE_MAN, UNIT_ODKT_NECROMANCER, true, 0));
-        Spawns.Add(new FactorySpawn(FourCC("ospw"), UNIT_NOMG_OGRE_MAGI, false, 0));
+        Spawns.Add(new FactorySpawn(UNIT_OSPW_SPIRIT_WALKER, UNIT_NOMG_OGRE_MAGI, false, 0));
         foreach (FactorySpawn SpawnedUnit in Spawns)
         {
             NewFactory.AddSpawn(SpawnedUnit);
@@ -273,8 +273,8 @@ public static class Army
 
         NewFactory = new Factory(player.Create(15), OrcTotemTop);
         Spawns.Clear();
-        Spawns.Add(new FactorySpawn(FourCC("ocat"), UNIT_NINC_INFERNAL_CANNON, false, 1));
-        Spawns.Add(new FactorySpawn(UNIT_OTAU_BLADEMASTER, FourCC("nogl"), true, 0));
+        Spawns.Add(new FactorySpawn(UNIT_OCAT_DEMOLISHER, UNIT_NINC_INFERNAL_CANNON, false, 1));
+        Spawns.Add(new FactorySpawn(UNIT_OTAU_BLADEMASTER, UNIT_NOGL_OGRE_LORD, true, 0));
         foreach (FactorySpawn SpawnedUnit in Spawns)
         {
             NewFactory.AddSpawn(SpawnedUnit);
@@ -715,8 +715,8 @@ public static class Army
         }
 
         if (GetTriggerUnit().UnitClassification == UnitClassifications.Ancient
-            || GetTriggerUnit().UnitType == FourCC("otot")
-            || GetTriggerUnit().UnitType == FourCC("ohwd"))
+            || GetTriggerUnit().UnitType == UNIT_OTOT_STASIS_TRAP
+            || GetTriggerUnit().UnitType == UNIT_OHWD_HEALING_WARD)
         {
             return;
         }

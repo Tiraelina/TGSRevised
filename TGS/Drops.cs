@@ -44,7 +44,7 @@ public static class Drops
         ItemPoolAddItemType(IP_Aura, ITEM_LGDH_LEGION_DOOM_HORN, 1); // Chance: 1/6
         ItemPoolAddItemType(IP_Aura, ITEM_AFAC_ALLERIA_S_FLUTE_OF_ACCURACY, 1); // Chance: 1/6
         ItemPoolAddItemType(IP_Aura, ITEM_LHST_THE_LION_HORN_OF_STORMWIND, 1); // Chance: 1/6
-        ItemPoolAddItemType(IP_Aura, FourCC("ward"), 1); // Chance: 1/6
+        ItemPoolAddItemType(IP_Aura, ITEM_WARD_WARSONG_BATTLE_DRUMS, 1); // Chance: 1/6
 
         ItemPoolAddItemType(IP_Gear, ITEM_I09L_SURGICAL_MASK, 1); // Chance: 1/5
         ItemPoolAddItemType(IP_Gear, ITEM_I09N_BLAST_STAFF, 1); // Chance: 1/5
@@ -69,7 +69,7 @@ public static class Drops
         ItemPoolAddItemType(IP_Keg, ITEM_KGAL_KEG_OF_ALE, 1); // Chance: 1/5
         ItemPoolAddItemType(IP_Keg, FourCC("COCK"), 1); // Chance: 4/5
 
-        ItemPoolAddItemType(IP_WatcherRune, FourCC("rwat"), 1); // Chance: 1/1
+        ItemPoolAddItemType(IP_WatcherRune, ITEM_RWAT_RUNE_OF_THE_WATCHER, 1); // Chance: 1/1
 
         ItemPoolAddItemType(IP_HealRune60, ITEM_RHE3_MEAT, 5); // Chance: 5/10
         ItemPoolAddItemType(IP_HealRune60, ITEM_GOLD_75_GOLD, 1); // Chance: 1/10
@@ -99,7 +99,7 @@ public static class Drops
 
         ItemPoolAddItemType(IP_Wood100, ITEM_I0AE_WOOD_BUNDLE_3, 1); // Chance: 1/1
 
-        ItemPoolAddItemType(IP_Ultravision, FourCC("guvi"), 1); // Chance: 1/1
+        ItemPoolAddItemType(IP_Ultravision, ITEM_GUVI_GLYPH_OF_ULTRAVISION, 1); // Chance: 1/1
 
         ItemPoolAddItemType(IP_TomeOfPower, ITEM_TKNO_A_REALLY_HEAVY_BOOK, 1); // Chance: 1/1
 
@@ -113,7 +113,7 @@ public static class Drops
         ItemPoolAddItemType(IP_HealRune50Candy, ITEM_MANH_CANDY, 1); // Chance: 1/10
         ItemPoolAddItemType(IP_HealRune50Candy, FourCC("COCK"), 4); // Chance: 4/10
 
-        ItemPoolAddItemType(IP_HealLesser, FourCC("rhe1"), 1); // Chance: 1/1
+        ItemPoolAddItemType(IP_HealLesser, ITEM_RHE1_RUNE_OF_LESSER_HEALING, 1); // Chance: 1/1
 
         GetDropPool[DropID.Nothing] = null;
         GetDropPool[DropID.Gold25Candy] = new List<itempool> { IP_Gold25, IP_Candy25 };

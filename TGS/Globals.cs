@@ -445,7 +445,7 @@ public static class Globals
 
     private static void HeroAttacked()
     {
-        if (GetAttacker().UnitType == FourCC("Hdgo") && !GetAttacker().IsIllusion)
+        if (GetAttacker().UnitType == UNIT_HDGO_SENTINEL_HERO && !GetAttacker().IsIllusion)
         {
             if (GetRandomInt(0, 4) == 0)
             {
@@ -461,7 +461,7 @@ public static class Globals
             && BlzGetEventDamageTarget().IsUnitType(unittype.Structure)
             && BlzGetEventIsAttack())
         {
-            BlzSetEventDamage(GetEventDamage() + GetEventDamage() * (I2R(GetPlayerTechCountSimple(FourCC("R001"), GetOwningPlayer(GetEventDamageSource()))) * 0.25f));
+            BlzSetEventDamage(GetEventDamage() + GetEventDamage() * (I2R(GetPlayerTechCountSimple(UPGRADE_R001_DEMOLISH, GetOwningPlayer(GetEventDamageSource()))) * 0.5f));
             return true;
         }
 
@@ -471,8 +471,8 @@ public static class Globals
     private static void AncestralSpirit()
     {
         if (OrcConditionFilter.Contains(GetTriggerPlayer())
-            && (GetTriggerUnit().UnitType == FourCC("otau")
-                || GetTriggerUnit().UnitType == FourCC("ospw")))
+            && (GetTriggerUnit().UnitType == UNIT_OTAU_BLADEMASTER
+                || GetTriggerUnit().UnitType == UNIT_OSPW_SPIRIT_WALKER))
         {
             TriggerSleepAction(2.5f);
             group TempGroup = group.Create();
@@ -486,9 +486,9 @@ public static class Globals
     {
         if (HumConditionFilter.Contains(GetTriggerPlayer()) && GetRandomInt(1, 10) == 1)
         {
-            if (GetAttacker().UnitType == FourCC("ogru")
-                || GetAttacker().UnitType == FourCC("otau")
-                || GetAttacker().UnitType == FourCC("okod"))
+            if (GetAttacker().UnitType == UNIT_OGRU_GRUNT
+                || GetAttacker().UnitType == UNIT_OTAU_BLADEMASTER
+                || GetAttacker().UnitType == UNIT_OKOD_KODO_BEAST)
             {
                 group TempGroup = group.Create();
                 EnumRadius(TempGroup, GetUnitX(GetAttacker()), GetUnitY(GetAttacker()), 700.0f, IsHumSorc);

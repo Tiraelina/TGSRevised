@@ -32,8 +32,8 @@ public class Disarm
             if (NearestUnit.IsEnemyTo(Caster.Owner)
                 && TGSSpells.IsValidTarget(NearestUnit))
             {
-                Dummy.AddAbility(FourCC("Acrs"));
-                Dummy.SetAbilityLevel(FourCC("Acrs"), Level);
+                Dummy.AddAbility(ABILITY_ACRS_CURSE);
+                Dummy.SetAbilityLevel(ABILITY_ACRS_CURSE, Level);
                 Dummy.IssueOrder(ORDER_CURSE, NearestUnit);
             }
         }

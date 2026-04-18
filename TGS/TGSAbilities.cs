@@ -371,16 +371,16 @@ public class UltimateAbility : ILearnedAbility
         switch (Level)
         {
             case 1:
-                InTGSHero.Unit.RemoveAbility(FourCC("AHmt"));
-                InTGSHero.Unit.AddAbility(FourCC("AHm2"));
+                InTGSHero.Unit.RemoveAbility(ABILITY_AHMT_MASS_TELEPORT_LVL1_T);
+                InTGSHero.Unit.AddAbility(ABILITY_AHM2_MASS_TELEPORT_LVL2_T);
                 InTGSHero.SlotLevels[4] = 2;
-                InTGSHero.Unit.SetAbilityLevel(FourCC("AHm2"), 2);
+                InTGSHero.Unit.SetAbilityLevel(ABILITY_AHM2_MASS_TELEPORT_LVL2_T, 2);
                 break;
             case 2:
-                InTGSHero.Unit.RemoveAbility(FourCC("AHm2"));
-                InTGSHero.Unit.AddAbility(FourCC("AHm3"));
+                InTGSHero.Unit.RemoveAbility(ABILITY_AHM2_MASS_TELEPORT_LVL2_T);
+                InTGSHero.Unit.AddAbility(ABILITY_AHM3_MASS_TELEPORT_LVL3_T);
                 InTGSHero.SlotLevels[4] = 3;
-                InTGSHero.Unit.SetAbilityLevel(FourCC("AHm3"), 3);
+                InTGSHero.Unit.SetAbilityLevel(ABILITY_AHM3_MASS_TELEPORT_LVL3_T, 3);
                 break;
             default:
                 InTGSHero.Owner.DisplayTextTo("Mass Teleport already at max level.");
