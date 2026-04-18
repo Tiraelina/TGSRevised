@@ -518,6 +518,7 @@ public class TGSHero
             {
                 GetTriggerUnit().SetAbilityLevel(SpecialAbil.AbilityId, GetLevelingUnit().Level / 2);
             }
+            LevelingTGSHero.UpdateTooltips();
         }
 
         TGSAbilities.HeroToBaseAbility.TryGetValue(GetTriggerUnit().UnitType, out int Value);
