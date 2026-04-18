@@ -229,7 +229,7 @@ public class TGSHero
             // case OrbType.Corruption:
             // {
             //     Corruption Orb = new();
-            //     Orb.Aquired(Unit, InOrbLevel);
+            //     Orb.Aquire(Unit, InOrbLevel);
             //     Orbs.Add(Orb);
             //     OrbLookup.Add(InOrbType, Orb);
             //     break;
@@ -237,7 +237,7 @@ public class TGSHero
             // case OrbType.Fire:
             // {
             //     Fire Orb = new();
-            //     Orb.Aquired(Unit, InOrbLevel);
+            //     Orb.Aquire(Unit, InOrbLevel);
             //     Orbs.Add(Orb);
             //     OrbLookup.Add(InOrbType, Orb);
             //     break;
@@ -245,7 +245,7 @@ public class TGSHero
             // case OrbType.Slow:
             // {
             //     Slow Orb = new();
-            //     Orb.Aquired(Unit, InOrbLevel);
+            //     Orb.Aquire(Unit, InOrbLevel);
             //     Orbs.Add(Orb);
             //     OrbLookup.Add(InOrbType, Orb);
             //     break;
@@ -253,7 +253,7 @@ public class TGSHero
             // case OrbType.Poison:
             // {
             //     Poison Orb = new();
-            //     Orb.Aquired(Unit, InOrbLevel);
+            //     Orb.Aquire(Unit, InOrbLevel);
             //     Orbs.Add(Orb);
             //     OrbLookup.Add(InOrbType, Orb);
             //     break;
@@ -261,23 +261,23 @@ public class TGSHero
             // case OrbType.Incinerate:
             // {
             //     Incinerate Orb = new();
-            //     Orb.Aquired(Unit, InOrbLevel);
+            //     Orb.Aquire(Unit, InOrbLevel);
             //     Orbs.Add(Orb);
             //     OrbLookup.Add(InOrbType, Orb);
             //     break;
             // }
-            // case OrbType.Pillage:
-            // {
-            //     Pillage Orb = new();
-            //     Orb.Aquired(Unit, InOrbLevel);
-            //     Orbs.Add(Orb);
-            //     OrbLookup.Add(InOrbType, Orb);
-            //     break;
-            // }
+            case OrbType.Pillage:
+            {
+                Pillage Orb = new();
+                Orb.Aquire(Unit, InOrbLevel);
+                Orbs.Add(Orb);
+                OrbLookup.Add(InOrbType, Orb);
+                break;
+            }
             // case OrbType.Purge:
             // {
             //     Purge Orb = new();
-            //     Orb.Aquired(Unit, InOrbLevel);
+            //     Orb.Aquire(Unit, InOrbLevel);
             //     Orbs.Add(Orb);
             //     OrbLookup.Add(InOrbType, Orb);
             //     break;

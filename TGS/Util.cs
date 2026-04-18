@@ -71,7 +71,8 @@ public static class Util
         SpellCrit,
         Heal,
         Cleave,
-        CleaveCrit
+        CleaveCrit,
+        Gold
     }
 
     public static void MakeTag(float EventDamage, unit DamageTarget, TagType Type)
@@ -142,6 +143,12 @@ public static class Util
                 DamageText = $"{EventDamage:F}!";
                 DamageTag.SetColor(128, 0, 0);
                 DamageTag.SetVelocity(0.04f, 0.06f);
+                DamageTag.SetText(DamageText, 0.012f);
+                break;
+            case TagType.Gold:
+                DamageText = $"{EventDamage:F}!";
+                DamageTag.SetColor(209, 177, 22);
+                DamageTag.SetVelocity(-0.04f, -0.06f);
                 DamageTag.SetText(DamageText, 0.012f);
                 break;
             default:
