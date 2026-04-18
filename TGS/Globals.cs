@@ -80,6 +80,10 @@ public static class Globals
     public static List<item> Coins75 = new();
     public static List<item> Coins150 = new();
     public static List<item> Coins300 = new();
+#if DEBUG
+    // It will only output ~259 characters as one string.
+    public static List<string> OutputBuffer = new();
+#endif
 
     public static void Init()
     {

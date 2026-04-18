@@ -53,6 +53,18 @@ namespace TGS
 					DestroyTimer(MainTimer);
 					InitCount();
 				});
+				PreloadGenClear();
+				PreloadGenStart();
+				trigger PreloadSave = trigger.Create();
+				PreloadSave.RegisterPlayerChatEvent(player.Create(0), "-save", false);
+				PreloadSave.AddAction(() =>
+				{
+					foreach(string BufferLine in Globals.OutputBuffer)
+					{
+						Preload(BufferLine);
+					}
+					PreloadGenEnd("TGS/Cat.txt");
+				});
 #endif
 				FogMaskEnableOn();
                 FogEnableOn();

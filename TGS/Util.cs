@@ -42,6 +42,7 @@ public static class Util
             float Y = GetUnitY(ClickedUnit);
 
             TriggerPlayer.DisplayTextTo($"|cffffcc00Clicked:|r {ClickedUnit.Name} at |cffffff00X:|r {X:F1}, |cffffff00Y:|r {Y:F1}");
+            Globals.OutputBuffer.Add($" GetUnitAt({X:F1}f, {Y:F1}f) {ClickedUnit.Name}");
             if (Army.FactoryLookup[GetTriggerUnit()] != null)
             {
                 TriggerPlayer.DisplayTextTo($"|cffffcc00Factory State:|r {Army.FactoryLookup[GetTriggerUnit()].State.ToString()}");
