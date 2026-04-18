@@ -560,23 +560,23 @@ public static class SpellsCore
             //    GetSpellAbilityUnit().AddItem(ITEM_I08Z_WARCRY_ARMOR_BONUS);
             //    break;
             //}
-            case ABILITY_A08M_BLESSED_HAMMER_Z:
+            case ABILITY_A08M_BLESSED_HAMMER_Z_MURADIN:
             {
                 BlessedHammer Missile = new(GetTriggerUnit(), GetTriggerUnit(), AbilityId);
                 MissileSystem.Add(Missile);
                 break;
             }
-            case ABILITY_A0KI_CONFUSE_Z_EVILSYLVANAS:
+            case ABILITY_A0KI_CONFUSE_Z_EVILSYLVANAS_DEFUNCT:
             {
                 Confuse();
                 break;
             }
-            case ABILITY_A0CY_DARK_CONVERSION_Z:
+            case ABILITY_A0CY_DARK_CONVERSION_Z_TICHONDRIUS:
             {
                 DarkConversion();
                 break;
             }
-            case ABILITY_A0JX_LEAP_ATTACK_Z:
+            case ABILITY_A0JX_LEAP_ATTACK_Z_GOR:
             {
                 LeapAttack();
                 break;

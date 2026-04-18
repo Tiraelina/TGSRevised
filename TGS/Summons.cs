@@ -330,7 +330,7 @@ public static class Summons
         SummonIds.Clear();
         SummonIds.Add(UNIT_N003_LESSER_INFERNAL);
         AbilityIds.Clear();
-        AbilityIds.Add(ABILITY_A05A_LESSER_INFERNO_Z);
+        AbilityIds.Add(ABILITY_A05A_LESSER_INFERNO_Z_GUL_DAN);
         new SummonScalar(SummonIds, AbilityIds,
             0.25f, 0.02f, 0.25f, 0.02f,
             0.25f, 0.02f, 0.25f, 0.02f,
@@ -406,7 +406,7 @@ public static class Summons
         SummonIds.Clear();
         SummonIds.Add(UNIT_NCFS_WALTERY_MINION_L1);
         AbilityIds.Clear();
-        AbilityIds.Add(ABILITY_A0L8_PARASITE_Z);
+        AbilityIds.Add(ABILITY_A0L8_PARASITE_Z_VASHJ);
         new SummonScalar(SummonIds, AbilityIds,
             0.25f, 0.02f, 0.25f, 0.02f,
             0.25f, 0.02f, 0.25f, 0.02f,
@@ -464,7 +464,7 @@ public static class Summons
             0.1f, 0.02f);
 
         SummonIds.Clear();
-        SummonIds.Add(UNIT_N02H_SHADOW_OOZE);
+        SummonIds.Add(UNIT_N02H_SHADOW_OOZE_SHADOW_ORB);
         AbilityIds.Clear();
         AbilityIds.Add(ABILITY_A0BS_ORB_OF_OOZE);
         new SummonScalar(SummonIds, AbilityIds,
@@ -505,7 +505,7 @@ public static class Summons
         SummonIds.Clear();
         SummonIds.Add(UNIT_N000_ZOMBIE_DARK_CONVERSION);
         AbilityIds.Clear();
-        AbilityIds.Add(ABILITY_A0CY_DARK_CONVERSION_Z);
+        AbilityIds.Add(ABILITY_A0CY_DARK_CONVERSION_Z_TICHONDRIUS);
         new SummonScalar(SummonIds, AbilityIds,
             0.25f, 0.02f, 0.25f, 0.02f,
             0.25f, 0.02f, 0.25f, 0.02f,
