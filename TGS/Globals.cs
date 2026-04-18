@@ -220,11 +220,16 @@ public static class Globals
             List<item> newCoins = Coins75;
             foreach (item Coin1 in newCoins)
             {
-                if (Coin1 == null) continue;
+                if (Coin1 == null)
+                {
+                    break;
+                }
                 foreach (item Coin2 in newCoins)
                 {
-                    if (Coin2 == null) continue;
-                    if (Coin2 == Coin1) continue;
+                    if (Coin2 == Coin1)
+                    {
+                        continue;
+                    }
 
                     float dx = GetItemX(Coin1) - GetItemX(Coin2);
                     float dy = GetItemY(Coin1) - GetItemY(Coin2);
@@ -232,10 +237,7 @@ public static class Globals
 
                     if (dist <= 300.0f)
                     {
-                        float midX = (GetItemX(Coin1) + GetItemX(Coin2)) / 2;
-                        float midY = (GetItemY(Coin1) + GetItemY(Coin2)) / 2;
-
-                        Coins150.Add(CreateItem(ITEM_I03E_150_BANANAS, midX, midY));
+                        Coins150.Add(CreateItem(ITEM_I03E_150_BANANAS, GetItemX(Coin1), GetItemY(Coin1)));
 
                         Coins75.Remove(Coin1);
                         Coin1.Dispose();
@@ -252,22 +254,24 @@ public static class Globals
             List<item> newCoins = Coins150;
             foreach (item Coin1 in newCoins)
             {
-                if (Coin1 == null) continue;
+                if (Coin1 == null)
+                {
+                    break;
+                }
                 foreach (item Coin2 in newCoins)
                 {
-                    if (Coin2 == null) continue;
-                    if (Coin2 == Coin1) continue;
+                    if (Coin2 == Coin1)
+                    {
+                        continue;
+                    }
 
                     float dx = GetItemX(Coin1) - GetItemX(Coin2);
                     float dy = GetItemY(Coin1) - GetItemY(Coin2);
                     float dist = (float)Math.Sqrt(dx * dx + dy * dy);
 
-                    if (dist <= 300.0f)
+                    if (dist <= 450.0f)
                     {
-                        float midX = (GetItemX(Coin1) + GetItemX(Coin2)) / 2;
-                        float midY = (GetItemY(Coin1) + GetItemY(Coin2)) / 2;
-
-                        Coins300.Add(CreateItem(ITEM_I03F_300_GOLDEN_CHEESE_COINS, midX, midY));
+                        Coins300.Add(CreateItem(ITEM_I03F_300_GOLDEN_CHEESE_COINS, GetItemX(Coin1), GetItemY(Coin1)));
 
                         Coins150.Remove(Coin1);
                         Coin1.Dispose();
@@ -284,22 +288,24 @@ public static class Globals
         //     List<item> newCoins = Coins300;
         //     foreach (item Coin1 in newCoins)
         //     {
-        //         if (Coin1 == null) continue;
+        //         if (Coin1 == null)
+        //         {
+        //             break;
+        //         }
         //         foreach (item Coin2 in newCoins)
         //         {
-        //             if (Coin2 == null) continue;
-        //             if (Coin2 == Coin1) continue;
+        //             if (Coin2 == Coin1)
+        //             {
+        //                 continue;
+        //             }
         //
         //             float dx = GetItemX(Coin1) - GetItemX(Coin2);
         //             float dy = GetItemY(Coin1) - GetItemY(Coin2);
         //             float dist = (float)Math.Sqrt(dx * dx + dy * dy);
         //
-        //             if (dist <= 300.0f)
+        //             if (dist <= 600.0f)
         //             {
-        //                 float midX = (GetItemX(Coin1) + GetItemX(Coin2)) / 2;
-        //                 float midY = (GetItemY(Coin1) + GetItemY(Coin2)) / 2;
-        //
-        //                 CreateItem(ITEM_I03F_300_GOLD, midX, midY);
+        //                 CreateItem(ITEM_I03F_300_GOLD, GetItemX(Coin1), GetItemY(Coin1));
         //
         //                 Coins150.Remove(Coin1);
         //                 Coin1.Dispose();
