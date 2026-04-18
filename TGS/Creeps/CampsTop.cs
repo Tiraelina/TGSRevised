@@ -27,12 +27,23 @@ public static class CampsTop
 
         FrenchmansWest.AddUnit(GetUnitAt(-5488.8f, 7698.8f), DropID.Gold25Candy);
         FrenchmansWest.AddUnit(GetUnitAt(-5311.2f, 7578.8f), DropID.Gold25Candy);
+        
+        FrenchmansWest.AddUnit(GetUnitAt(-8448.0f, 4612.2f));
+        FrenchmansWest.AddUnit(GetUnitAt(-8381.0f, 4463.5f));
+        FrenchmansWest.AddUnit(GetUnitAt(-8511.5f, 4505.2f));
+        FrenchmansWest.AddUnit(GetUnitAt(-8848.2f, 4233.2f));
+        FrenchmansWest.AddUnit(GetUnitAt(-8839.8f, 4055.0f));
+        FrenchmansWest.AddUnit(GetUnitAt(-9020.8f, 4180.5f));
+        FrenchmansWest.AddUnit(GetUnitAt(-8991.0f, 3943.2f));
+        FrenchmansWest.AddUnit(GetUnitAt(-9118.0f, 4414.5f));
+        FrenchmansWest.AddUnit(GetUnitAt(-9077.0f, 4568.2f), DropID.Gold50Candy);
+        FrenchmansWest.AddUnit(GetUnitAt(-8923.2f, 4416.5f), DropID.Gold100Candy);
 
-        FrenchmansWest.AddUnit(GetUnitAt(-9271.5f, 4530.2f), DropID.HealRune);
-        FrenchmansWest.AddUnit(GetUnitAt(-8949.5f, 3861.0f));
-        FrenchmansWest.AddUnit(GetUnitAt(-9095.2f, 4446.2f), DropID.Gold100Candy);
-        FrenchmansWest.AddUnit(GetUnitAt(-8839.0f, 3994.5f), DropID.Gold50Candy);
-        FrenchmansWest.AddUnit(GetUnitAt(-8942.0f, 4204.0f), DropID.Aura);
+        FrenchmansWest.AddUnit(GetUnitAt(-8840.8f, 5877.8f), DropID.HealRune);
+        FrenchmansWest.AddUnit(GetUnitAt(-8484.5f, 5874.0f));
+        FrenchmansWest.AddUnit(GetUnitAt(-8965.2f, 6096.8f), DropID.Gold100Candy);
+        FrenchmansWest.AddUnit(GetUnitAt(-8389.0f, 6094.2f), DropID.Gold50Candy);
+        FrenchmansWest.AddUnit(GetUnitAt(-8641.2f, 6094.2f), DropID.Aura);
 
         TempGroup = new CampGroup();
         TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSC2_DRAGONSPAWN));
@@ -50,6 +61,17 @@ public static class CampsTop
 
         TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMFS_COLD_ONE, DropID.Gold50Candy));
         TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMFS_COLD_ONE, DropID.Gold50Candy));
+        
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMCF_MUR_GUL_SNAGGLETOOTH));
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMCF_MUR_GUL_SNAGGLETOOTH));
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMTW_MUR_GUL_BRAWLER));
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NNMG_MUR_GUL_REAVER));
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NNMG_MUR_GUL_REAVER));
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NNMG_MUR_GUL_REAVER));
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSNP_SNAP_DRAGON));
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMRV_MUR_GUL_OVERSEER));
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMSC_MUR_GUL_SHADOWCASTER, DropID.Gold50Candy));
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMMU_MUR_GUL_CHIEFTAIN, DropID.Gold100Candy));
 
         TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NHYD_HYDRA, DropID.HealRune));
         TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NHYD_HYDRA));
@@ -108,12 +130,23 @@ public static class CampsTop
 
         FrenchmansEast.AddUnit(GetUnitAt(4471.5f, 7612.0f), DropID.Gold25Candy);
         FrenchmansEast.AddUnit(GetUnitAt(4626.5f, 7753.5f), DropID.Gold25Candy);
+        
+        FrenchmansEast.AddUnit(GetUnitAt(8037.8f, 4570.5f));
+        FrenchmansEast.AddUnit(GetUnitAt(8292.5f, 4702.5f));
+        FrenchmansEast.AddUnit(GetUnitAt(8184.0f, 4567.5f));
+        FrenchmansEast.AddUnit(GetUnitAt(8530.5f, 4137.5f));
+        FrenchmansEast.AddUnit(GetUnitAt(8730.2f, 4146.2f));
+        FrenchmansEast.AddUnit(GetUnitAt(8635.8f, 3998.0f));
+        FrenchmansEast.AddUnit(GetUnitAt(8342.2f, 4006.5f));
+        FrenchmansEast.AddUnit(GetUnitAt(8850.8f, 4561.0f));
+        FrenchmansEast.AddUnit(GetUnitAt(8830.5f, 4319.8f), DropID.Gold50Candy);
+        FrenchmansEast.AddUnit(GetUnitAt(8701.0f, 4427.5f), DropID.Gold100Candy);
 
-        FrenchmansEast.AddUnit(GetUnitAt(8767.5f, 4525.2f), DropID.HealRune);
-        FrenchmansEast.AddUnit(GetUnitAt(8393.5f, 4023.0f));
-        FrenchmansEast.AddUnit(GetUnitAt(8614.0f, 4599.5f), DropID.Gold100Candy);
-        FrenchmansEast.AddUnit(GetUnitAt(8324.5f, 4165.0f), DropID.Gold50Candy);
-        FrenchmansEast.AddUnit(GetUnitAt(8354.0f, 4412.5f), DropID.Aura);
+        FrenchmansEast.AddUnit(GetUnitAt(8083.0f, 6228.2f), DropID.HealRune);
+        FrenchmansEast.AddUnit(GetUnitAt(8392.2f, 6209.5f));
+        FrenchmansEast.AddUnit(GetUnitAt(7980.0f, 6423.0f), DropID.Gold100Candy);
+        FrenchmansEast.AddUnit(GetUnitAt(8510.0f, 6423.0f), DropID.Gold50Candy);
+        FrenchmansEast.AddUnit(GetUnitAt(8266.2f, 6430.8f), DropID.Aura);
 
         TempGroup = new CampGroup();
         TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSC2_DRAGONSPAWN, DropID.HealLesser));
@@ -131,6 +164,17 @@ public static class CampsTop
 
         TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMFS_COLD_ONE, DropID.Gold50Candy));
         TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMFS_COLD_ONE, DropID.Gold50Candy));
+        
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMCF_MUR_GUL_SNAGGLETOOTH));
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMCF_MUR_GUL_SNAGGLETOOTH));
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMTW_MUR_GUL_BRAWLER));
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NNMG_MUR_GUL_REAVER));
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NNMG_MUR_GUL_REAVER));
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NNMG_MUR_GUL_REAVER));
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSNP_SNAP_DRAGON));
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMRV_MUR_GUL_OVERSEER));
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMSC_MUR_GUL_SHADOWCASTER, DropID.Gold50Candy));
+        TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMMU_MUR_GUL_CHIEFTAIN, DropID.Gold100Candy));
 
         TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NHYD_HYDRA));
         TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NHYD_HYDRA));

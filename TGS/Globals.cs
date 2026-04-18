@@ -97,8 +97,8 @@ public static class Globals
         StartGoldMerger();
 
         Corner = new Point(-10000.0f, 8000.0f);
-        FrenchmansEndWest = GetUnitAt(-9216.0f, 4096.0f);
-        FrenchmansEndEast = GetUnitAt(8704.0f, 4160.0f);
+        FrenchmansEndWest = GetUnitAt(-8640.0f, 6528.0f);
+        FrenchmansEndEast = GetUnitAt(8256.0f, 6848.0f);
         RuinsShopWest = GetUnitAt(-9056.0f, -7136.0f);
         RuinsShopEast = GetUnitAt(9120.0f, -7136.0f);
         SetShopState(FrenchmansEndWest, false);
