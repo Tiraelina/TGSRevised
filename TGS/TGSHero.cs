@@ -86,6 +86,12 @@ public class TGSHero
                     ItemMods.CleaveCount += itemData.CleaveCount;
                     ItemMods.CleaveBonus += itemData.CleaveBonus;
                     ItemMods.EvasionChance += itemData.EvasionChance;
+                    foreach (OrbType Orb in itemData.OrbEffects)
+                    {
+                        ItemMods.OrbEffects.Add(Orb);
+                        AddOrb(Orb, 0);
+                        Console.WriteLine(Orb.ToString());
+                    }
                 }
             }
         }
@@ -109,6 +115,11 @@ public class TGSHero
         ItemMods.CleaveCount = 0;
         ItemMods.CleaveBonus = 0.0f;
         ItemMods.EvasionChance = 0.0f;
+        foreach (var Orb in ItemMods.OrbEffects)
+        {
+            RemoveOrb(Orb);
+        }
+        ItemMods.OrbEffects.Clear();
     }
 
     public int GetAttribute(AttributeType InType)
@@ -218,9 +229,17 @@ public class TGSHero
                 OrbLookup.Add(InOrbType, Orb);
                 break;
             }
-            case OrbType.Spawner:
+            case OrbType.BlackArrow:
             {
                 BlackArrow Orb = new();
+                Orb.Aquire(Unit, InOrbLevel);
+                Orbs.Add(Orb);
+                OrbLookup.Add(InOrbType, Orb);
+                break;
+            }
+            case OrbType.Ooze:
+            {
+                Ooze Orb = new();
                 Orb.Aquire(Unit, InOrbLevel);
                 Orbs.Add(Orb);
                 OrbLookup.Add(InOrbType, Orb);
@@ -357,28 +376,28 @@ public class TGSHero
             InTGSHero.RemoveOrb(InTGSHero.NormalAbilities[InSlot].OrbType);
         }
 
-        if (InAbility.AbilityIds[InSlot] == Constants.ABILITY_ANCA_CLEAVING_ATTACK_Q
-            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A04H_CLEAVING_ATTACK_W
-            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A04I_CLEAVING_ATTACK_E
-            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A04J_CLEAVING_ATTACK_R)
+        if (InAbility.AbilityIds[InSlot] == Constants.ABILITY_A03E_CLEAVING_ATTACK_Q
+            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A03F_CLEAVING_ATTACK_W
+            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A03G_CLEAVING_ATTACK_E
+            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A05L_CLEAVING_ATTACK_R)
         {
             InTGSHero.CleaveMultiTargets = 0;
             InTGSHero.AttackMultiTargets = InTGSHero.ItemMods.CleaveCount;
         }
 
-        if (InAbility.AbilityIds[InSlot] == Constants.ABILITY_AOCR_CRITICAL_STRIKE_Q
-            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A01D_CRITICAL_STRIKE_W
-            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A01E_CRITICAL_STRIKE_E
-            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A01F_CRITICAL_STRIKE_R)
+        if (InAbility.AbilityIds[InSlot] == Constants.ABILITY_A001_CRITICAL_STRIKE_Q
+            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A0J7_CRITICAL_STRIKE_W
+            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A0OC_CRITICAL_STRIKE_E
+            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A0OD_CRITICAL_STRIKE_R)
         {
             InTGSHero.CritChanceCrit = 0.0f;
             InTGSHero.AttackCritChance = InTGSHero.CritChanceBrawler;
         }
 
-        if (InAbility.AbilityIds[InSlot] == Constants.ABILITY_ANDB_DRUNKEN_BRAWLER_Q
-            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A04Q_DRUNKEN_BRAWLER_W
-            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A04R_DRUNKEN_BRAWLER_E
-            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A04S_DRUNKEN_BRAWLER_R)
+        if (InAbility.AbilityIds[InSlot] == Constants.ABILITY_A04H_DRUNKEN_BRAWLER_Q
+            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A04I_DRUNKEN_BRAWLER_W
+            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A04J_DRUNKEN_BRAWLER_E
+            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A0CG_DRUNKEN_BRAWLER_R)
         {
             InTGSHero.CritChanceBrawler = 0.0f;
             InTGSHero.EvasionBrawler = 0.0f;
@@ -386,10 +405,10 @@ public class TGSHero
             InTGSHero.AttackEvasionChance = InTGSHero.EvasionEvade + InTGSHero.ItemMods.EvasionChance;
         }
 
-        if (InAbility.AbilityIds[InSlot] == Constants.ABILITY_AEEV_EVASION_Q
-            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A03E_EVASION_W
-            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A03F_EVASION_E
-            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A03G_EVASION_R)
+        if (InAbility.AbilityIds[InSlot] == Constants.ABILITY_A01D_EVASION_Q
+            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A01E_EVASION_W
+            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A01F_EVASION_E
+            || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A0OE_EVASION_R)
         {
             InTGSHero.EvasionEvade = 0.0f;
             InTGSHero.AttackEvasionChance = InTGSHero.EvasionBrawler + InTGSHero.ItemMods.EvasionChance;

@@ -261,10 +261,10 @@ public static class Summons
         SummonIds.Add(UNIT_N012_GREATER_DARK_MINION_L10);
         AbilityIds.Clear();
         AbilityIds.Add(ABILITY_A0NT_BOOK_OF_THE_DEAD_X);
-        AbilityIds.Add(ABILITY_ANBA_BLACK_ARROW_Q);
-        AbilityIds.Add(ABILITY_A04B_BLACK_ARROW_W);
-        AbilityIds.Add(ABILITY_A04C_BLACK_ARROW_E);
-        AbilityIds.Add(ABILITY_A04D_BLACK_ARROW_R);
+        AbilityIds.Add(ABILITY_A06G_BLACK_ARROW_Q);
+        AbilityIds.Add(ABILITY_A06H_BLACK_ARROW_W);
+        AbilityIds.Add(ABILITY_A06I_BLACK_ARROW_E);
+        AbilityIds.Add(ABILITY_A0LW_BLACK_ARROW_R);
         new SummonScalar(SummonIds, AbilityIds,
             0.1f, 0.02f, 0.1f, 0.02f,
             0.1f, 0.02f, 0.1f, 0.02f,

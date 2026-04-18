@@ -14,7 +14,9 @@ public enum OrbType
 {
     None,
     Feedback,
-    Spawner,
+    // Spawner
+    BlackArrow,
+    Ooze,
     Shred,
     Damage,
     Slow,

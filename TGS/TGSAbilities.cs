@@ -122,8 +122,8 @@ public class TGSAbilities
             ABILITY_A010_BRILLIANCE_AURA_R);
         new NormalAbility("Chain Lightning", ITEM_I010_CHAIN_LIGHTNING_NUKE, ABILITY_A0LI_CHAIN_LIGHTNING_Q, ABILITY_A0LM_CHAIN_LIGHTNING_W, ABILITY_A0LN_CHAIN_LIGHTNING_E,
             ABILITY_A0LO_CHAIN_LIGHTNING_R);
-        new NormalAbility("Critical Strike", ITEM_I00U_CRITICAL_STRIKE_PASSIVE, ABILITY_AOCR_CRITICAL_STRIKE_Q, ABILITY_A01D_CRITICAL_STRIKE_W, ABILITY_A01E_CRITICAL_STRIKE_E,
-            ABILITY_A01F_CRITICAL_STRIKE_R);
+        new NormalAbility("Critical Strike", ITEM_I00U_CRITICAL_STRIKE_PASSIVE, ABILITY_A001_CRITICAL_STRIKE_Q, ABILITY_A0J7_CRITICAL_STRIKE_W, ABILITY_A0OC_CRITICAL_STRIKE_E,
+            ABILITY_A0OD_CRITICAL_STRIKE_R);
         new NormalAbility("Endurance Aura", ITEM_I00Y_ENDURANCE_AURA_AURA, ABILITY_AOAE_ENDURANCE_AURA_Q, ABILITY_A01G_ENDURANCE_AURA_W, ABILITY_A01H_ENDURANCE_AURA_E, ABILITY_A01I_ENDURANCE_AURA_R);
         NormalAbility Farsight = new NormalAbility("Far Sight", ITEM_I011_FAR_SIGHT_UTILITY, ABILITY_AOFS_FAR_SIGHT_Q, ABILITY_A01J_FAR_SIGHT_W, ABILITY_A01K_FAR_SIGHT_E, ABILITY_A01L_FAR_SIGHT_R);
         Farsight.MaxLevel = 3; // Far Sight only has 3 levels
@@ -142,7 +142,7 @@ public class TGSAbilities
         new NormalAbility("Chain Death Coil", ITEM_I02D_CHAIN_DEATH_COIL_UTILITY, ABILITY_A065_CHAIN_DEATH_COIL_Q, ABILITY_A06A_CHAIN_DEATH_COIL_W, ABILITY_A06B_CHAIN_DEATH_COIL_E,
             ABILITY_A06C_CHAIN_DEATH_COIL_R);
         new NormalAbility("Death Pact", ITEM_I019_DEATH_PACT_UTILITY, ABILITY_AUDP_DEATH_PACT_Q, ABILITY_A02M_DEATH_PACT_W, ABILITY_A02N_DEATH_PACT_E, ABILITY_A02O_DEATH_PACT_R);
-        new NormalAbility("Feedback", ITEM_I07Z_FEEDBACK_PASSIVE, ABILITY_A0LW_FEEDBACK_Q, ABILITY_A06G_FEEDBACK_W, ABILITY_A06H_FEEDBACK_E, ABILITY_A06I_FEEDBACK_R, OrbType.Feedback);
+        new NormalAbility("Feedback", ITEM_I07Z_FEEDBACK_PASSIVE, ABILITY_A04Q_FEEDBACK_Q, ABILITY_A04R_FEEDBACK_W, ABILITY_A04S_FEEDBACK_E, ABILITY_A0OF_FEEDBACK_R, OrbType.Feedback);
         new NormalAbility("Frost Armor", ITEM_I01H_FROST_ARMOR_AUTOCAST, ABILITY_AUFU_FROST_ARMOR_AUTOCAST_Q, ABILITY_A02P_FROST_ARMOR_AUTOCAST_W, ABILITY_A02Q_FROST_ARMOR_AUTOCAST_E,
             ABILITY_A02R_FROST_ARMOR_AUTOCAST_R);
         new NormalAbility("Frost Nova", ITEM_I01G_FROST_NOVA_NUKE, ABILITY_AUFN_FROST_NOVA_Q, ABILITY_A02S_FROST_NOVA_W, ABILITY_A02T_FROST_NOVA_E, ABILITY_A02U_FROST_NOVA_R);
@@ -154,7 +154,7 @@ public class TGSAbilities
         new NormalAbility("Unholy Aura", ITEM_I01A_DEPRESSION_AURA_AURA, ABILITY_A037_UNHOLY_AURA_Q, ABILITY_A038_UNHOLY_AURA_W, ABILITY_A039_UNHOLY_AURA_E, ABILITY_A03A_UNHOLY_AURA_R);
         new NormalAbility("Entangling Roots", ITEM_I00K_ENTANGLING_ROOTS_NUKE, ABILITY_A00R_ENTANGLING_ROOTS_Q, ABILITY_A00P_ENTANGLING_ROOTS_W, ABILITY_A07M_ENTANGLING_ROOTS_E,
             ABILITY_A07O_ENTANGLING_ROOTS_R);
-        new NormalAbility("Evasion", ITEM_I00E_EVASION_PASSIVE, ABILITY_AEEV_EVASION_Q, ABILITY_A03E_EVASION_W, ABILITY_A03F_EVASION_E, ABILITY_A03G_EVASION_R);
+        new NormalAbility("Evasion", ITEM_I00E_EVASION_PASSIVE, ABILITY_A01D_EVASION_Q, ABILITY_A01E_EVASION_W, ABILITY_A01F_EVASION_E, ABILITY_A0OE_EVASION_R);
         new NormalAbility("Diffusion Flare", ITEM_I091_DIFFUSION_FLARE_UTILITY, ABILITY_A0FL_DIFFUSION_FLARE_Q, ABILITY_A03H_DIFFUSION_FLARE_W, ABILITY_A03I_DIFFUSION_FLARE_E,
             ABILITY_A03J_DIFFUSION_FLARE_R);
         new NormalAbility("Fan of Knives", ITEM_I00O_FAN_OF_KNIVES_NUKE, ABILITY_AEFK_FAN_OF_KNIVES_Q, ABILITY_A03K_FAN_OF_KNIVES_W, ABILITY_A03L_FAN_OF_KNIVES_E, ABILITY_A03M_FAN_OF_KNIVES_R);
@@ -168,16 +168,16 @@ public class TGSAbilities
         new NormalAbility("Thorns Aura", ITEM_I00M_THORNS_AURA_AURA, ABILITY_AEAH_THORNS_AURA_Q, ABILITY_A042_THORNS_AURA_W, ABILITY_A043_THORNS_AURA_E, ABILITY_A044_THORNS_AURA_R);
         new NormalAbility("Trueshot Aura", ITEM_I00I_TRUESHOT_AURA_AURA, ABILITY_AEAR_TRUESHOT_AURA_Q, ABILITY_A045_TRUESHOT_AURA_W, ABILITY_A046_TRUESHOT_AURA_E, ABILITY_A047_TRUESHOT_AURA_R);
         new NormalAbility("Acid Bomb", ITEM_I08U_ACID_BOMB_ACTIVE, ABILITY_ANAB_ACID_BOMB_Q, ABILITY_A048_ACID_BOMB_W, ABILITY_A049_ACID_BOMB_E, ABILITY_A04A_ACID_BOMB_R);
-        new NormalAbility("Black Arrow", ITEM_I01T_BLACK_ARROW_AUTOCAST, ABILITY_ANBA_BLACK_ARROW_Q, ABILITY_A04B_BLACK_ARROW_W, ABILITY_A04C_BLACK_ARROW_E, ABILITY_A04D_BLACK_ARROW_R, OrbType.Spawner);
+        new NormalAbility("Black Arrow", ITEM_I01T_BLACK_ARROW_AUTOCAST, ABILITY_A06G_BLACK_ARROW_Q, ABILITY_A06H_BLACK_ARROW_W, ABILITY_A06I_BLACK_ARROW_E, ABILITY_A0LW_BLACK_ARROW_R, OrbType.BlackArrow);
         new NormalAbility("Breath of Fire", ITEM_I01W_BREATH_OF_FIRE_ACTIVE, ABILITY_ANBF_BREATH_OF_FIRE_Q, ABILITY_A04E_BREATH_OF_FIRE_W, ABILITY_A04F_BREATH_OF_FIRE_E,
             ABILITY_A04G_BREATH_OF_FIRE_R);
-        new NormalAbility("Cleaving Attack", ITEM_I027_CLEAVING_ATTACK_PASSIVE, ABILITY_ANCA_CLEAVING_ATTACK_Q, ABILITY_A04H_CLEAVING_ATTACK_W, ABILITY_A04I_CLEAVING_ATTACK_E,
-            ABILITY_A04J_CLEAVING_ATTACK_R);
+        new NormalAbility("Cleaving Attack", ITEM_I027_CLEAVING_ATTACK_PASSIVE, ABILITY_A03E_CLEAVING_ATTACK_Q, ABILITY_A03F_CLEAVING_ATTACK_W, ABILITY_A03G_CLEAVING_ATTACK_E,
+            ABILITY_A05L_CLEAVING_ATTACK_R);
         new NormalAbility("Cluster Rockets", ITEM_I08M_CLUSTER_ROCKETS_NUKE, ABILITY_ANCS_CLUSTER_ROCKETS_Q, ABILITY_A04K_CLUSTER_ROCKETS_W, ABILITY_A04L_CLUSTER_ROCKETS_E,
             ABILITY_A04M_CLUSTER_ROCKETS_R);
         new NormalAbility("Cold Arrows", ITEM_I01P_COLD_ARROWS_AUTOCAST, ABILITY_AHCA_COLD_ARROWS_Q, ABILITY_A04N_COLD_ARROWS_W, ABILITY_A04O_COLD_ARROWS_E, ABILITY_A04P_COLD_ARROWS_R);
-        new NormalAbility("Drunken Brawler", ITEM_I01Y_DRUNKEN_BRAWLER_PASSIVE, ABILITY_ANDB_DRUNKEN_BRAWLER_Q, ABILITY_A04Q_DRUNKEN_BRAWLER_W, ABILITY_A04R_DRUNKEN_BRAWLER_E,
-            ABILITY_A04S_DRUNKEN_BRAWLER_R);
+        new NormalAbility("Drunken Brawler", ITEM_I01Y_DRUNKEN_BRAWLER_PASSIVE, ABILITY_A04H_DRUNKEN_BRAWLER_Q, ABILITY_A04I_DRUNKEN_BRAWLER_W, ABILITY_A04J_DRUNKEN_BRAWLER_E,
+            ABILITY_A0CG_DRUNKEN_BRAWLER_R);
         new NormalAbility("Drunken Haze", ITEM_I01X_DRUNKEN_HAZE_ACTIVE, ABILITY_ANDH_DRUNKEN_HAZE_Q, ABILITY_A04T_DRUNKEN_HAZE_W, ABILITY_A04U_DRUNKEN_HAZE_E, ABILITY_A04V_DRUNKEN_HAZE_R);
         new NormalAbility("Engineering Upgrade", ITEM_I08N_ENGINEERING_UPGRADE_PASSIVE, ABILITY_ANEG_ENGINEERING_UPGRADE_Q, ABILITY_A04W_ENGINEERING_UPGRADE_W, ABILITY_A04X_ENGINEERING_UPGRADE_E,
             ABILITY_A04Y_ENGINEERING_UPGRADE_R);
@@ -511,27 +511,27 @@ public class NormalAbility : ILearnedAbility
                 InTGSHero.AddOrb(OrbType, InTGSHero.SlotLevels[TargetSlot]);
             }
 
-            if (AbilityIds[TargetSlot] == ABILITY_ANCA_CLEAVING_ATTACK_Q
-                || AbilityIds[TargetSlot] == ABILITY_A04H_CLEAVING_ATTACK_W
-                || AbilityIds[TargetSlot] == ABILITY_A04I_CLEAVING_ATTACK_E
-                || AbilityIds[TargetSlot] == ABILITY_A04J_CLEAVING_ATTACK_R)
+            if (AbilityIds[TargetSlot] == ABILITY_A03E_CLEAVING_ATTACK_Q
+                || AbilityIds[TargetSlot] == ABILITY_A03F_CLEAVING_ATTACK_W
+                || AbilityIds[TargetSlot] == ABILITY_A03G_CLEAVING_ATTACK_E
+                || AbilityIds[TargetSlot] == ABILITY_A05L_CLEAVING_ATTACK_R)
             {
                 InTGSHero.AttackMultiTargets = InTGSHero.ItemMods.CleaveCount + Math.Max(2, InTGSHero.SlotLevels[TargetSlot] / 2);
             }
 
-            if (AbilityIds[TargetSlot] == ABILITY_AOCR_CRITICAL_STRIKE_Q
-                || AbilityIds[TargetSlot] == ABILITY_A01D_CRITICAL_STRIKE_W
-                || AbilityIds[TargetSlot] == ABILITY_A01E_CRITICAL_STRIKE_E
-                || AbilityIds[TargetSlot] == ABILITY_A01F_CRITICAL_STRIKE_R)
+            if (AbilityIds[TargetSlot] == ABILITY_A001_CRITICAL_STRIKE_Q
+                || AbilityIds[TargetSlot] == ABILITY_A0J7_CRITICAL_STRIKE_W
+                || AbilityIds[TargetSlot] == ABILITY_A0OC_CRITICAL_STRIKE_E
+                || AbilityIds[TargetSlot] == ABILITY_A0OD_CRITICAL_STRIKE_R)
             {
                 InTGSHero.CritChanceCrit = 0.05f * InTGSHero.SlotLevels[TargetSlot];
                 InTGSHero.AttackCritChance = InTGSHero.CritChanceCrit + InTGSHero.CritChanceBrawler;
             }
 
-            if (AbilityIds[TargetSlot] == ABILITY_ANDB_DRUNKEN_BRAWLER_Q
-                || AbilityIds[TargetSlot] == ABILITY_A04Q_DRUNKEN_BRAWLER_W
-                || AbilityIds[TargetSlot] == ABILITY_A04R_DRUNKEN_BRAWLER_E
-                || AbilityIds[TargetSlot] == ABILITY_A04S_DRUNKEN_BRAWLER_R)
+            if (AbilityIds[TargetSlot] == ABILITY_A04H_DRUNKEN_BRAWLER_Q
+                || AbilityIds[TargetSlot] == ABILITY_A04I_DRUNKEN_BRAWLER_W
+                || AbilityIds[TargetSlot] == ABILITY_A04J_DRUNKEN_BRAWLER_E
+                || AbilityIds[TargetSlot] == ABILITY_A0CG_DRUNKEN_BRAWLER_R)
             {
                 InTGSHero.CritChanceBrawler = 0.05f + Math.Max(0.01f, InTGSHero.SlotLevels[TargetSlot] / 2.0f);
                 InTGSHero.AttackCritChance = InTGSHero.CritChanceCrit + InTGSHero.CritChanceBrawler;
@@ -539,10 +539,10 @@ public class NormalAbility : ILearnedAbility
                 InTGSHero.AttackEvasionChance = InTGSHero.EvasionEvade + InTGSHero.EvasionBrawler + InTGSHero.ItemMods.EvasionChance;
             }
 
-            if (AbilityIds[TargetSlot] == ABILITY_AEEV_EVASION_Q
-                || AbilityIds[TargetSlot] == ABILITY_A03E_EVASION_W
-                || AbilityIds[TargetSlot] == ABILITY_A03F_EVASION_E
-                || AbilityIds[TargetSlot] == ABILITY_A03G_EVASION_R)
+            if (AbilityIds[TargetSlot] == ABILITY_A01D_EVASION_Q
+                || AbilityIds[TargetSlot] == ABILITY_A01E_EVASION_W
+                || AbilityIds[TargetSlot] == ABILITY_A01F_EVASION_E
+                || AbilityIds[TargetSlot] == ABILITY_A0OE_EVASION_R)
             {
                 InTGSHero.EvasionEvade = 0.09f + (0.01f * InTGSHero.SlotLevels[TargetSlot]);
                 InTGSHero.AttackEvasionChance = InTGSHero.EvasionEvade + InTGSHero.EvasionBrawler + InTGSHero.ItemMods.EvasionChance;
@@ -579,27 +579,27 @@ public class NormalAbility : ILearnedAbility
             }
         }
 
-        if (AbilityIds[InSlot] == ABILITY_ANCA_CLEAVING_ATTACK_Q
-            || AbilityIds[InSlot] == ABILITY_A04H_CLEAVING_ATTACK_W
-            || AbilityIds[InSlot] == ABILITY_A04I_CLEAVING_ATTACK_E
-            || AbilityIds[InSlot] == ABILITY_A04J_CLEAVING_ATTACK_R)
+        if (AbilityIds[InSlot] == ABILITY_A03E_CLEAVING_ATTACK_Q
+            || AbilityIds[InSlot] == ABILITY_A03F_CLEAVING_ATTACK_W
+            || AbilityIds[InSlot] == ABILITY_A03G_CLEAVING_ATTACK_E
+            || AbilityIds[InSlot] == ABILITY_A05L_CLEAVING_ATTACK_R)
         {
             InTGSHero.AttackMultiTargets = InTGSHero.ItemMods.CleaveCount + Math.Max(2, InTGSHero.SlotLevels[InSlot] / 2);
         }
 
-        if (AbilityIds[InSlot] == ABILITY_AOCR_CRITICAL_STRIKE_Q
-            || AbilityIds[InSlot] == ABILITY_A01D_CRITICAL_STRIKE_W
-            || AbilityIds[InSlot] == ABILITY_A01E_CRITICAL_STRIKE_E
-            || AbilityIds[InSlot] == ABILITY_A01F_CRITICAL_STRIKE_R)
+        if (AbilityIds[InSlot] == ABILITY_A001_CRITICAL_STRIKE_Q
+            || AbilityIds[InSlot] == ABILITY_A0J7_CRITICAL_STRIKE_W
+            || AbilityIds[InSlot] == ABILITY_A0OC_CRITICAL_STRIKE_E
+            || AbilityIds[InSlot] == ABILITY_A0OD_CRITICAL_STRIKE_R)
         {
             InTGSHero.CritChanceCrit = 0.05f * InTGSHero.SlotLevels[InSlot];
             InTGSHero.AttackCritChance = InTGSHero.CritChanceCrit + InTGSHero.CritChanceBrawler;
         }
 
-        if (AbilityIds[InSlot] == ABILITY_ANDB_DRUNKEN_BRAWLER_Q
-            || AbilityIds[InSlot] == ABILITY_A04Q_DRUNKEN_BRAWLER_W
-            || AbilityIds[InSlot] == ABILITY_A04R_DRUNKEN_BRAWLER_E
-            || AbilityIds[InSlot] == ABILITY_A04S_DRUNKEN_BRAWLER_R)
+        if (AbilityIds[InSlot] == ABILITY_A04H_DRUNKEN_BRAWLER_Q
+            || AbilityIds[InSlot] == ABILITY_A04I_DRUNKEN_BRAWLER_W
+            || AbilityIds[InSlot] == ABILITY_A04J_DRUNKEN_BRAWLER_E
+            || AbilityIds[InSlot] == ABILITY_A0CG_DRUNKEN_BRAWLER_R)
         {
             InTGSHero.CritChanceBrawler = 0.05f + Math.Max(0.01f, InTGSHero.SlotLevels[InSlot] / 2.0f);
             InTGSHero.AttackCritChance = InTGSHero.CritChanceCrit + InTGSHero.CritChanceBrawler;
@@ -607,10 +607,10 @@ public class NormalAbility : ILearnedAbility
             InTGSHero.AttackEvasionChance = InTGSHero.EvasionEvade + InTGSHero.EvasionBrawler + InTGSHero.ItemMods.EvasionChance;
         }
 
-        if (AbilityIds[InSlot] == ABILITY_AEEV_EVASION_Q
-            || AbilityIds[InSlot] == ABILITY_A03E_EVASION_W
-            || AbilityIds[InSlot] == ABILITY_A03F_EVASION_E
-            || AbilityIds[InSlot] == ABILITY_A03G_EVASION_R)
+        if (AbilityIds[InSlot] == ABILITY_A01D_EVASION_Q
+            || AbilityIds[InSlot] == ABILITY_A01E_EVASION_W
+            || AbilityIds[InSlot] == ABILITY_A01F_EVASION_E
+            || AbilityIds[InSlot] == ABILITY_A0OE_EVASION_R)
         {
             InTGSHero.EvasionEvade = 0.09f + (0.01f * InTGSHero.SlotLevels[InSlot]);
             InTGSHero.AttackEvasionChance = InTGSHero.EvasionEvade + InTGSHero.EvasionBrawler + InTGSHero.ItemMods.EvasionChance;

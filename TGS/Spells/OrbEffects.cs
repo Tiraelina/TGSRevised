@@ -151,6 +151,59 @@ public class BlackArrowBuff : PassiveBuff
     }
 }
 
+public class Ooze : IOrbEffect
+{
+    private float DamageBonus = 25.0f;
+    public unit Owner { get; set; }
+    public int Level { get; set; }
+    public effect WeaponEffect { get; set; }
+
+    public void Aquire(unit InOwner, int InLevel)
+    {
+        Owner = InOwner;
+        Level = 6;
+        WeaponEffect = effect.Create(@"Abilities\Spells\Items\OrbDarkness\OrbDarkness.mdl", Owner, "weapon");
+    }
+
+    public void Remove()
+    {
+        WeaponEffect.Dispose();
+    }
+
+    public void OnHit(unit Source, unit Target, ref float Damage)
+    {
+        var ASS = new OozeBuff(Source, Target, Level);
+        BuffSystem.Add(ASS, StackBehaviour.StackPlayer);
+        Damage += DamageBonus * Level;
+        AddSpecialEffectTarget(@"Abilities\Spells\Other\BlackArrow\BlackArrowMissile.mdl", Target, "origin").Dispose();
+    }
+
+    public string GetName()
+    {
+        return $"Ooze Level {Level}";
+    }
+}
+
+public class OozeBuff : PassiveBuff
+{
+    private float DurationBase = 6.0f;
+    private float LifespanBase = 600.0f;
+    private int Level;
+    public OozeBuff(unit caster, unit target, int InLevel) : base(caster, target)
+    {
+        Level = 6;
+        Duration = DurationBase;
+    }
+
+    public override void OnDeath(bool bKillingBlow)
+    {
+        unit Ooze = unit.Create(Caster.Owner, UNIT_N02H_SHADOW_OOZE_SHADOW_ORB, Target.X, Target.Y);
+        Ooze.ApplyTimedLife(FourCC("BTLF"), LifespanBase);
+        Summons.ScaleSummon(Caster, Ooze);
+
+    }
+}
+
 public class Pillage : IOrbEffect
 {
     private float Step = 1.0f;

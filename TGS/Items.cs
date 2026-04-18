@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TGS.Spells;
 using WCSharp.Api;
 using WCSharp.Events;
 using static Constants;
@@ -11,7 +12,7 @@ namespace TGS;
 
 public class ItemData
 {
-    public ItemData(int ItemId, float attackSpeed, float healthRegen, float manaRegen, float baseDamage, float spellBonus, int cleaveCount = 0, float cleaveBonus = 0.0f, float evasionChance = 0.0f)
+    public ItemData(int ItemId, float attackSpeed, float healthRegen, float manaRegen, float baseDamage, float spellBonus, int cleaveCount = 0, float cleaveBonus = 0.0f, float evasionChance = 0.0f, List<OrbType> InOrbEffects = null)
     {
         AttackSpeed = attackSpeed;
         HealthRegen = healthRegen;
@@ -21,6 +22,10 @@ public class ItemData
         CleaveCount = cleaveCount;
         CleaveBonus = cleaveBonus;
         EvasionChance = evasionChance;
+        if (InOrbEffects != null)
+        {
+            OrbEffects = InOrbEffects;
+        }
         Items.ItemLookup.Add(ItemId, this);
     }
     public ItemData()
@@ -43,6 +48,7 @@ public class ItemData
     public int CleaveCount { get; set; }
     public float CleaveBonus { get; set; }
     public float EvasionChance { get; set; }
+    public List<OrbType> OrbEffects = new();
 }
 
 public static class Items
@@ -116,6 +122,10 @@ public static class Items
             , 0.0f, 8.0f, 0.0f, 0.0f, 0.0f);
         new ItemData(ITEM_KYSN_LONGBOW
             , 25.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+        List<OrbType> OrbEffects = new();
+        OrbEffects.Add(OrbType.Ooze);
+        new ItemData(ITEM_ODEF_ORB_OF_SHADOWS
+            , 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0, 0.0f, 0.0f, OrbEffects);
     }
 
     public static void Init()
