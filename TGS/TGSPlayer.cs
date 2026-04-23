@@ -72,6 +72,7 @@ public class TGSPlayer
         TGSHeroData = new TGSHero(Hero, Player);
         HeroId = Hero.UnitType;
         Hero.AddAbility(ABILITY_A0JU_RETURN);
+        Hero.SetAbilityPermanent(ABILITY_A0JU_RETURN, true);
         Player.Lumber += 6;
         PassiveEnabler = unit.Create(Player, UNIT_O003_PASSIVE_BUSTER_TO_WEAR_OFF, Corner.X, Corner.Y);
 

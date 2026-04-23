@@ -103,42 +103,30 @@ public class TGSHero
 
     public void UpdateTooltips()
     {
-        if (GetLocalPlayer() == Owner)
+        foreach (NormalAbility Ability in NormalAbilities)
         {
-            foreach (NormalAbility Ability in NormalAbilities)
+            if (Ability != null)
             {
-                if (Ability != null)
-                {
-                    Ability.UpdateTooltip(Ability, Unit);
-                }
+                Ability.UpdateTooltip(Ability, Unit);
             }
-            Special.UpdateTooltip(Special, Unit);
-            Ultimate.UpdateTooltip(Ultimate, Unit);
         }
+        Special.UpdateTooltip(Special, Unit);
+        Ultimate.UpdateTooltip(Ultimate, Unit);
     }
 
     public void UpdateTooltip(NormalAbility Ability)
     {
-        if (GetLocalPlayer() == Owner)
-        {
-            Ability.UpdateTooltip(Ability, Unit);
-        }
+        Ability.UpdateTooltip(Ability, Unit);
     }
 
     public void UpdateTooltip(SpecialAbility Ability)
     {
-        if (GetLocalPlayer() == Owner)
-        {
-            Special.UpdateTooltip(Special, Unit);
-        }
+        Ability.UpdateTooltip(Ability, Unit);
     }
 
     public void UpdateTooltip(UltimateAbility Ability)
     {
-        if (GetLocalPlayer() == Owner)
-        {
-            Ultimate.UpdateTooltip(Ultimate, Unit);
-        }
+        Ability.UpdateTooltip(Ability, Unit);
     }
 
     public void ResetItemStats()
@@ -405,6 +393,7 @@ public class TGSHero
     private static void UnlearnNormal(TGSHero InTGSHero, int InSlot, NormalAbility InAbility)
     {
         InTGSHero.Owner.Lumber += NormalAbility.LumberCost - 1;
+        InTGSHero.Unit.SetAbilityPermanent(InAbility.AbilityIds[InSlot], false);
         InTGSHero.Unit.RemoveAbility(InAbility.AbilityIds[InSlot]);
         if (InTGSHero.NormalAbilities[InSlot].OrbType != OrbType.None)
         {
@@ -456,6 +445,7 @@ public class TGSHero
     private static void UnlearnSpecial(TGSHero InTGSHero, SpecialAbility InAbility)
     {
         InTGSHero.Owner.Lumber += SpecialAbility.LumberCost - 1;
+        InTGSHero.Unit.SetAbilityPermanent(InAbility.AbilityId, false);
         InTGSHero.Unit.RemoveAbility(InAbility.AbilityId);
         InTGSHero.Special = null;
         UnlearnMessage(InTGSHero, InAbility.Name);
@@ -470,6 +460,7 @@ public class TGSHero
         }
 
         InTGSHero.Owner.Lumber += UltimateAbility.LumberCost - 1;
+        InTGSHero.Unit.SetAbilityPermanent(InAbility.AbilityId, false);
         InTGSHero.Unit.RemoveAbility(InAbility.AbilityId);
         InTGSHero.Ultimate = null;
         UnlearnMessage(InTGSHero, InAbility.Name);

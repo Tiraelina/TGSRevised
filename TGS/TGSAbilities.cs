@@ -533,6 +533,7 @@ public class NormalAbility : ILearnedAbility
             InTGSHero.SlotLevels[TargetSlot] = Math.Max(1, InTGSHero.SlotLevels[TargetSlot]);
             InTGSHero.Unit.AddAbility(AbilityIds[TargetSlot]);
             InTGSHero.Unit.SetAbilityLevel(AbilityIds[TargetSlot], InTGSHero.SlotLevels[TargetSlot]);
+            InTGSHero.Unit.SetAbilityPermanent(AbilityIds[TargetSlot], true);
             InTGSHero.UpdateTooltip(this);
             LearnMessage(InTGSHero, TargetSlot);
             if (OrbType != OrbType.None)
