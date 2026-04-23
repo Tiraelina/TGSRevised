@@ -7,7 +7,7 @@ namespace TGS;
 
 public static class Color
 { 
-    public static string Good  = "|cff0000ff";
+    public static string Good  = "|cff00ff00";
     public static string Bad   = "|cffff0000";
-    public static string Info  = "|cffff0000";
+    public static string Info  = "|cffffff00";
 }
