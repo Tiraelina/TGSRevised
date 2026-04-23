@@ -21,7 +21,7 @@ public class Feedback : IOrbEffect
     {
         Owner = InOwner;
         Level = InLevel;
-        effect.Create(@"Abilities\Spells\Items\AIlb\AIlbTarget.mdl", Owner, "weapon");
+        WeaponEffect = effect.Create(@"Abilities\Spells\Items\AIlb\AIlbTarget.mdl", Owner, "weapon");
     }
 
     public void Remove()
