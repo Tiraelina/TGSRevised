@@ -4,6 +4,7 @@ using WCSharp.Api.Enums;
 using WCSharp.Buffs;
 using static TGS.Util;
 using static Constants;
+using static TGS.TextTags;
 using static WCSharp.Api.Common;
 
 namespace TGS.Spells;

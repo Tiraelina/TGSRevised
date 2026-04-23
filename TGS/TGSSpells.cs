@@ -11,6 +11,7 @@ using WCSharp.Shared;
 using WCSharp.Shared.Extensions;
 using static TGS.Globals;
 using static Constants;
+using static TGS.TextTags;
 using static TGS.Util;
 using static WCSharp.Api.Common;
 using static WCSharp.Api.Blizzard;

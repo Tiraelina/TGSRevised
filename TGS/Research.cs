@@ -4,6 +4,7 @@ using WCSharp.Api;
 using WCSharp.Events;
 using static TGS.Globals;
 using static Constants;
+using static TGS.TextTags;
 using static TGS.Util;
 using static WCSharp.Api.Common;
 using static WCSharp.Api.Blizzard;
@@ -127,12 +128,14 @@ public static class Research
 
     private static void ResearchTickAction()
     {
+        MakeTag(5.0f, HumCastle, TagType.Research);
         if ((HumResearch += 5) >= 180 && HumResearchCurrent <= HumResearchMax)
         {
             ResearchTech.Upgrade(HumResearchCurrent += 1, ArmyForce.Alliance);
             HumResearch -= 180;
         }
 
+        MakeTag(5.0f, OrcCastle, TagType.Research);
         if ((OrcResearch += 5) >= 180 && OrcResearchCurrent <= OrcResearchMax)
         {
             ResearchTech.Upgrade(OrcResearchCurrent += 1, ArmyForce.Horde);
@@ -192,14 +195,19 @@ public static class Research
         // Research
         if (GetDyingUnit().Owner == player.Create(PLAYER_NEUTRAL_AGGRESSIVE))
         {
+            // I'm pretty sure creeps can't kill creeps so...
+            int ResearchIncrease = Math.Max(1, GetDyingUnit().Level * 2);
+            MakeTag(ResearchIncrease, GetDyingUnit(), TagType.Research);
             if (Human.Contains(GetKillingUnit().Owner))
             {
-                HumResearch += Math.Max(1, GetDyingUnit().Level * 2);
+                HumResearch += ResearchIncrease;
+                return;
             }
 
             if (Orc.Contains(GetKillingUnit().Owner))
             {
-                OrcResearch += Math.Max(1, GetDyingUnit().Level * 2);
+                OrcResearch += ResearchIncrease;
+                return;
             }
         }
     }

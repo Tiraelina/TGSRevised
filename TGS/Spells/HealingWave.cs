@@ -2,6 +2,7 @@
 using WCSharp.Lightnings;
 using WCSharp.Missiles;
 using WCSharp.Shared.Extensions;
+using static TGS.TextTags;
 using static TGS.Util;
 using static WCSharp.Api.Common;
 
