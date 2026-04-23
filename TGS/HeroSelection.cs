@@ -45,8 +45,9 @@ public static class HeroSelection
         CircleToHero.Add(GetUnitAt(-10624.0f, 12096.0f), GetUnitAt(-10766.8f, 12173.8f));
         CircleToHero.Add(GetUnitAt(-10560.0f, 12288.0f), GetUnitAt(-10659.2f, 12375.2f));
         CircleToHero.Add(GetUnitAt(-10304.0f, 12544.0f), GetUnitAt(-10385.5f, 12685.8f));
-        CircleToHero.Add(GetUnitAt(-10112.0f, 12608.0f), GetUnitAt(-10134.5f, 12748.0f));
-        CircleToHero.Add(GetUnitAt(-10432.0f, 12416.0f), GetUnitAt(-10530.5f, 12536.5f));
+        CircleToHero.Add(GetUnitAt(-10112.0f, 12608.0f), GetUnitAt(-10138.5f, 12737.0f));
+        CircleToHero.Add(GetUnitAt(-10432.0f, 12416.0f), GetUnitAt(-10513.5f, 12518.2f));
+        CircleToHero.Add(GetUnitAt(-10688.0f, 11904.0f), GetUnitAt(-10832.2f, 11901.8f));
 
         //ORC — circle → hero
         CircleToHero.Add(GetUnitAt(10368.0f, 12096.0f), GetUnitAt(10390.0f, 12223.8f));
