@@ -170,7 +170,7 @@ internal struct SelectedHero
     public unit Circle { get; init; }
     public bool bSelected { get; init; } = false;
 
-    public SelectedHero(unit hero, unit circle)
+    public SelectedHero(unit circle, unit hero)
     {
         Hero = hero;
         Circle = circle;
