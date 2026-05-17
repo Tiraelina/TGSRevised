@@ -85,7 +85,7 @@ public class Factory
         foreach (int CreepId in SpawnedCreeps)
         {
             unit Creep = unit.Create(Owner, CreepId, Location.X, Location.Y);
-            NegateBounty(Creep);
+            Creep.NegateBounty();
         }
 
         SpawnedCreeps.Clear();

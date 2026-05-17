@@ -49,7 +49,7 @@ public static class Util
                 TriggerPlayer.DisplayTextTo($"|cffffcc00Factory State:|r {Army.FactoryLookup[GetTriggerUnit()].State.ToString()}");
                 foreach (FactorySpawn Spawn in Army.FactoryLookup[GetTriggerUnit()].SpawnedUnits)
                 {
-                    Console.WriteLine($"I spawn {Spawn.Count} {Id2String(Spawn.UnitId)}.");
+                    Console.WriteLine($"I spawn {Spawn.Count} {Spawn.UnitId.Id2String()}.");
                 }
             }
         });
@@ -117,7 +117,7 @@ public static class Util
         };
     }
 
-    public static void NegateBounty(unit InUnit)
+    public static void NegateBounty(this unit InUnit)
     {
         InUnit.GoldBountyAwardedBase = 0;
         InUnit.GoldBountyAwardedNumberOfDice = 0;
@@ -127,17 +127,18 @@ public static class Util
         InUnit.LumberBountyAwardedSidesPerDie = 0;
     }
 
-    public static string Id2String(int id)
+    public static string Id2String(this int InFourCC)
     {
-        char[] FourCC = new char[4];
-        FourCC[0] = (char)((id >> 24) & 0xFF);
-        FourCC[1] = (char)((id >> 16) & 0xFF);
-        FourCC[2] = (char)((id >> 8) & 0xFF);
-        FourCC[3] = (char)(id & 0xFF);
-        return new string(FourCC).TrimEnd('\0');
+        char C1 = (char)((InFourCC >> 24) & 0xFF);
+        char C2 = (char)((InFourCC >> 16) & 0xFF);
+        char C3 = (char)((InFourCC >> 8) & 0xFF);
+        char C4 = (char)(InFourCC & 0xFF);
+        string FourCC = $"{C1}{C2}{C3}{C4}";
+        
+        return FourCC.ToUpper();
     }
 
-    public static void SetShopState(unit Shop, bool Enabled)
+    public static void SetShopState(this unit Shop, bool Enabled)
     {
         Shop.NeutralBuildingShowsMinimapIcon = Enabled;
         Shop.DisableAbility(ABILITY_ANEU_SELECT_HERO, !Enabled, !Enabled);
@@ -169,12 +170,12 @@ public static class Util
         }
     }
 
-    public static bool IsHumUnit(unit KillingUnit)
+    public static bool IsHumUnit(this unit KillingUnit)
     {
         return IsPlayerAlly(GetOwningPlayer(KillingUnit), Player(5));
     }
 
-    public static bool IsTopCreepGroup(unit TargetUnit)
+    public static bool IsTopCreepGroup(this unit TargetUnit)
     {
         Camp Camp = CreepCamp.GetCampForUnit(TargetUnit).Camp;
         switch (Camp)
@@ -192,12 +193,12 @@ public static class Util
         }
     }
 
-    public static bool IsTopCreep(unit TargetUnit)
+    public static bool IsTopCreep(this unit TargetUnit)
     {
-        return IsTopCreepGroup(TargetUnit);
+        return TargetUnit.IsTopCreepGroup();
     }
 
-    public static bool IsMidCreepGroup(unit TargetUnit)
+    public static bool IsMidCreepGroup(this unit TargetUnit)
     {
         Camp Camp = CreepCamp.GetCampForUnit(TargetUnit).Camp;
         switch (Camp)
@@ -224,9 +225,9 @@ public static class Util
         }
     }
 
-    public static bool IsMidCreep(unit TargetUnit)
+    public static bool IsMidCreep(this unit TargetUnit)
     {
-        return IsMidCreepGroup(TargetUnit);
+        return TargetUnit.IsMidCreepGroup();
     }
 
     public static bool IsOrcSpiritwalker()

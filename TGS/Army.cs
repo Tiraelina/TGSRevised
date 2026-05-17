@@ -721,7 +721,7 @@ public static class Army
             return;
         }
 
-        Drops.DropFromPool(GetTriggerUnit(), Drops.IP_Coin6);
+        GetTriggerUnit().DropFromPool(Drops.IP_Coin6);
         if (GetKillingUnit().Owner.Controller == mapcontrol.User)
         {
             if (Human.Contains(GetKillingUnit().Owner))
@@ -741,9 +741,9 @@ public static class Army
 #if DEBUG
         Console.WriteLine(TargetUnit.Name + " added to army.");
 #endif
-        if (IsMidCreep(TargetUnit))
+        if (TargetUnit.IsMidCreep())
         {
-            if (IsHumUnit(KillingUnit))
+            if (KillingUnit.IsHumUnit())
             {
                 HumFactories4th[(int)Lane.Middle].AddCreep(GetUnitTypeId(TargetUnit));
             }
@@ -752,9 +752,9 @@ public static class Army
                 OrcFactories4th[(int)Lane.Middle].AddCreep(GetUnitTypeId(TargetUnit));
             }
         }
-        else if (IsTopCreep(TargetUnit))
+        else if (TargetUnit.IsTopCreep())
         {
-            if (IsHumUnit(KillingUnit))
+            if (KillingUnit.IsHumUnit())
             {
                 HumFactories4th[(int)Lane.Top].AddCreep(GetUnitTypeId(TargetUnit));
             }
@@ -765,7 +765,7 @@ public static class Army
         }
         else
         {
-            if (IsHumUnit(KillingUnit))
+            if (KillingUnit.IsHumUnit())
             {
                 HumFactories4th[(int)Lane.Bottom].AddCreep(GetUnitTypeId(TargetUnit));
             }

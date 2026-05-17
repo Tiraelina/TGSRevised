@@ -11,8 +11,8 @@ public static class CampsBot
         CampGroup TempGroup;
 
         CreepCamp RuinsWest = new(Camp.RuinsWest, CreepRespawnTime5m,
-            _ => { SetShopState(Globals.RuinsShopWest, true); },
-            _ => { SetShopState(Globals.RuinsShopWest, false); });
+            _ => { Globals.RuinsShopWest.SetShopState(true); },
+            _ => { Globals.RuinsShopWest.SetShopState(false); });
         RuinsWest.AddUnit(GetUnitAt(-4608.0f, -7129.5f));
         RuinsWest.AddUnit(GetUnitAt(-4597.2f, -7313.0f), DropID.HealRune);
         RuinsWest.AddUnit(GetUnitAt(-4479.2f, -7219.2f), DropID.Gold25Candy);
@@ -94,8 +94,8 @@ public static class CampsBot
         DragonspawnWest.AddUnit(GetUnitAt(-3158.5f, -12905.8f), DropID.HealRune);
 
         CreepCamp RuinsEast = new(Camp.RuinsEast, CreepRespawnTime5m,
-            _ => { SetShopState(Globals.RuinsShopEast, true); },
-            _ => { SetShopState(Globals.RuinsShopEast, false); });
+            _ => { Globals.RuinsShopEast.SetShopState(true); },
+            _ => { Globals.RuinsShopEast.SetShopState(false); });
         RuinsEast.AddUnit(GetUnitAt(4531.0f, -7100.8f));
         RuinsEast.AddUnit(GetUnitAt(4500.0f, -7273.2f), DropID.HealRune);
         RuinsEast.AddUnit(GetUnitAt(4380.2f, -7189.5f), DropID.Gold25Candy);

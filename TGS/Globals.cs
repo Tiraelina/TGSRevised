@@ -101,10 +101,10 @@ public static class Globals
         FrenchmansEndEast = GetUnitAt(8256.0f, 6848.0f);
         RuinsShopWest = GetUnitAt(-9056.0f, -7136.0f);
         RuinsShopEast = GetUnitAt(9120.0f, -7136.0f);
-        SetShopState(FrenchmansEndWest, false);
-        SetShopState(FrenchmansEndEast, false);
-        SetShopState(RuinsShopWest, false);
-        SetShopState(RuinsShopEast, false);
+        FrenchmansEndWest.SetShopState(false);
+        FrenchmansEndEast.SetShopState(false);
+        RuinsShopWest.SetShopState(false);
+        RuinsShopEast.SetShopState(false);
         GoblinWest = GetUnitAt(-1472.0f, -2752.0f);
         GoblinEast = GetUnitAt(1536.0f, 2048.0f);
 
@@ -580,7 +580,7 @@ public static class Globals
             && GetTriggerPlayer().Controller == mapcontrol.User
             && GetSummonedUnit().Owner.Color == playercolor.Orange)
         {
-            NegateBounty(GetSummonedUnit());
+            GetSummonedUnit().NegateBounty();
             return;
         }
 

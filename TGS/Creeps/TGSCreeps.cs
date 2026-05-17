@@ -167,7 +167,7 @@ public class CreepCamp
         Army.AddCreepToArmy(killedUnit, killingUnit);
         UnitGroup.Remove(killedUnit);
         TGSCreeps.UnitToCamp.Remove(killedUnit);
-        Drops.DropItem(killedUnit);
+        killedUnit.DropItem();
         if (UnitGroup.Count == 0)
         {
 #if DEBUG

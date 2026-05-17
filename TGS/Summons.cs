@@ -557,14 +557,14 @@ public static class Summons
             if (UnitHasBuffBJ(SummonedUnit, FourCC("BOmi")))
             {
                 SummonedUnit.AddType(UNIT_TYPE_SAPPER);
-                NegateBounty(SummonedUnit);
+                SummonedUnit.NegateBounty();
                 return;
             }
 
             // Raise Dead bounty
             if (UnitHasBuffBJ(SummonedUnit, FourCC("BUan")))
             {
-                NegateBounty(SummonedUnit);
+                SummonedUnit.NegateBounty();
                 return;
             }
 

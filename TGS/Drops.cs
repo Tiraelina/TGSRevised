@@ -138,11 +138,11 @@ public static class Drops
         GetDropPool[DropID.HealLesser] = new List<itempool> { IP_HealLesser };
     }
 
-    public static void DropItem(unit InUnit)
+    public static void DropItem(this unit InUnit)
     {
         DropID Drop = (DropID)InUnit.UserData;
 #if DEBUG
-        Console.WriteLine(Util.Id2String(InUnit.UnitType) + " dropping " + Drop.ToString());
+        Console.WriteLine(InUnit.UnitType.Id2String() + " dropping " + Drop.ToString());
 #endif
         List<itempool> Itempools = GetDropPool[Drop];
         if (Itempools == null)
@@ -152,11 +152,11 @@ public static class Drops
 
         foreach (itempool Pool in Itempools)
         {
-            DropFromPool(InUnit, Pool);
+            InUnit.DropFromPool(Pool);
         }
     }
 
-    public static void DropFromPool(unit InUnit, itempool InPool)
+    public static void DropFromPool(this unit InUnit, itempool InPool)
     {
         location Offset = PolarProjectionBJ(GetUnitLoc(InUnit), GetRandomReal(0, BlzGetUnitCollisionSize(InUnit)), GetRandomDirectionDeg());
         item Drop = PlaceRandomItem(InPool, GetLocationX(Offset), GetLocationY(Offset));

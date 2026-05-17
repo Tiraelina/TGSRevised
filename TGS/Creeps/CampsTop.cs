@@ -10,8 +10,8 @@ public static class CampsTop
     {
         CampGroup TempGroup;
         CreepCamp FrenchmansWest = new(Camp.FrenchmansWest, CreepRespawnTime5m,
-            _ => { SetShopState(Globals.FrenchmansEndWest, true); },
-            _ => { SetShopState(Globals.FrenchmansEndWest, false); });
+            _ => { Globals.FrenchmansEndWest.SetShopState(true); },
+            _ => { Globals.FrenchmansEndWest.SetShopState(false); });
         FrenchmansWest.AddUnit(GetUnitAt(-4740.8f, 5742.8f));
         FrenchmansWest.AddUnit(GetUnitAt(-4688.5f, 5826.5f), DropID.HealLesser);
         FrenchmansWest.AddUnit(GetUnitAt(-4824.2f, 5881.5f), DropID.Gold25Candy);
@@ -113,8 +113,8 @@ public static class CampsTop
         OcculordWest.AddUnit(GetUnitAt(-4013.0f, 9714.0f), DropID.WoodBundle);
 
         CreepCamp FrenchmansEast = new(Camp.FrenchmansEast, CreepRespawnTime5m,
-            _ => { SetShopState(Globals.FrenchmansEndEast, true); },
-            _ => { SetShopState(Globals.FrenchmansEndEast, false); });
+            _ => { Globals.FrenchmansEndEast.SetShopState(true); },
+            _ => { Globals.FrenchmansEndEast.SetShopState(false); });
         FrenchmansEast.AddUnit(GetUnitAt(4693.0f, 5706.5f), DropID.HealLesser);
         FrenchmansEast.AddUnit(GetUnitAt(4818.2f, 5719.2f));
         FrenchmansEast.AddUnit(GetUnitAt(4817.0f, 5843.0f), DropID.Gold25Candy);
