@@ -19,11 +19,15 @@ namespace Launcher
         // Input
         private const string SOURCE_CODE_PROJECT_FOLDER_PATH = @"..\..\..\..\..\TGS";
         private const string BASE_MAP_PATH = @"..\..\..\..\..\TGSMap.w3x";
+        private const string BUILD_VERSION_FILE = @"..\..\..\..\..\buildnumber.txt";
 
         // Output
         private const string OUTPUT_FOLDER_PATH = @"..\..\..\..\..\artifacts";
         private const string OUTPUT_SCRIPT_NAME = @"war3map.lua";
-        private const string OUTPUT_MAP_NAME = @"target.w3x";
+        private const string OUTPUT_TEST_MAP_NAME = $"target.w3x";
+        private const string OUTPUT_MAP_FILE_NAME = $"TGSRevised";
+        private const string OUTPUT_MAP_FULL_NAME = $"TGS II Revised";
+        private const int MAP_NAME_WTS_INDEX = 1;
 
         // Warcraft III
         private const string GRAPHICS_API = "Direct3D11";
@@ -67,8 +71,12 @@ namespace Launcher
             }
         }
 
-        public static void Build(bool launch, bool bExport = false)
+        public static void Build(bool launch, bool bExport = false, bool bIncrement = false)
         {
+            if (bIncrement)
+            {
+                IncrementBuild();
+            }
             // Ensure these folders exist
             Directory.CreateDirectory(OUTPUT_FOLDER_PATH);
 
@@ -76,6 +84,14 @@ namespace Launcher
             var map = Map.Open(BASE_MAP_PATH);
             var builder = new MapBuilder(map);
             builder.AddFiles(BASE_MAP_PATH, "*", SearchOption.AllDirectories);
+            // WTS seems stable enough. TODO: Check the actual built map.
+            if (builder.Map.TriggerStrings != null)
+            {
+                var MapVersionName = builder.Map.TriggerStrings.Strings[MAP_NAME_WTS_INDEX];
+                MapVersionName.Value = $"{OUTPUT_MAP_FULL_NAME} {CurrentBuild}";
+                builder.Map.TriggerStrings.Strings[MAP_NAME_WTS_INDEX] = MapVersionName;
+                Console.WriteLine($"\n{builder.Map.TriggerStrings?.Strings[MAP_NAME_WTS_INDEX].Key} {builder.Map.TriggerStrings?.Strings[MAP_NAME_WTS_INDEX].Value} {builder.Map.TriggerStrings?.Strings[MAP_NAME_WTS_INDEX].Comment}");
+            }
 
             // Set debug options if necessary, configure compiler
             var csc = DEBUG ? "-debug -define:DEBUG" : null;
@@ -112,16 +128,17 @@ namespace Launcher
                 BlockSize = 3,
             };
 
-            string finalMapPath = Path.Combine(OUTPUT_FOLDER_PATH, OUTPUT_MAP_NAME);
+            string finalMapPath = Path.Combine(OUTPUT_FOLDER_PATH, OUTPUT_TEST_MAP_NAME);
             builder.Build(finalMapPath, archiveCreateOptions);
 
             if (bExport)
             {
-                string MapsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"Warcraft III\Maps\TGS");
+                string MapsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $@"Warcraft III\Maps\{OUTPUT_MAP_FILE_NAME}");
 
                 Directory.CreateDirectory(MapsFolder);
 
-                string MapName = Path.Combine(MapsFolder, OUTPUT_MAP_NAME);
+                string MapName = $"{OUTPUT_MAP_FILE_NAME}{CurrentBuild}.w3x";
+                string MapPath = Path.Combine(MapsFolder, MapName);
 
                 try
                 {
@@ -164,6 +181,40 @@ namespace Launcher
                 {
                     throw new Exception("Please set wc3exe in Launcher/app.config to the path of your Warcraft III executable.");
                 }
+            }
+        }
+        
+        public static int CurrentBuild
+        {
+            get
+            {
+                try
+                {
+                    if (File.Exists(BUILD_VERSION_FILE))
+                    {
+                        string text = File.ReadAllText(BUILD_VERSION_FILE).Trim();
+                        return int.TryParse(text, out int n) ? n : 0;
+                    }
+                }
+                catch { }
+                return 0;
+            }
+        }
+    
+        public static int IncrementBuild()
+        {
+            int newBuild = CurrentBuild + 1;
+
+            try
+            {
+                File.WriteAllText(BUILD_VERSION_FILE, newBuild.ToString());
+                Console.WriteLine($"\nBuild number incremented to: {newBuild}");
+                return newBuild;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\nFailed to increment build number: {ex.Message}");
+                return CurrentBuild;
             }
         }
     }
