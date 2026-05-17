@@ -59,7 +59,7 @@ namespace Launcher
                     });
                     break;
                 case ConsoleKey.D2:
-                    Build(false, true);
+                    Build(false, true, true);
                     break;
                 case ConsoleKey.D3:
                     Build(true);
@@ -136,13 +136,12 @@ namespace Launcher
                 string MapsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $@"Warcraft III\Maps\{OUTPUT_MAP_FILE_NAME}");
 
                 Directory.CreateDirectory(MapsFolder);
-
                 string MapName = $"{OUTPUT_MAP_FILE_NAME}{CurrentBuild}.w3x";
                 string MapPath = Path.Combine(MapsFolder, MapName);
 
                 try
                 {
-                    File.Copy(finalMapPath, MapName, true);
+                    File.Copy(finalMapPath, MapPath, true);
                 }
                 catch (Exception ex)
                 {
