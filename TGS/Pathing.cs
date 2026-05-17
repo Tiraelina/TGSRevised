@@ -141,22 +141,102 @@ public static class Pathing
         OrcAttackPath.Add(HumBarrackMid.Region, HumHall.Rect);
         OrcAttackPath.Add(HumBarrackBot.Region, HumHall.Rect);
 
-        var AttackRegions = new HashSet<region>();
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumCross1.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumWorkShopTop.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumArcaneTop.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumGryphonAviaryTop.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumBarrackTop.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumAttackTopWay1.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumAttackTopWay2.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumAttackTopWay3.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumAttackTopWay4.Region);
 
-        foreach (var Kvp in HumAttackPath)
-        {
-            AttackRegions.Add(Kvp.Key);
-        }
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, TopWay1.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, TopWay2.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, TopWay3.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, TopWay4.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, TopWay5.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, TopWay6.Region);
 
-        foreach (var Kvp in OrcAttackPath)
-        {
-            AttackRegions.Add(Kvp.Key);
-        }
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumCross2.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumCross3.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumWorkShopMid.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumArcaneMid.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumGryphonAviaryMid.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumBarrackMid.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumAttackMidWay1.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumAttackMidWay2.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumAttackMidWay3.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumAttackMidWay4.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumAttackMidWay5.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumAttackMidWay6.Region);
 
-        foreach (region Target in AttackRegions)
-        {
-            PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, Target);
-        }
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, MidWay1.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, MidWay2.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, MidWay3.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, MidWay4.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, MidWay5.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, MidWay6.Region);
+
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumCross4.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumWorkShopBot.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumArcaneBot.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumGryphonAviaryBot.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumBarrackBot.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumAttackBotWay1.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumAttackBotWay2.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumAttackBotWay3.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumAttackBotWay4.Region);
+
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, BotWay1.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, BotWay2.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, BotWay3.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, BotWay4.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, BotWay5.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, BotWay6.Region);
+
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, CenterAirLine1.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, CenterAirLine2.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, CenterAirLine3.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, CenterAirLine4.Region);
+
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcBarrackTop.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcBarrackMid.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcBarrackBot.Region);
+
+
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcCross1.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcTaurenTop.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcSpiritTop.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcBeastryTop.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcAttackTopWay1.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcAttackTopWay2.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcAttackTopWay3.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcAttackTopWay4.Region);
+
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcCross2.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcCross3.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcTaurenMid.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcSpiritMid.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcBeastryMid.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcAttackMidWay1.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcAttackMidWay2.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcAttackMidWay3.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcAttackMidWay4.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcAttackMidWay5.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcAttackMidWay6.Region);
+
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcCross4.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcTaurenBot.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcSpiritBot.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcBeastryBot.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcAttackBotWay1.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcAttackBotWay2.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcAttackBotWay3.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, OrcAttackBotWay4.Region);
+
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumBarrackMid.Region);
+        PlayerUnitEvents.Register(RegionUnitTypeEvent.Enters, GetPath, HumBarrackBot.Region);
     }
 
     private static void GetPath()

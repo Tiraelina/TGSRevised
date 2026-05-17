@@ -5,18 +5,21 @@ using static WCSharp.Api.Blizzard;
 
 namespace TGS;
 
+public class SummonLimitPair
+{
+    public string Name { get; set; }
+    public int Limit { get; set; }
+
+    public SummonLimitPair(string InName, int InLimit)
+    {
+        Name = InName;
+        Limit = InLimit;
+    }
+}
+
 public static class SummonLimiter
 {
-    private static readonly Dictionary<string, int> SummonLimits = new()
-    {
-        { "Hawk", 1 },
-        { "Walter Lemontal", 3 },
-        { "Bear", 1 },
-        { "Quilbeast", 3 },
-        { "Doom Guard", 2 },
-        { "Sapphiron", 2 },
-        { "Sea Elemental", 2 }
-    };
+    private static readonly List<SummonLimitPair> SummonLimits = new();
 
     private static readonly List<player> Players = new()
     {
@@ -26,6 +29,14 @@ public static class SummonLimiter
 
     public static void Init()
     {
+        SummonLimits.Add(new SummonLimitPair("Hawk", 1));
+        SummonLimits.Add(new SummonLimitPair("Walter Lemontal", 3));
+        SummonLimits.Add(new SummonLimitPair("Bear", 1));
+        SummonLimits.Add(new SummonLimitPair("Quilbeast", 3));
+        SummonLimits.Add(new SummonLimitPair("Doom Guard", 2));
+        SummonLimits.Add(new SummonLimitPair("Sapphiron", 2));
+        SummonLimits.Add(new SummonLimitPair("Sea Elemental", 2));
+
         trigger SummonTrigger = trigger.Create();
 
         foreach (player Owner in Players)
@@ -55,12 +66,12 @@ public static class SummonLimiter
         unit Summoned = GetSummonedUnit();
         string SummonName = Summoned.Name;
 
-        foreach (var Kvp in SummonLimits)
+        foreach (SummonLimitPair Pair in SummonLimits)
         {
-            if (SummonName.StartsWith(Kvp.Key))
+            if (SummonName.StartsWith(Pair.Name))
             {
                 int SummonCount = CountLivingPlayerUnitsOfTypeId(GetUnitTypeId(Summoned), Owner);
-                if (SummonCount > Kvp.Value)
+                if (SummonCount > Pair.Limit)
                 {
                     return true;
                 }
