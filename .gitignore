@@ -6,8 +6,10 @@
 !*.sln
 !*.props
 !*.md
+!buildnumber.txt
 !/TGS/
 !/Launcher/
 /Build/
 Constants.cs
 Regions.cs
+Cameras.cs
