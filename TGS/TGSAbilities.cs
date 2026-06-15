@@ -344,7 +344,10 @@ namespace TGS
                 InTGSHero.Unit.AddAbility(AbilityId);
                 InTGSHero.Unit.SetAbilityLevel(AbilityId, InTGSHero.SlotLevels[4]);
                 LearnMessage(InTGSHero);
-                InTGSHero.UpdateTooltip(this);
+                if (UpdateTooltip != null)
+                {
+                    InTGSHero.UpdateTooltip(this);
+                }
                 return true;
             }
 
@@ -361,7 +364,10 @@ namespace TGS
 
             InTGSHero.SlotLevels[4]++;
             InTGSHero.Unit.SetAbilityLevel(AbilityId, InTGSHero.SlotLevels[4]);
-            InTGSHero.UpdateTooltip(this);
+            if (UpdateTooltip != null)
+            {
+                InTGSHero.UpdateTooltip(this);
+            }
             LearnMessage(InTGSHero);
             return true;
         }
@@ -447,7 +453,10 @@ namespace TGS
             InTGSHero.Special = this;
             InTGSHero.Unit.AddAbility(AbilityId);
             InTGSHero.Unit.SetAbilityLevel(AbilityId, InTGSHero.Unit.Level / 2);
-            InTGSHero.UpdateTooltip(this);
+            if (UpdateTooltip != null)
+            {
+                InTGSHero.UpdateTooltip(this);
+            }
             LearnMessage(InTGSHero);
 
             return true;
@@ -534,7 +543,10 @@ namespace TGS
                 InTGSHero.Unit.AddAbility(AbilityIds[TargetSlot]);
                 InTGSHero.Unit.SetAbilityLevel(AbilityIds[TargetSlot], InTGSHero.SlotLevels[TargetSlot]);
                 InTGSHero.Unit.SetAbilityPermanent(AbilityIds[TargetSlot], true);
-                InTGSHero.UpdateTooltip(this);
+                if (UpdateTooltip != null)
+                {
+                    InTGSHero.UpdateTooltip(this);
+                }
                 LearnMessage(InTGSHero, TargetSlot);
                 if (OrbType != OrbType.None)
                 {
@@ -595,7 +607,10 @@ namespace TGS
         {
             InTGSHero.SlotLevels[InSlot]++;
             InTGSHero.Unit.SetAbilityLevel(AbilityIds[InSlot], InTGSHero.SlotLevels[InSlot]);
-            InTGSHero.UpdateTooltip(this);
+            if (UpdateTooltip != null)
+            {
+                InTGSHero.UpdateTooltip(this);
+            }
             LearnMessage(InTGSHero, InSlot);
             if (OrbType != OrbType.None)
             {

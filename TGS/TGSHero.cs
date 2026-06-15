@@ -105,28 +105,45 @@ namespace TGS
         {
             foreach (NormalAbility Ability in NormalAbilities)
             {
-                if (Ability != null)
+                if (Ability != null && Ability.UpdateTooltip != null)
                 {
                     Ability.UpdateTooltip(Ability, Unit);
                 }
             }
-            Special.UpdateTooltip(Special, Unit);
-            Ultimate.UpdateTooltip(Ultimate, Unit);
+
+            if (Special != null && Special.UpdateTooltip != null)
+            {
+                Special.UpdateTooltip(Special, Unit);
+            }
+
+            if (Ultimate != null && Ultimate.UpdateTooltip != null)
+            {
+                Ultimate.UpdateTooltip(Ultimate, Unit);
+            }
         }
 
         public void UpdateTooltip(NormalAbility Ability)
         {
-            Ability.UpdateTooltip(Ability, Unit);
+            if (Ability != null && Ability.UpdateTooltip != null)
+            {
+                Ability.UpdateTooltip(Ability, Unit);
+            }
         }
 
         public void UpdateTooltip(SpecialAbility Ability)
         {
-            Ability.UpdateTooltip(Ability, Unit);
+            if (Ability != null && Ability.UpdateTooltip != null)
+            {
+                Ability.UpdateTooltip(Ability, Unit);
+            }
         }
 
         public void UpdateTooltip(UltimateAbility Ability)
         {
-            Ability.UpdateTooltip(Ability, Unit);
+            if (Ability != null && Ability.UpdateTooltip != null)
+            {
+                Ability.UpdateTooltip(Ability, Unit);
+            }
         }
 
         public void ResetItemStats()
@@ -214,7 +231,11 @@ namespace TGS
 
             int ItemId = GetManipulatedItem().TypeId;
 #if DEBUG
-        DisplayTextToPlayer(GetLocalPlayer(), 0, 0, $"Picked up item ID: {ItemId} (hex {(uint)ItemId:X8}) | Registered normals: {NormalAbility.GetByItemId(ItemId).MaxLevel}");
+            NormalAbility Abil = NormalAbility.GetByItemId(ItemId);
+            if (Abil != null)
+            {
+                DisplayTextToPlayer(GetLocalPlayer(), 0, 0, $"Picked up item ID: {ItemId} (hex {(uint)ItemId:X8}) | Registered normals: {Abil.Name}");
+            }
 #endif
 
             if (NormalAbility.GetByItemId(ItemId) is { } Normal)
@@ -400,28 +421,28 @@ namespace TGS
                 InTGSHero.RemoveOrb(InTGSHero.NormalAbilities[InSlot].OrbType);
             }
 
-            if (InAbility.AbilityIds[InSlot] == Constants.ABILITY_A03E_CLEAVING_ATTACK_Q
-                || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A03F_CLEAVING_ATTACK_W
-                || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A03G_CLEAVING_ATTACK_E
-                || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A05L_CLEAVING_ATTACK_R)
+            if (InAbility.AbilityIds[InSlot] == ABILITY_A03E_CLEAVING_ATTACK_Q
+                || InAbility.AbilityIds[InSlot] == ABILITY_A03F_CLEAVING_ATTACK_W
+                || InAbility.AbilityIds[InSlot] == ABILITY_A03G_CLEAVING_ATTACK_E
+                || InAbility.AbilityIds[InSlot] == ABILITY_A05L_CLEAVING_ATTACK_R)
             {
                 InTGSHero.CleaveMultiTargets = 0;
                 InTGSHero.AttackMultiTargets = InTGSHero.ItemMods.CleaveCount;
             }
 
-            if (InAbility.AbilityIds[InSlot] == Constants.ABILITY_A001_CRITICAL_STRIKE_Q
-                || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A0J7_CRITICAL_STRIKE_W
-                || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A0OC_CRITICAL_STRIKE_E
-                || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A0OD_CRITICAL_STRIKE_R)
+            if (InAbility.AbilityIds[InSlot] == ABILITY_A001_CRITICAL_STRIKE_Q
+                || InAbility.AbilityIds[InSlot] == ABILITY_A0J7_CRITICAL_STRIKE_W
+                || InAbility.AbilityIds[InSlot] == ABILITY_A0OC_CRITICAL_STRIKE_E
+                || InAbility.AbilityIds[InSlot] == ABILITY_A0OD_CRITICAL_STRIKE_R)
             {
                 InTGSHero.CritChanceCrit = 0.0f;
                 InTGSHero.AttackCritChance = InTGSHero.CritChanceBrawler;
             }
 
-            if (InAbility.AbilityIds[InSlot] == Constants.ABILITY_A04H_DRUNKEN_BRAWLER_Q
-                || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A04I_DRUNKEN_BRAWLER_W
-                || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A04J_DRUNKEN_BRAWLER_E
-                || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A0CG_DRUNKEN_BRAWLER_R)
+            if (InAbility.AbilityIds[InSlot] == ABILITY_A04H_DRUNKEN_BRAWLER_Q
+                || InAbility.AbilityIds[InSlot] == ABILITY_A04I_DRUNKEN_BRAWLER_W
+                || InAbility.AbilityIds[InSlot] == ABILITY_A04J_DRUNKEN_BRAWLER_E
+                || InAbility.AbilityIds[InSlot] == ABILITY_A0CG_DRUNKEN_BRAWLER_R)
             {
                 InTGSHero.CritChanceBrawler = 0.0f;
                 InTGSHero.EvasionBrawler = 0.0f;
@@ -429,10 +450,10 @@ namespace TGS
                 InTGSHero.AttackEvasionChance = InTGSHero.EvasionEvade + InTGSHero.ItemMods.EvasionChance;
             }
 
-            if (InAbility.AbilityIds[InSlot] == Constants.ABILITY_A01D_EVASION_Q
-                || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A01E_EVASION_W
-                || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A01F_EVASION_E
-                || InAbility.AbilityIds[InSlot] == Constants.ABILITY_A0OE_EVASION_R)
+            if (InAbility.AbilityIds[InSlot] == ABILITY_A01D_EVASION_Q
+                || InAbility.AbilityIds[InSlot] == ABILITY_A01E_EVASION_W
+                || InAbility.AbilityIds[InSlot] == ABILITY_A01F_EVASION_E
+                || InAbility.AbilityIds[InSlot] == ABILITY_A0OE_EVASION_R)
             {
                 InTGSHero.EvasionEvade = 0.0f;
                 InTGSHero.AttackEvasionChance = InTGSHero.EvasionBrawler + InTGSHero.ItemMods.EvasionChance;
