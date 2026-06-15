@@ -391,6 +391,9 @@ namespace TGS
                         && NewFactory.IsUnitType(unittype.Sapper))
                     {
                         FactoryLookup[GetTriggerUnit()].State = FactoryState.Alive;
+#if DEBUG
+                        Console.WriteLine($"{GetTriggerUnit().Name} {GetTriggerUnit().UnitType.Id2String()} finished construction");
+#endif
                     }
                 }
             });
@@ -565,7 +568,7 @@ namespace TGS
             {
                 foreach (Factory Spawner in HumFactoriesTop)
                 {
-                    if (Spawner.State < FactoryState.UnderConstruction)
+                    if (Spawner.State == FactoryState.Dead)
                     {
                         BuildFactory(Spawner, Human);
                         return;
@@ -579,7 +582,7 @@ namespace TGS
             {
                 foreach (Factory Spawner in HumFactoriesMid)
                 {
-                    if (Spawner.State < FactoryState.UnderConstruction)
+                    if (Spawner.State == FactoryState.Dead)
                     {
                         BuildFactory(Spawner, Human);
                         return;
@@ -593,7 +596,7 @@ namespace TGS
             {
                 foreach (Factory Spawner in HumFactoriesBot)
                 {
-                    if (Spawner.State < FactoryState.UnderConstruction)
+                    if (Spawner.State == FactoryState.Dead)
                     {
                         BuildFactory(Spawner, Human);
                         return;
@@ -610,7 +613,7 @@ namespace TGS
             {
                 foreach (Factory Spawner in OrcFactoriesTop)
                 {
-                    if (Spawner.State < FactoryState.UnderConstruction)
+                    if (Spawner.State == FactoryState.Dead)
                     {
                         BuildFactory(Spawner, Orc);
                         return;
@@ -624,7 +627,7 @@ namespace TGS
             {
                 foreach (Factory Spawner in OrcFactoriesMid)
                 {
-                    if (Spawner.State < FactoryState.UnderConstruction)
+                    if (Spawner.State == FactoryState.Dead)
                     {
                         BuildFactory(Spawner, Orc);
                         return;
@@ -638,7 +641,7 @@ namespace TGS
             {
                 foreach (Factory Spawner in OrcFactoriesBot)
                 {
-                    if (Spawner.State < FactoryState.UnderConstruction)
+                    if (Spawner.State == FactoryState.Dead)
                     {
                         BuildFactory(Spawner, Orc);
                         return;
@@ -651,6 +654,7 @@ namespace TGS
 
         private static void BuildFactory(Factory Spawner, force Force)
         {
+            Spawner.State = FactoryState.Pending;
             QuestMessageBJ(Force, bj_QUESTMESSAGE_HINT,
                 $"{GetBuyingUnit().Owner.Name} bought |cffff8000{GetSoldItem().Name}|cffffffff to rebuild |cffff8000{Spawner.UnitName}");
             PingMinimapLocForForce(Force, Spawner.Location, 5.0f);
@@ -666,7 +670,9 @@ namespace TGS
         
             Tony.IssueBuildOrder(Spawner.FactoryId, Spawner.Location.X, Spawner.Location.Y);
             Tony.ApplyTimedLife(FourCC("BTLF"), 120.0f);
-            Spawner.State = FactoryState.Pending;
+#if DEBUG
+            Console.WriteLine($"{Tony.Name} - {Spawner.UnitName} {Spawner.FactoryId} moving for construction");
+#endif
         }
 
         private static void GoldShare()

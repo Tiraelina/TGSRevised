@@ -42,10 +42,13 @@ namespace TGS
 
         public void SetNewFactory(unit NewFactory)
         {
+            State = FactoryState.UnderConstruction;
             PlayerUnitEvents.Register(UnitEvent.Dies, Died, NewFactory);
             Army.FactoryLookup.Add(NewFactory, this);
-            State = FactoryState.UnderConstruction;
             Unit = NewFactory;
+#if DEBUG
+            Console.WriteLine($"{Unit.Name} {Unit.UnitType.Id2String()} new under construction");
+#endif
         }
 
         public void AddSpawn(FactorySpawn InSpawn)
@@ -93,9 +96,12 @@ namespace TGS
 
         private void Died()
         {
+            State = FactoryState.Dead;
             PlayerUnitEvents.Unregister(UnitEvent.Dies, Died, Unit);
             Army.FactoryLookup.Remove(Unit);
-            State = FactoryState.Dead;
+#if DEBUG
+            Console.WriteLine($"{Unit.Name} {Unit.UnitType.Id2String()} died");
+#endif
             Unit = null;
         }
     }
