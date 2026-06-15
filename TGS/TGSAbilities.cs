@@ -343,6 +343,7 @@ namespace TGS
                 InTGSHero.SlotLevels[4] = Math.Max(1, InTGSHero.SlotLevels[4]);
                 InTGSHero.Unit.AddAbility(AbilityId);
                 InTGSHero.Unit.SetAbilityLevel(AbilityId, InTGSHero.SlotLevels[4]);
+                InTGSHero.Unit.SetAbilityPermanent(AbilityId, true);
                 LearnMessage(InTGSHero);
                 if (UpdateTooltip != null)
                 {
@@ -379,13 +380,17 @@ namespace TGS
             {
                 case 1:
                     InTGSHero.Unit.RemoveAbility(ABILITY_AHMT_MASS_TELEPORT_LVL1_T);
+                    InTGSHero.Unit.SetAbilityPermanent(ABILITY_AHMT_MASS_TELEPORT_LVL1_T, false);
                     InTGSHero.Unit.AddAbility(ABILITY_AHM2_MASS_TELEPORT_LVL2_T);
+                    InTGSHero.Unit.SetAbilityPermanent(ABILITY_AHM2_MASS_TELEPORT_LVL2_T, true);
                     InTGSHero.SlotLevels[4] = 2;
                     InTGSHero.Unit.SetAbilityLevel(ABILITY_AHM2_MASS_TELEPORT_LVL2_T, 2);
                     break;
                 case 2:
                     InTGSHero.Unit.RemoveAbility(ABILITY_AHM2_MASS_TELEPORT_LVL2_T);
+                    InTGSHero.Unit.SetAbilityPermanent(ABILITY_AHM2_MASS_TELEPORT_LVL2_T, false);
                     InTGSHero.Unit.AddAbility(ABILITY_AHM3_MASS_TELEPORT_LVL3_T);
+                    InTGSHero.Unit.SetAbilityPermanent(ABILITY_AHM3_MASS_TELEPORT_LVL3_T, true);
                     InTGSHero.SlotLevels[4] = 3;
                     InTGSHero.Unit.SetAbilityLevel(ABILITY_AHM3_MASS_TELEPORT_LVL3_T, 3);
                     break;
@@ -453,6 +458,7 @@ namespace TGS
             InTGSHero.Special = this;
             InTGSHero.Unit.AddAbility(AbilityId);
             InTGSHero.Unit.SetAbilityLevel(AbilityId, InTGSHero.Unit.Level / 2);
+            InTGSHero.Unit.SetAbilityPermanent(AbilityId, true);
             if (UpdateTooltip != null)
             {
                 InTGSHero.UpdateTooltip(this);
