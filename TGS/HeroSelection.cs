@@ -116,6 +116,7 @@ namespace TGS
                 NewHero = unit.Create(Player, InHero.Hero.UnitType, Globals.OrcFountain.X, Globals.OrcFountain.Y);
                 PanCameraToTimedForPlayer(Player, Globals.OrcFountain.X, Globals.OrcFountain.Y, 0.5f);
             }
+            SelectUnitForPlayerSingle(NewHero, Player);
 
             Globals.Players[Player].SetHero(NewHero);
             if (HumWisps == 0 && OrcWisps == 0)
