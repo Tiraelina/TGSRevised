@@ -6,9 +6,9 @@ using static WCSharp.Api.Blizzard;
 namespace TGS
 {
     public static class Color
-    { 
-        public static string Good  = "|cff00ff00";
-        public static string Bad   = "|cffff0000";
-        public static string Info  = "|cffffff00";
+    {
+        public static string Good { get; } = "|cff00ff00";
+        public static string Bad { get; } = "|cffff0000";
+        public static string Info { get; } = "|cffffff00";
     }
 }

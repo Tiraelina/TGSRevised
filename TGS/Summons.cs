@@ -12,7 +12,7 @@ namespace TGS
 {
     public static class Summons
     {
-        public static Dictionary<int, SummonScalar> UnitIdToSummon = new();
+        public static Dictionary<int, SummonScalar> UnitIdToSummon { get; } = new();
 
         public static void Init()
         {
@@ -292,8 +292,8 @@ namespace TGS
                 0.25f, 0.02f);
 
             SummonIds.Clear();
-            SummonIds.Add(UNIT_NBA2_LESSER_DOOMGUARD_L1);
-            SummonIds.Add(UNIT_N01G_DOOM_GUARD_L2);
+            SummonIds.Add(UNIT_NBA2_BABY_DOOMGUARD_L1);
+            SummonIds.Add(UNIT_N01G_JUVENILE_DOOM_GUARD_L2);
             SummonIds.Add(UNIT_N01H_GREATER_DOOM_GUARD_L3);
             AbilityIds.Clear();
             AbilityIds.Add(ABILITY_ANDO_DOOM_T);
@@ -444,7 +444,7 @@ namespace TGS
                 0.1f, 0.02f);
 
             SummonIds.Clear();
-            SummonIds.Add(UNIT_N01W_BIG_FRENCH_RAT);
+            SummonIds.Add(UNIT_N01W_BIG_FRENCH_RAT_SKILL_FXH);
             AbilityIds.Clear();
             AbilityIds.Add(ABILITY_A0AM_RATATOUILLE_FRENCH_COOKBOOK);
             new SummonScalar(SummonIds, AbilityIds,
@@ -646,22 +646,22 @@ namespace TGS
 
     public class SummonScalar
     {
-        public float ArmourScalar;
-        public float ArmourScalarPerLevel;
-        public float AttackSpeedScalar;
-        public float AttackSpeedScalarPerLevel;
-        public bool bUsePlayerAsSummoner;
-        public float DamageScalar;
-        public float DamageScalarPerLevel;
-        public float LifeRegenScalar;
-        public float LifeRegenScalarPerLevel;
-        public float LifeScalar;
-        public float LifeScalarPerLevel;
-        public float ManaRegenScalar;
-        public float ManaRegenScalarPerLevel;
-        public float ManaScalar;
-        public float ManaScalarPerLevel;
-        public List<int> SourceAbilities;
+        public float ArmourScalar { get; }
+        public float ArmourScalarPerLevel { get; }
+        public float AttackSpeedScalar { get; }
+        public float AttackSpeedScalarPerLevel { get; }
+        public bool bUsePlayerAsSummoner { get; }
+        public float DamageScalar { get; }
+        public float DamageScalarPerLevel { get; }
+        public float LifeRegenScalar { get; }
+        public float LifeRegenScalarPerLevel { get; }
+        public float LifeScalar { get; }
+        public float LifeScalarPerLevel { get; }
+        public float ManaRegenScalar { get; }
+        public float ManaRegenScalarPerLevel { get; }
+        public float ManaScalar { get; }
+        public float ManaScalarPerLevel { get; }
+        public List<int> SourceAbilities { get; }
 
         public SummonScalar(List<int> unitIds, List<int> sourceAbilities,
             float lifeScalar, float lifeScalarPerLevel, float lifeRegenScalar, float lifeRegenScalarPerLevel,
@@ -669,7 +669,7 @@ namespace TGS
             float damageScalar, float damageScalarPerLevel, float attackSpeedScalar, float attackSpeedScalarPerLevel,
             float armourScalar, float armourScalarPerLevel, bool bUsePlayerAsSummoner = false)
         {
-            SourceAbilities = new List<int>();
+            SourceAbilities = sourceAbilities;
             LifeScalar = lifeScalar;
             LifeScalarPerLevel = lifeScalarPerLevel;
             LifeRegenScalar = lifeRegenScalar;

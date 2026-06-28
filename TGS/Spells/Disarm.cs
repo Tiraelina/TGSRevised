@@ -8,11 +8,11 @@ namespace TGS.Spells
 {
     public class Disarm
     {
-        private int AbilityId;
-        private unit Caster;
-        private int Level;
-        private unit Target;
-        private group Targets;
+        private int AbilityId { get; }
+        private unit Caster { get; }
+        private int Level { get; }
+        private unit Target { get; }
+        private group Targets { get; }
 
         public Disarm(unit InCaster, unit InTarget, int InAbilityId)
         {
@@ -32,8 +32,7 @@ namespace TGS.Spells
                 if (NearestUnit.IsEnemyTo(Caster.Owner)
                     && TGSSpells.IsValidTarget(NearestUnit))
                 {
-                    Dummy.AddAbility(ABILITY_ACRS_CURSE);
-                    Dummy.SetAbilityLevel(ABILITY_ACRS_CURSE, Level);
+                    Dummy.AddAbilityAt(ABILITY_ACRS_CURSE, Level);
                     Dummy.IssueOrder(ORDER_CURSE, NearestUnit);
                 }
             }

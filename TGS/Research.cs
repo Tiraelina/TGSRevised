@@ -14,12 +14,12 @@ namespace TGS
     public static class Research
     {
         public static readonly Dictionary<int, ResearchTech> Entries = new();
-        public static int HumResearchMax { get; set; } = 86;
-        public static int HumResearchCurrent { get; set; } = 0;
-        public static int HumResearch { get; set; } = 0;
-        public static int OrcResearchMax { get; set; } = 185;
-        public static int OrcResearchCurrent { get; set; } = 100;
-        public static int OrcResearch { get; set; } = 0;
+        private static int HumResearchMax { get; set; } = 86;
+        private static int HumResearchCurrent { get; set; } = 0;
+        private static int HumResearch { get; set; } = 0;
+        private static int OrcResearchMax { get; set; } = 185;
+        private static int OrcResearchCurrent { get; set; } = 100;
+        private static int OrcResearch { get; set; } = 0;
 
         public static void Init()
         {
@@ -225,7 +225,7 @@ namespace TGS
         }
 
         public int UpgradeSlot { get; private set; }
-        public int UpgradeId { get; private set; }
+        private int UpgradeId { get; set; }
         public int UpgradeLevel { get; private set; }
         public string UpgradeName { get; private set; }
 

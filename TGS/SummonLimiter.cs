@@ -19,9 +19,9 @@ namespace TGS
 
     public static class SummonLimiter
     {
-        private static readonly List<SummonLimitPair> SummonLimits = new();
+        private static List<SummonLimitPair> SummonLimits { get; } = new();
 
-        private static readonly List<player> Players = new()
+        private static List<player> Players { get; } = new()
         {
             Player(0), Player(1), Player(2), Player(3), Player(4),
             Player(6), Player(7), Player(8), Player(9), Player(10)

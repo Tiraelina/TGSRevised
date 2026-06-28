@@ -12,7 +12,8 @@ namespace TGS
 {
     public class ItemData
     {
-        public ItemData(int ItemId, float attackSpeed, float healthRegen, float manaRegen, float baseDamage, float spellBonus, int cleaveCount = 0, float cleaveBonus = 0.0f, float evasionChance = 0.0f, List<OrbType> InOrbEffects = null)
+        public ItemData(int ItemId, float attackSpeed, float healthRegen, float manaRegen, float baseDamage, float spellBonus, float damageTakenModifier, int cleaveCount = 0,
+            float cleaveBonus = 0.0f, float evasionChance = 0.0f, List<OrbType> InOrbEffects = null)
         {
             AttackSpeed = attackSpeed;
             HealthRegen = healthRegen;
@@ -22,6 +23,7 @@ namespace TGS
             CleaveCount = cleaveCount;
             CleaveBonus = cleaveBonus;
             EvasionChance = evasionChance;
+            DamageTakenModifier = damageTakenModifier;
             if (InOrbEffects != null)
             {
                 OrbEffects = InOrbEffects;
@@ -38,6 +40,7 @@ namespace TGS
             CleaveCount = 0;
             CleaveBonus = 0.0f;
             EvasionChance = 0.0f;
+            DamageTakenModifier = 0.0f;
         }
 
         public float AttackSpeed { get; set; }
@@ -48,7 +51,8 @@ namespace TGS
         public int CleaveCount { get; set; }
         public float CleaveBonus { get; set; }
         public float EvasionChance { get; set; }
-        public List<OrbType> OrbEffects = new();
+        public float DamageTakenModifier { get; set; }
+        public List<OrbType> OrbEffects { get; } = new();
     }
 
     public static class Items
@@ -58,74 +62,76 @@ namespace TGS
         public static void InitItemData()
         {
             new ItemData(ITEM_PRVT_PERIAPT_OF_VITALITY
-                , 0.0f, 1.0f, 0.0f, 0.0f, 0.0f);
+                , 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
             new ItemData(ITEM_I0B2_CHEESEBLASTER
-                , 0.0f, 0.0f, 0.0f, 3.0f, 0.0f);
+                , 0.0f, 0.0f, 0.0f, 3.0f, 0.0f, 0.0f);
             new ItemData(ITEM_GCEL_GLOVES_OF_HASTE
-                , 25.0f, 0.0f, 0.0f, 3.0f, 0.0f);
+                , 25.0f, 0.0f, 0.0f, 3.0f, 0.0f, 0.0f);
             //new ItemData(ITEM_RWIZ_SOBI_MASK, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
             new ItemData(ITEM_CNHN_HORN_OF_CENARIUS
-                , 0.0f, 2.0f, 0.0f, 0.0f, 0.0f);
+                , 0.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
             new ItemData(ITEM_I0AT_DRAGONLANCE
-                , 0.0f, 0.0f, 0.0f, 75.0f, 0.0f);
+                , 0.0f, 0.0f, 0.0f, 75.0f, 0.0f, 0.0f);
             new ItemData(ITEM_I0AO_SHROUDBLADE_OF_AZZINOTH
-                , 25.0f, 0.0f, 0.0f, 20.0f, 0.0f);
+                , 25.0f, 0.0f, 0.0f, 20.0f, 0.0f, 0.0f);
             new ItemData(ITEM_I0AR_SUMMONER_S_STAFF
-                , 20.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+                , 20.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
             new ItemData(ITEM_I09O_BALANCED_AXE
-                , 0.0f, 0.0f, 0.0f, 50.0f, 0.0f);
+                , 0.0f, 0.0f, 0.0f, 50.0f, 0.0f, 0.0f);
             new ItemData(ITEM_I09Q_HEAD_BARREL
-                , 0.0f, 0.0f, 0.0f, 10.0f, 0.0f);
+                , 0.0f, 0.0f, 0.0f, 10.0f, 0.0f, 0.0f);
             new ItemData(ITEM_I04S_WIRT_S_THIRD_LEG
-                , 0.0f, 0.0f, 0.0f, 40.0f, 0.0f, 1);
+                , 0.0f, 0.0f, 0.0f, 40.0f, 0.0f, 0.0f, 1);
             new ItemData(ITEM_I0B0_NIGHTFURY_THE_BLOOD_DRINKER
-                , 0.0f, 0.0f, 0.0f, 50.0f, 0.0f);
+                , 0.0f, 0.0f, 0.0f, 50.0f, 0.0f, 0.0f);
             new ItemData(ITEM_I0AQ_GILDED_ARMOR
-                , -25.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+                , -25.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
             new ItemData(ITEM_I09P_CAT_PAW
-                , 70.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0, 0.0f, 0.1f);
+                , 70.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0, 0.0f, 0.1f);
             new ItemData(ITEM_I0AW_SHATTER_BLADE_OF_STORMWIND
-                , 0.0f, 16.0f, 0.0f, 20.0f, 0.0f, 2, 0.25f);
+                , 0.0f, 16.0f, 0.0f, 20.0f, 0.0f, 0.0f, 2, 0.25f);
             new ItemData(ITEM_JDRN_YARN_BALL
-                , 50.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+                , 50.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
             new ItemData(ITEM_SRTL_WHIPLASH
-                , 25.0f, 0.0f, 0.0f, 40.0f, 0.0f);
+                , 25.0f, 0.0f, 0.0f, 40.0f, 0.0f, 0.0f);
             new ItemData(ITEM_FRGD_FROSTGUARD
-                , 0.0f, 4.0f, 0.0f, 20.0f, 0.0f);
+                , 0.0f, 4.0f, 0.0f, 20.0f, 0.0f, 0.0f);
             new ItemData(ITEM_KLMM_OFF_BALANCE_HALBERD
-                , 0.0f, 4.0f, 0.0f, 50.0f, 0.0f);
+                , 0.0f, 4.0f, 0.0f, 50.0f, 0.0f, 0.0f);
             new ItemData(ITEM_I09L_SURGICAL_MASK
-                , 0.0f, 0.0f, 100.0f, 0.0f, 0.0f);
+                , 0.0f, 0.0f, 100.0f, 0.0f, 0.0f, 0.0f);
             new ItemData(ITEM_RLIF_RING_OF_REGENERATION
-                , 0.0f, 4.0f, 0.0f, 0.0f, 0.0f);
+                , 0.0f, 4.0f, 0.0f, 0.0f, 0.0f, 0.0f);
             new ItemData(ITEM_RDE1_RING_OF_OPULENCE
-                , 0.0f, 1.0f, 0.0f, 0.0f, 0.0f);
+                , 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
             new ItemData(ITEM_RAT6_LONGSWORD_5_2
-                , 0.0f, 0.0f, 0.0f, 5.0f, 0.0f);
+                , 0.0f, 0.0f, 0.0f, 5.0f, 0.0f, 0.0f);
             new ItemData(ITEM_I0AN_BLOODY_KEY
-                , 0.0f, 16.0f, 0.0f, 0.0f, 0.0f);
+                , 0.0f, 16.0f, 0.0f, 0.0f, 0.0f, 0.0f);
             new ItemData(ITEM_RATF_NETHERSTRAND_LONGBOW
-                , 0.0f, 0.0f, 0.0f, 30.0f, 0.0f);
+                , 0.0f, 0.0f, 0.0f, 30.0f, 0.0f, 0.0f);
             new ItemData(ITEM_KGAL_KEG_OF_ALE
-                , 0.0f, 1.0f, 1.0f, 0.0f, 0.0f);
+                , 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f);
             new ItemData(ITEM_KTRM_RAG_NAR_O_S_THE_FIBER_HOARD
-                , 0.0f, 50.0f, 0.0f, 0.0f, 0.0f);
+                , 0.0f, 50.0f, 0.0f, 0.0f, 0.0f, 0.0f);
             new ItemData(ITEM_CLFM_MANAFUSED_CLOAK
-                , 0.0f, 0.0f, 400.0f, 0.0f, 0.0f);
+                , 0.0f, 0.0f, 400.0f, 0.0f, 0.0f, 0.0f);
             new ItemData(ITEM_RATC_QUEL_THALAS_GREATSWORD_12_4
-                , 0.0f, 0.0f, 0.0f, 12.0f, 0.0f);
+                , 0.0f, 0.0f, 0.0f, 12.0f, 0.0f, 0.0f);
             new ItemData(ITEM_I0AZ_EMBERSTONE_STAFF
-                , 0.0f, 0.0f, 25.0f, 0.0f, 0.0f);
+                , 0.0f, 0.0f, 25.0f, 0.0f, 0.0f, 0.0f);
             new ItemData(ITEM_PHLT_POWER_CRYSTAL
-                , 0.0f, 4.0f, 1.0f, 0.0f, 0.0f);
+                , 0.0f, 4.0f, 1.0f, 0.0f, 0.0f, 0.0f);
             new ItemData(ITEM_VPUR_CLAYMORE
-                , 0.0f, 8.0f, 0.0f, 0.0f, 0.0f);
+                , 0.0f, 8.0f, 0.0f, 0.0f, 0.0f, 0.0f);
             new ItemData(ITEM_KYSN_LONGBOW
-                , 25.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+                , 25.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+            new ItemData(ABILITY_A0KP_SCORCHING_RAY_PYRO_STAFF
+                , 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.5f);
             List<OrbType> OrbEffects = new();
             OrbEffects.Add(OrbType.Ooze);
             new ItemData(ITEM_ODEF_ORB_OF_SHADOWS
-                , 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0, 0.0f, 0.0f, OrbEffects);
+                , 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0, 0.0f, 0.0f, OrbEffects);
         }
 
         public static void Init()
@@ -245,14 +251,14 @@ namespace TGS
 
         private static void VialUsed()
         {
-            if (GetManipulatedItem().TypeId == ITEM_BZBF_FULL_VIAL)
+            if (GetManipulatedItem().TypeId == ITEM_BZBF_QUESTIONABLE_PHILTER)
             {
                 if (GetManipulatingUnit().Owner.Name == "Honejasi#1172")
                 {
                     int French = GetRandomInt(1, 10);
                     if (French == 10)
                     {
-                        PlaySoundOnUnitBJ(CR_Jaraxxus_Special01, 100, GetSpellAbilityUnit());
+                        PlaySoundOnUnitBJ(CrJaraxxusSpecial01, 100, GetSpellAbilityUnit());
                         location RandomLoc = GetRandomLocInRect(GetEntireMapRect());
                         GetManipulatingUnit().SetPosition(RandomLoc.X, RandomLoc.Y);
                         RandomLoc.Dispose();
@@ -277,7 +283,7 @@ namespace TGS
                     if (GetOrderedUnit().ItemAtOrDefault(i).TypeId == ITEM_BZBE_EMPTY_VIAL)
                     {
                         GetOrderedUnit().RemoveItem(i);
-                        GetOrderedUnit().AddItem(ITEM_BZBF_FULL_VIAL);
+                        GetOrderedUnit().AddItem(ITEM_BZBF_QUESTIONABLE_PHILTER);
 #if DEBUG
                     Console.WriteLine("Vial swapped.");
 #endif

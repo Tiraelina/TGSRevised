@@ -13,73 +13,73 @@ namespace TGS
 {
     public static class Globals
     {
-        public static Dictionary<int, PlayerColor> PlayerColors = new();
-        public static Dictionary<player, TGSPlayer> Players = new();
-        public static List<player> ConditionFilter = new();
-        public static List<player> HumConditionFilter = new();
-        public static List<player> OrcConditionFilter = new();
-        public static Dictionary<unit, effect> ShopEffects = new();
-        public static unit FrenchmansEndWest;
-        public static unit FrenchmansEndEast;
-        public static unit RuinsShopWest;
-        public static unit RuinsShopEast;
-        public static unit GoblinWest;
-        public static unit GoblinEast;
-        public static List<destructable> NorthGates = new();
-        public static List<destructable> SouthGates = new();
-        public static List<destructable> NorthBlockers = new();
-        public static List<destructable> SouthBlockers = new();
-        public static force Human;
-        public static force Orc;
-        public static float XPMod;
-        public static float HumXPSplit;
-        public static float OrcXPSplit;
-        public static Point Corner;
-        public static unit HumCastle;
-        public static unit HumFountain;
-        public static unit OrcCastle;
-        public static unit OrcFountain;
-        public static unit HumBarracksTop;
-        public static unit HumBarracksMid;
-        public static unit HumBarracksBot;
-        public static unit HumAviaryTop;
-        public static unit HumAviaryMid;
-        public static unit HumAviaryBot;
-        public static unit HumSanctumTop;
-        public static unit HumSanctumMid;
-        public static unit HumSanctumBot;
-        public static unit HumWorkshopTop;
-        public static unit HumWorkshopMid;
-        public static unit HumWorkshopBot;
-        public static unit HumTagawa;
-        public static unit OrcBarracksTop;
-        public static unit OrcBarracksMid;
-        public static unit OrcBarracksBot;
-        public static unit OrcBeastiaryTop;
-        public static unit OrcBeastiaryMid;
-        public static unit OrcBeastiaryBot;
-        public static unit OrcLodgeTop;
-        public static unit OrcLodgeMid;
-        public static unit OrcLodgeBot;
-        public static unit OrcTotemTop;
-        public static unit OrcTotemMid;
-        public static unit OrcTotemBot;
-        public static unit OrcTagawa;
-        public static location LeapAttackStart;
-        public static location LeapAttackTarget;
-        public static unit LeapAttackUnit;
-        public static float LeapAttackSpeed;
-        public static timer LeapAttackMove;
-        public static List<sound> LeapAttackSound = new();
-        public static float Ratio;
-        public static sound HeroMountainKingYesAttack1;
-        public static sound CR_Jaraxxus_Special01;
-        public static timer GoldMergerT1;
-        public static timer GoldMergerT2;
-        public static timer GoldMergerT3;
-        public static List<item> Coins75 = new();
-        public static List<item> Coins150 = new();
-        public static List<item> Coins300 = new();
+        public static Dictionary<int, PlayerColor> PlayerColors { get; } = new();
+        public static Dictionary<player, TGSPlayer> Players { get; } = new();
+        public static List<player> ConditionFilter { get; } = new();
+        public static List<player> HumConditionFilter { get; } = new();
+        public static List<player> OrcConditionFilter { get; } = new();
+        public static Dictionary<unit, effect> ShopEffects { get; } = new();
+        public static unit FrenchmansEndWest { get; set; }
+        public static unit FrenchmansEndEast { get; set; }
+        public static unit RuinsShopWest { get; set; }
+        public static unit RuinsShopEast { get; set; }
+        public static unit GoblinWest { get; set; }
+        public static unit GoblinEast { get; set; }
+        public static List<destructable> NorthGates { get; } = new();
+        public static List<destructable> SouthGates { get; } = new();
+        public static List<destructable> NorthBlockers { get; } = new();
+        public static List<destructable> SouthBlockers { get; } = new();
+        public static force Human { get; set; }
+        public static force Orc { get; set; }
+        private static float XpMod { get; set; }
+        private static float HumXpSplit { get; set; }
+        private static float OrcXpSplit { get; set; }
+        public static Point Corner { get; set; }
+        public static unit HumCastle { get; set; }
+        public static unit HumFountain { get; set; }
+        public static unit OrcCastle { get; set; }
+        public static unit OrcFountain { get; set; }
+        public static unit HumBarracksTop { get; set; }
+        public static unit HumBarracksMid { get; set; }
+        public static unit HumBarracksBot { get; set; }
+        public static unit HumAviaryTop { get; set; }
+        public static unit HumAviaryMid { get; set; }
+        public static unit HumAviaryBot { get; set; }
+        public static unit HumSanctumTop { get; set; }
+        public static unit HumSanctumMid { get; set; }
+        public static unit HumSanctumBot { get; set; }
+        public static unit HumWorkshopTop { get; set; }
+        public static unit HumWorkshopMid { get; set; }
+        public static unit HumWorkshopBot { get; set; }
+        public static unit HumTagawa { get; set; }
+        public static unit OrcBarracksTop { get; set; }
+        public static unit OrcBarracksMid { get; set; }
+        public static unit OrcBarracksBot { get; set; }
+        public static unit OrcBeastiaryTop { get; set; }
+        public static unit OrcBeastiaryMid { get; set; }
+        public static unit OrcBeastiaryBot { get; set; }
+        public static unit OrcLodgeTop { get; set; }
+        public static unit OrcLodgeMid { get; set; }
+        public static unit OrcLodgeBot { get; set; }
+        public static unit OrcTotemTop { get; set; }
+        public static unit OrcTotemMid { get; set; }
+        public static unit OrcTotemBot { get; set; }
+        public static unit OrcTagawa { get; set; }
+        public static location LeapAttackStart { get; set; }
+        public static location LeapAttackTarget { get; set; }
+        public static unit LeapAttackUnit { get; set; }
+        public static float LeapAttackSpeed { get; set; }
+        public static timer LeapAttackMove { get; set; }
+        public static List<sound> LeapAttackSound { get; } = new();
+        public static float Ratio { get; set; }
+        public static sound HeroMountainKingYesAttack1 { get; set; }
+        public static sound CrJaraxxusSpecial01 { get; set; }
+        private static timer GoldMergerT1 { get; set; }
+        private static timer GoldMergerT2 { get; set; }
+        public static timer GoldMergerT3 { get; }
+        public static List<item> Coins75 { get; } = new();
+        private static List<item> Coins150 { get; } = new();
+        private static List<item> Coins300 { get; } = new();
 #if DEBUG
     // It will only output ~259 characters as one string.
     public static List<string> OutputBuffer = new();
@@ -323,12 +323,12 @@ namespace TGS
             Human = GetPlayersAllies(player.Create(5));
             Orc = GetPlayersAllies(player.Create(11));
 #if DEBUG
-        XPMod = 10.5f;
+            XpMod = 10.5f;
 #else
-            XPMod = 1.5f;
+            XpMod = 1.5f;
 #endif
-            HumXPSplit = (CountPlayersInForceBJ(Human) - 4.0f) / 5.00f * XPMod;
-            OrcXPSplit = (CountPlayersInForceBJ(Orc) - 4.0f) / 5.00f * XPMod;
+            HumXpSplit = (CountPlayersInForceBJ(Human) - 4.0f) / 5.00f * XpMod;
+            OrcXpSplit = (CountPlayersInForceBJ(Orc) - 4.0f) / 5.00f * XpMod;
 
             ForForce(GetPlayersAll(), InitPlayers);
 
@@ -412,11 +412,11 @@ namespace TGS
             SetSoundDistanceCutoff(HeroMountainKingYesAttack1, 3000.0f);
             SetSoundConeAngles(HeroMountainKingYesAttack1, 0.0f, 0.0f, 127);
             SetSoundConeOrientation(HeroMountainKingYesAttack1, 0.0f, 0.0f, 0.0f);
-            CR_Jaraxxus_Special01 = CreateSound(@"war3mapImported/CR_Jaraxxus_Special01.flac", false, false, false, 0, 0, "DefaultEAXON");
-            SetSoundDuration(CR_Jaraxxus_Special01, 2446);
-            SetSoundChannel(CR_Jaraxxus_Special01, 0);
-            SetSoundVolume(CR_Jaraxxus_Special01, 127);
-            SetSoundPitch(CR_Jaraxxus_Special01, 1.0f);
+            CrJaraxxusSpecial01 = CreateSound(@"war3mapImported/CR_Jaraxxus_Special01.flac", false, false, false, 0, 0, "DefaultEAXON");
+            SetSoundDuration(CrJaraxxusSpecial01, 2446);
+            SetSoundChannel(CrJaraxxusSpecial01, 0);
+            SetSoundVolume(CrJaraxxusSpecial01, 127);
+            SetSoundPitch(CrJaraxxusSpecial01, 1.0f);
             LeapAttackSound.Add(GromYesAttack1);
             LeapAttackSound.Add(GromYesAttack2);
             LeapAttackSound.Add(GromYesAttack3);
@@ -435,17 +435,17 @@ namespace TGS
             CurrentPlayer.Gold = 150;
             if (CurrentPlayer.IsAlly(player.Create(5)))
             {
-                CurrentPlayer.HandicapXP = HumXPSplit;
+                CurrentPlayer.HandicapXP = HumXpSplit;
             }
             else
             {
-                CurrentPlayer.HandicapXP = OrcXPSplit;
+                CurrentPlayer.HandicapXP = OrcXpSplit;
             }
         }
 
         private static void HeroAttacked()
         {
-            if (GetAttacker().UnitType == UNIT_HDGO_SENTINEL_HERO && !GetAttacker().IsIllusion)
+            if (GetAttacker().UnitType == UNIT_HDGO_SENTINEL_SUPPORT_HERO && !GetAttacker().IsIllusion)
             {
                 if (GetRandomInt(0, 4) == 0)
                 {
@@ -471,7 +471,7 @@ namespace TGS
         private static void AncestralSpirit()
         {
             if (OrcConditionFilter.Contains(GetTriggerPlayer())
-                && (GetTriggerUnit().UnitType == UNIT_OTAU_BLADEMASTER
+                && (GetTriggerUnit().UnitType == UNIT_OTAU_SEER
                     || GetTriggerUnit().UnitType == UNIT_OSPW_SPIRIT_WALKER))
             {
                 TriggerSleepAction(2.5f);
@@ -487,7 +487,7 @@ namespace TGS
             if (HumConditionFilter.Contains(GetTriggerPlayer()) && GetRandomInt(1, 10) == 1)
             {
                 if (GetAttacker().UnitType == UNIT_OGRU_GRUNT
-                    || GetAttacker().UnitType == UNIT_OTAU_BLADEMASTER
+                    || GetAttacker().UnitType == UNIT_OTAU_SEER
                     || GetAttacker().UnitType == UNIT_OKOD_KODO_BEAST)
                 {
                     group TempGroup = group.Create();
@@ -639,8 +639,8 @@ namespace TGS
 
     public class TomeItem
     {
-        public item Item;
-        private timer Cleanup;
+        private item Item { get; }
+        private timer Cleanup { get; }
 
         public TomeItem(item InItem)
         {

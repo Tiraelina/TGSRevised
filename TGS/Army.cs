@@ -20,33 +20,33 @@ namespace TGS
 
     public static class Army
     {
-        private static int TechStage;
-        public static int TechGroupOne;
-        public static int TechGroupTwo;
-        public static int HumGoldSplitTotal;
-        public static int HumGoldSplitEach;
-        public static int OrcGoldSplitTotal;
-        public static int OrcGoldSplitEach;
-        public static int GoldSplitMod = 10;
+        private static int TechStage { get; set; }
+        public static int TechGroupOne { get; set; }
+        public static int TechGroupTwo { get; set; }
+        private static int HumGoldSplitTotal { get; set; }
+        private static int HumGoldSplitEach { get; set; }
+        private static int OrcGoldSplitTotal { get; set; }
+        private static int OrcGoldSplitEach { get; set; }
+        public static int GoldSplitMod { get; } = 10;
 
-        public static List<Factory> HumFactories1st = new();
-        public static List<Factory> HumFactories2nd = new();
-        public static List<Factory> HumFactories3rd = new();
-        public static List<Factory> HumFactories4th = new();
-        public static List<Factory> OrcFactories1st = new();
-        public static List<Factory> OrcFactories2nd = new();
-        public static List<Factory> OrcFactories3rd = new();
-        public static List<Factory> OrcFactories4th = new();
+        private static List<Factory> HumFactoriesRing1 { get; } = new();
+        private static List<Factory> HumFactoriesRing2 { get; } = new();
+        private static List<Factory> HumFactoriesRing3 { get; } = new();
+        private static List<Factory> HumFactoriesRing4 { get; } = new();
+        private static List<Factory> OrcFactoriesRing1 { get; } = new();
+        private static List<Factory> OrcFactoriesRing2 { get; } = new();
+        private static List<Factory> OrcFactoriesRing3 { get; } = new();
+        private static List<Factory> OrcFactoriesRing4 { get; } = new();
 
-        public static List<Factory> HumFactoriesTop = new();
-        public static List<Factory> HumFactoriesMid = new();
-        public static List<Factory> HumFactoriesBot = new();
-        public static List<Factory> OrcFactoriesTop = new();
-        public static List<Factory> OrcFactoriesMid = new();
-        public static List<Factory> OrcFactoriesBot = new();
+        private static List<Factory> HumFactoriesTop { get; } = new();
+        private static List<Factory> HumFactoriesMid { get; } = new();
+        private static List<Factory> HumFactoriesBot { get; } = new();
+        private static List<Factory> OrcFactoriesTop { get; } = new();
+        private static List<Factory> OrcFactoriesMid { get; } = new();
+        private static List<Factory> OrcFactoriesBot { get; } = new();
 
-        public static Dictionary<Factory, Factory> OpposingFactory = new();
-        public static Dictionary<unit, Factory> FactoryLookup = new();
+        public static Dictionary<Factory, Factory> OpposingFactory { get; } = new();
+        public static Dictionary<unit, Factory> FactoryLookup { get; } = new();
 
         public static void InitHumArmy()
         {
@@ -61,7 +61,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            HumFactories1st.Add(NewFactory);
+            HumFactoriesRing1.Add(NewFactory);
             HumFactoriesTop.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(13), HumBarracksMid);
@@ -70,7 +70,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            HumFactories1st.Add(NewFactory);
+            HumFactoriesRing1.Add(NewFactory);
             HumFactoriesMid.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(14), HumBarracksBot);
@@ -79,7 +79,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            HumFactories1st.Add(NewFactory);
+            HumFactoriesRing1.Add(NewFactory);
             HumFactoriesBot.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(12), HumAviaryTop);
@@ -92,7 +92,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            HumFactories2nd.Add(NewFactory);
+            HumFactoriesRing2.Add(NewFactory);
             HumFactoriesTop.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(13), HumAviaryMid);
@@ -101,7 +101,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            HumFactories2nd.Add(NewFactory);
+            HumFactoriesRing2.Add(NewFactory);
             HumFactoriesMid.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(14), HumAviaryBot);
@@ -110,7 +110,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            HumFactories2nd.Add(NewFactory);
+            HumFactoriesRing2.Add(NewFactory);
             HumFactoriesBot.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(12), HumSanctumTop);
@@ -123,7 +123,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            HumFactories3rd.Add(NewFactory);
+            HumFactoriesRing3.Add(NewFactory);
             HumFactoriesTop.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(13), HumSanctumMid);
@@ -132,7 +132,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            HumFactories3rd.Add(NewFactory);
+            HumFactoriesRing3.Add(NewFactory);
             HumFactoriesMid.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(14), HumSanctumBot);
@@ -141,7 +141,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            HumFactories3rd.Add(NewFactory);
+            HumFactoriesRing3.Add(NewFactory);
             HumFactoriesBot.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(12), HumWorkshopTop);
@@ -153,7 +153,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            HumFactories4th.Add(NewFactory);
+            HumFactoriesRing4.Add(NewFactory);
             HumFactoriesTop.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(13), HumWorkshopMid);
@@ -162,7 +162,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            HumFactories4th.Add(NewFactory);
+            HumFactoriesRing4.Add(NewFactory);
             HumFactoriesMid.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(14), HumWorkshopBot);
@@ -171,7 +171,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            HumFactories4th.Add(NewFactory);
+            HumFactoriesRing4.Add(NewFactory);
             HumFactoriesBot.Add(NewFactory);
         }
 
@@ -188,7 +188,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            OrcFactories1st.Add(NewFactory);
+            OrcFactoriesRing1.Add(NewFactory);
             OrcFactoriesTop.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(16), OrcBarracksMid);
@@ -197,7 +197,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            OrcFactories1st.Add(NewFactory);
+            OrcFactoriesRing1.Add(NewFactory);
             OrcFactoriesMid.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(17), OrcBarracksBot);
@@ -206,7 +206,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            OrcFactories1st.Add(NewFactory);
+            OrcFactoriesRing1.Add(NewFactory);
             OrcFactoriesBot.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(15), OrcBeastiaryTop);
@@ -219,7 +219,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            OrcFactories2nd.Add(NewFactory);
+            OrcFactoriesRing2.Add(NewFactory);
             OrcFactoriesTop.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(16), OrcBeastiaryMid);
@@ -228,7 +228,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            OrcFactories2nd.Add(NewFactory);
+            OrcFactoriesRing2.Add(NewFactory);
             OrcFactoriesMid.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(17), OrcBeastiaryBot);
@@ -237,20 +237,20 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            OrcFactories2nd.Add(NewFactory);
+            OrcFactoriesRing2.Add(NewFactory);
             OrcFactoriesBot.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(15), OrcLodgeTop);
             Spawns.Clear();
             Spawns.Add(new FactorySpawn(UNIT_OSHM_SCHWAMAN, UNIT_NCHW_WITCH_ARROW, true, 1));
-            Spawns.Add(new FactorySpawn(UNIT_ODOC_MEDICINE_MAN, UNIT_ODKT_NECROMANCER, true, 0));
+            Spawns.Add(new FactorySpawn(UNIT_ODOC_NECROMANCER, UNIT_ODKT_NECROMANCER, true, 0));
             Spawns.Add(new FactorySpawn(UNIT_OSPW_SPIRIT_WALKER, UNIT_NOMG_OGRE_MAGI, false, 0));
             foreach (FactorySpawn SpawnedUnit in Spawns)
             {
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            OrcFactories3rd.Add(NewFactory);
+            OrcFactoriesRing3.Add(NewFactory);
             OrcFactoriesTop.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(16), OrcLodgeMid);
@@ -259,7 +259,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            OrcFactories3rd.Add(NewFactory);
+            OrcFactoriesRing3.Add(NewFactory);
             OrcFactoriesMid.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(17), OrcLodgeBot);
@@ -268,19 +268,19 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            OrcFactories3rd.Add(NewFactory);
+            OrcFactoriesRing3.Add(NewFactory);
             OrcFactoriesBot.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(15), OrcTotemTop);
             Spawns.Clear();
             Spawns.Add(new FactorySpawn(UNIT_OCAT_DEMOLISHER, UNIT_NINC_INFERNAL_CANNON, false, 1));
-            Spawns.Add(new FactorySpawn(UNIT_OTAU_BLADEMASTER, UNIT_NOGL_OGRE_LORD, true, 0));
+            Spawns.Add(new FactorySpawn(UNIT_OTAU_SEER, UNIT_NOGL_OGRE_LORD, true, 0));
             foreach (FactorySpawn SpawnedUnit in Spawns)
             {
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            OrcFactories4th.Add(NewFactory);
+            OrcFactoriesRing4.Add(NewFactory);
             OrcFactoriesTop.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(16), OrcTotemMid);
@@ -289,7 +289,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            OrcFactories4th.Add(NewFactory);
+            OrcFactoriesRing4.Add(NewFactory);
             OrcFactoriesMid.Add(NewFactory);
 
             NewFactory = new Factory(player.Create(17), OrcTotemBot);
@@ -298,7 +298,7 @@ namespace TGS
                 NewFactory.AddSpawn(SpawnedUnit);
             }
 
-            OrcFactories4th.Add(NewFactory);
+            OrcFactoriesRing4.Add(NewFactory);
             OrcFactoriesBot.Add(NewFactory);
         }
 
@@ -411,7 +411,7 @@ namespace TGS
                         {
                             foreach (Factory Spawner in HumFactoriesTop)
                             {
-                                if (Spawner.Location.X == NewFactory.X && Spawner.Location.Y == NewFactory.Y)
+                                if (Spawner.FactoryLocation.X == NewFactory.X && Spawner.FactoryLocation.Y == NewFactory.Y)
                                 {
                                     Spawner.SetNewFactory(NewFactory);
                                     return;
@@ -419,7 +419,7 @@ namespace TGS
                             }
                             foreach (Factory Spawner in HumFactoriesMid)
                             {
-                                if (Spawner.Location.X == NewFactory.X && Spawner.Location.Y == NewFactory.Y)
+                                if (Spawner.FactoryLocation.X == NewFactory.X && Spawner.FactoryLocation.Y == NewFactory.Y)
                                 {
                                     Spawner.SetNewFactory(NewFactory);
                                     return;
@@ -427,7 +427,7 @@ namespace TGS
                             }
                             foreach (Factory Spawner in HumFactoriesBot)
                             {
-                                if (Spawner.Location.X == NewFactory.X && Spawner.Location.Y == NewFactory.Y)
+                                if (Spawner.FactoryLocation.X == NewFactory.X && Spawner.FactoryLocation.Y == NewFactory.Y)
                                 {
                                     Spawner.SetNewFactory(NewFactory);
                                     return;
@@ -438,7 +438,7 @@ namespace TGS
                         {
                             foreach (Factory Spawner in OrcFactoriesTop)
                             {
-                                if (Spawner.Location.X == NewFactory.X && Spawner.Location.Y == NewFactory.Y)
+                                if (Spawner.FactoryLocation.X == NewFactory.X && Spawner.FactoryLocation.Y == NewFactory.Y)
                                 {
                                     Spawner.SetNewFactory(NewFactory);
                                     return;
@@ -446,7 +446,7 @@ namespace TGS
                             }
                             foreach (Factory Spawner in OrcFactoriesMid)
                             {
-                                if (Spawner.Location.X == NewFactory.X && Spawner.Location.Y == NewFactory.Y)
+                                if (Spawner.FactoryLocation.X == NewFactory.X && Spawner.FactoryLocation.Y == NewFactory.Y)
                                 {
                                     Spawner.SetNewFactory(NewFactory);
                                     return;
@@ -454,7 +454,7 @@ namespace TGS
                             }
                             foreach (Factory Spawner in OrcFactoriesBot)
                             {
-                                if (Spawner.Location.X == NewFactory.X && Spawner.Location.Y == NewFactory.Y)
+                                if (Spawner.FactoryLocation.X == NewFactory.X && Spawner.FactoryLocation.Y == NewFactory.Y)
                                 {
                                     Spawner.SetNewFactory(NewFactory);
                                     return;
@@ -499,12 +499,12 @@ namespace TGS
 
         private static void SpawnRing1()
         {
-            foreach (Factory Spawner in HumFactories1st)
+            foreach (Factory Spawner in HumFactoriesRing1)
             {
                 Spawner.Spawn();
             }
 
-            foreach (Factory Spawner in OrcFactories1st)
+            foreach (Factory Spawner in OrcFactoriesRing1)
             {
                 Spawner.Spawn();
             }
@@ -512,12 +512,12 @@ namespace TGS
 
         private static void SpawnRing2()
         {
-            foreach (Factory Spawner in HumFactories2nd)
+            foreach (Factory Spawner in HumFactoriesRing2)
             {
                 Spawner.Spawn();
             }
 
-            foreach (Factory Spawner in OrcFactories2nd)
+            foreach (Factory Spawner in OrcFactoriesRing2)
             {
                 Spawner.Spawn();
             }
@@ -525,12 +525,12 @@ namespace TGS
 
         private static void SpawnRing3()
         {
-            foreach (Factory Spawner in HumFactories3rd)
+            foreach (Factory Spawner in HumFactoriesRing3)
             {
                 Spawner.Spawn();
             }
 
-            foreach (Factory Spawner in OrcFactories3rd)
+            foreach (Factory Spawner in OrcFactoriesRing3)
             {
                 Spawner.Spawn();
             }
@@ -538,12 +538,12 @@ namespace TGS
 
         private static void SpawnRing4()
         {
-            foreach (Factory Spawner in HumFactories4th)
+            foreach (Factory Spawner in HumFactoriesRing4)
             {
                 Spawner.Spawn();
             }
 
-            foreach (Factory Spawner in OrcFactories4th)
+            foreach (Factory Spawner in OrcFactoriesRing4)
             {
                 Spawner.Spawn();
             }
@@ -657,7 +657,7 @@ namespace TGS
             Spawner.State = FactoryState.Pending;
             QuestMessageBJ(Force, bj_QUESTMESSAGE_HINT,
                 $"{GetBuyingUnit().Owner.Name} bought |cffff8000{GetSoldItem().Name}|cffffffff to rebuild |cffff8000{Spawner.UnitName}");
-            PingMinimapLocForForce(Force, Spawner.Location, 5.0f);
+            PingMinimapLocForForce(Force, Spawner.FactoryLocation, 5.0f);
             unit Tony;
             if (Spawner.Owner.IsAlly(player.Create(5)))
             {
@@ -668,7 +668,7 @@ namespace TGS
                 Tony = unit.Create(player.Create(11), UNIT_UFBD_ARCHITECT, OrcCastle.X, OrcCastle.Y);
             }
         
-            Tony.IssueBuildOrder(Spawner.FactoryId, Spawner.Location.X, Spawner.Location.Y);
+            Tony.IssueBuildOrder(Spawner.FactoryId, Spawner.FactoryLocation.X, Spawner.FactoryLocation.Y);
             Tony.ApplyTimedLife(FourCC("BTLF"), 120.0f);
 #if DEBUG
             Console.WriteLine($"{Tony.Name} - {Spawner.UnitName} {Spawner.FactoryId} moving for construction");
@@ -727,7 +727,7 @@ namespace TGS
                 return;
             }
 
-            GetTriggerUnit().DropFromPool(Drops.IP_Coin6);
+            GetTriggerUnit().DropFromPool(Drops.IpCoin6);
             if (GetKillingUnit().Owner.Controller == mapcontrol.User)
             {
                 if (Human.Contains(GetKillingUnit().Owner))
@@ -751,33 +751,33 @@ namespace TGS
             {
                 if (KillingUnit.IsHumUnit())
                 {
-                    HumFactories4th[(int)Lane.Middle].AddCreep(GetUnitTypeId(TargetUnit));
+                    HumFactoriesRing4[(int)Lane.Middle].AddCreep(GetUnitTypeId(TargetUnit));
                 }
                 else
                 {
-                    OrcFactories4th[(int)Lane.Middle].AddCreep(GetUnitTypeId(TargetUnit));
+                    OrcFactoriesRing4[(int)Lane.Middle].AddCreep(GetUnitTypeId(TargetUnit));
                 }
             }
             else if (TargetUnit.IsTopCreep())
             {
                 if (KillingUnit.IsHumUnit())
                 {
-                    HumFactories4th[(int)Lane.Top].AddCreep(GetUnitTypeId(TargetUnit));
+                    HumFactoriesRing4[(int)Lane.Top].AddCreep(GetUnitTypeId(TargetUnit));
                 }
                 else
                 {
-                    OrcFactories4th[(int)Lane.Top].AddCreep(GetUnitTypeId(TargetUnit));
+                    OrcFactoriesRing4[(int)Lane.Top].AddCreep(GetUnitTypeId(TargetUnit));
                 }
             }
             else
             {
                 if (KillingUnit.IsHumUnit())
                 {
-                    HumFactories4th[(int)Lane.Bottom].AddCreep(GetUnitTypeId(TargetUnit));
+                    HumFactoriesRing4[(int)Lane.Bottom].AddCreep(GetUnitTypeId(TargetUnit));
                 }
                 else
                 {
-                    OrcFactories4th[(int)Lane.Bottom].AddCreep(GetUnitTypeId(TargetUnit));
+                    OrcFactoriesRing4[(int)Lane.Bottom].AddCreep(GetUnitTypeId(TargetUnit));
                 }
             }
         }

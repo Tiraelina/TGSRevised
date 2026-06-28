@@ -10,7 +10,7 @@ namespace TGS.Creeps
         {
             CampGroup TempGroup;
 
-            CreepCamp RuinsWest = new(Camp.RuinsWest, CreepRespawnTime5m,
+            CreepCamp RuinsWest = new(Camp.RuinsWest, CreepRespawnTime5Min,
                 _ => { Globals.RuinsShopWest.SetShopState(true); },
                 _ => { Globals.RuinsShopWest.SetShopState(false); });
             RuinsWest.AddUnit(GetUnitAt(-4608.0f, -7129.5f));
@@ -57,13 +57,13 @@ namespace TGS.Creeps
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NFOD_FACELESS_SIEGE_BREAKER, DropID.Aura));
             RuinsWest.AddUnitSet(TempGroup);
 
-            CreepCamp TortalWest = new(Camp.TortalWest, CreepRespawnTime4m);
+            CreepCamp TortalWest = new(Camp.TortalWest, CreepRespawnTime4Min);
             TortalWest.AddUnit(GetUnitAt(-1689.0f, -4172.8f));
             TortalWest.AddUnit(GetUnitAt(-1524.8f, -4322.2f));
             TortalWest.AddUnit(GetUnitAt(-1656.5f, -4455.5f), DropID.HealRune50Candy);
             TortalWest.AddUnit(GetUnitAt(-1843.5f, -4345.2f), DropID.Gold25Candy);
 
-            CreepCamp IcerogWest = new(Camp.IcerogWest, CreepRespawnTime5m);
+            CreepCamp IcerogWest = new(Camp.IcerogWest, CreepRespawnTime5Min);
             IcerogWest.AddUnit(GetUnitAt(-5058.5f, -8942.2f));
             IcerogWest.AddUnit(GetUnitAt(-5162.8f, -9389.0f));
             IcerogWest.AddUnit(GetUnitAt(-5178.0f, -8773.8f), DropID.TomeOfPower);
@@ -72,7 +72,7 @@ namespace TGS.Creeps
 
             IcerogWest.AddUnit(GetUnitAt(-9426.8f, -8975.0f), DropID.Gear);
 
-            CreepCamp KoboldWest = new(Camp.KoboldWest, CreepRespawnTime5m);
+            CreepCamp KoboldWest = new(Camp.KoboldWest, CreepRespawnTime5Min);
             KoboldWest.AddUnit(GetUnitAt(-2336.2f, -8170.2f));
             KoboldWest.AddUnit(GetUnitAt(-2162.5f, -8152.5f), DropID.Swiftness);
             KoboldWest.AddUnit(GetUnitAt(-2145.0f, -8322.2f));
@@ -83,17 +83,17 @@ namespace TGS.Creeps
             KoboldWest.AddUnit(GetUnitAt(-3465.2f, -9208.0f), DropID.WoodBundle);
             KoboldWest.AddUnit(GetUnitAt(-3523.0f, -9058.5f));
 
-            CreepCamp NightlordWest = new(Camp.NightlordWest, CreepRespawnTime5m);
+            CreepCamp NightlordWest = new(Camp.NightlordWest, CreepRespawnTime5Min);
             NightlordWest.AddUnit(GetUnitAt(-10141.5f, -12488.0f));
             NightlordWest.AddUnit(GetUnitAt(-9491.5f, -13053.8f));
             NightlordWest.AddUnit(GetUnitAt(-9901.5f, -12546.0f));
             NightlordWest.AddUnit(GetUnitAt(-9571.0f, -12867.0f), DropID.Ultravision);
             NightlordWest.AddUnit(GetUnitAt(-9792.0f, -12806.0f), DropID.WoodBundle);
 
-            CreepCamp DragonspawnWest = new(Camp.DragonspawnWest, CreepRespawnTime5m);
+            CreepCamp DragonspawnWest = new(Camp.DragonspawnWest, CreepRespawnTime5Min);
             DragonspawnWest.AddUnit(GetUnitAt(-3158.5f, -12905.8f), DropID.HealRune);
 
-            CreepCamp RuinsEast = new(Camp.RuinsEast, CreepRespawnTime5m,
+            CreepCamp RuinsEast = new(Camp.RuinsEast, CreepRespawnTime5Min,
                 _ => { Globals.RuinsShopEast.SetShopState(true); },
                 _ => { Globals.RuinsShopEast.SetShopState(false); });
             RuinsEast.AddUnit(GetUnitAt(4531.0f, -7100.8f));
@@ -140,13 +140,13 @@ namespace TGS.Creeps
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NFOD_FACELESS_SIEGE_BREAKER, DropID.Aura));
             RuinsEast.AddUnitSet(TempGroup);
 
-            CreepCamp TortalEast = new(Camp.TortalEast, CreepRespawnTime4m);
+            CreepCamp TortalEast = new(Camp.TortalEast, CreepRespawnTime4Min);
             TortalEast.AddUnit(GetUnitAt(1668.0f, -4429.8f));
             TortalEast.AddUnit(GetUnitAt(1727.5f, -4604.0f));
             TortalEast.AddUnit(GetUnitAt(1578.5f, -4751.5f), DropID.HealRune50Candy);
             TortalEast.AddUnit(GetUnitAt(1438.8f, -4591.5f), DropID.Gold25Candy);
 
-            CreepCamp IcerogEast = new(Camp.IcerogEast, CreepRespawnTime5m);
+            CreepCamp IcerogEast = new(Camp.IcerogEast, CreepRespawnTime5Min);
             IcerogEast.AddUnit(GetUnitAt(5515.8f, -8605.0f));
             IcerogEast.AddUnit(GetUnitAt(5538.2f, -9060.8f));
             IcerogEast.AddUnit(GetUnitAt(5651.8f, -8546.5f), DropID.TomeOfPower);
@@ -155,7 +155,7 @@ namespace TGS.Creeps
 
             IcerogEast.AddUnit(GetUnitAt(10172.5f, -8448.5f), DropID.Gear);
 
-            CreepCamp KoboldEast = new(Camp.KoboldEast, CreepRespawnTime5m);
+            CreepCamp KoboldEast = new(Camp.KoboldEast, CreepRespawnTime5Min);
             KoboldEast.AddUnit(GetUnitAt(2089.2f, -8077.5f));
             KoboldEast.AddUnit(GetUnitAt(1942.8f, -8133.2f), DropID.Swiftness);
             KoboldEast.AddUnit(GetUnitAt(2048.2f, -8325.2f));
@@ -166,17 +166,17 @@ namespace TGS.Creeps
             KoboldEast.AddUnit(GetUnitAt(3726.5f, -9269.5f), DropID.WoodBundle);
             KoboldEast.AddUnit(GetUnitAt(3809.5f, -9072.8f));
 
-            CreepCamp NightlordEast = new(Camp.NightlordEast, CreepRespawnTime5m);
+            CreepCamp NightlordEast = new(Camp.NightlordEast, CreepRespawnTime5Min);
             NightlordEast.AddUnit(GetUnitAt(9086.0f, -12208.5f));
             NightlordEast.AddUnit(GetUnitAt(8433.8f, -12734.5f));
             NightlordEast.AddUnit(GetUnitAt(8876.8f, -12256.0f));
             NightlordEast.AddUnit(GetUnitAt(8532.8f, -12527.5f), DropID.Ultravision);
             NightlordEast.AddUnit(GetUnitAt(8751.0f, -12471.0f), DropID.WoodBundle);
 
-            CreepCamp DragonspawnEast = new(Camp.DragonspawnEast, CreepRespawnTime5m);
+            CreepCamp DragonspawnEast = new(Camp.DragonspawnEast, CreepRespawnTime5Min);
             DragonspawnEast.AddUnit(GetUnitAt(3086.2f, -12118.8f), DropID.HealRune);
 
-            CreepCamp HeroBot = new(Camp.HeroBot, CreepRespawnTime5m);
+            CreepCamp HeroBot = new(Camp.HeroBot, CreepRespawnTime5Min);
             HeroBot.AddUnit(GetUnitAt(-453.5f, 13308.5f));
             HeroBot.AddUnit(GetUnitAt(-312.2f, 13148.5f));
         }

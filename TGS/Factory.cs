@@ -18,14 +18,14 @@ namespace TGS
 
     public class Factory
     {
-        public int FactoryId;
-        public FactoryState State;
-        public location Location;
-        public player Owner;
-        private List<int> SpawnedCreeps;
-        public List<FactorySpawn> SpawnedUnits;
-        public unit Unit;
-        public string UnitName;
+        public int FactoryId { get; }
+        public FactoryState State { get; set; }
+        public location FactoryLocation { get; }
+        public player Owner { get; }
+        private List<int> SpawnedCreeps { get; }
+        public List<FactorySpawn> SpawnedUnits { get; }
+        public unit Unit { get; set; }
+        public string UnitName { get; }
 
         public Factory(player InOwner, unit inUnit)
         {
@@ -36,7 +36,7 @@ namespace TGS
             State = FactoryState.Alive;
             SpawnedUnits = new List<FactorySpawn>();
             SpawnedCreeps = new List<int>();
-            Location = GetUnitLoc(Unit);
+            FactoryLocation = GetUnitLoc(Unit);
             PlayerUnitEvents.Register(UnitEvent.Dies, Died, Unit);
         }
 
@@ -77,17 +77,17 @@ namespace TGS
 
                 if (Army.OpposingFactory[this].State == FactoryState.Alive)
                 {
-                    CreateNUnitsAtLoc(SpawnTotal, SpawnedUnit.UnitId, Owner, Location, bj_UNIT_FACING);
+                    CreateNUnitsAtLoc(SpawnTotal, SpawnedUnit.UnitId, Owner, FactoryLocation, bj_UNIT_FACING);
                 }
                 else
                 {
-                    CreateNUnitsAtLoc(SpawnTotal, SpawnedUnit.SuperUnitId, Owner, Location, bj_UNIT_FACING);
+                    CreateNUnitsAtLoc(SpawnTotal, SpawnedUnit.SuperUnitId, Owner, FactoryLocation, bj_UNIT_FACING);
                 }
             }
 
             foreach (int CreepId in SpawnedCreeps)
             {
-                unit Creep = unit.Create(Owner, CreepId, Location.X, Location.Y);
+                unit Creep = unit.Create(Owner, CreepId, FactoryLocation.X, FactoryLocation.Y);
                 Creep.NegateBounty();
             }
 
@@ -108,7 +108,7 @@ namespace TGS
 
     public class FactorySpawn
     {
-        public bool bInitialGroup;
+        public bool bInitialGroup { get; }
 
         public FactorySpawn(int InUnitId, int InSuperUnitId, bool inbInitialGroup, int InCount)
         {

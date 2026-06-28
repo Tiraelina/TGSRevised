@@ -9,22 +9,22 @@ namespace TGS.Spells
 {
     public class ChainDeathCoil : BasicMissile
     {
-        private int AbilityId;
-        private int AbilityLevel;
-        private int BounceCount;
-        private int BOUNCES = 0;
-        private int BOUNCES_PER_LVL = 1;
-        private float COLLISION_SIZE = 32.0f;
-        private float DAMAGE = 25.0f;
-        private float DAMAGE_PER_LVL = 45.0f;
-        private float DamageAmount;
+        private int AbilityId { get; }
+        private int AbilityLevel { get; }
+        private int BounceCount { get; set; }
+        private int BounceMax { get; }
+        private int BouncesPerLvl { get; } = 1;
+        private float Damage { get; } = 25.0f;
+        private float DamagePerLvl { get; } = 45.0f;
+        private float DamageAmount { get; set; }
 
-        private bool bEnemy;
-        private group Excluded;
-        private float RANGE = 350.0f;
-        private float RANGE_PER_LVL = 25.0f;
-        private float REDUCTION_PER_BOUNCE = 0.15f;
-        private group Targets;
+        private bool bEnemy { get; }
+        private group Excluded { get; }
+        private float Range { get; } = 350.0f;
+        private float RangePerLvl { get; } = 25.0f;
+        private float ReductionPerBounce { get; } = 0.15f;
+        private float BounceRange { get; }
+        private group Targets { get; set; }
 
         public ChainDeathCoil(unit caster, unit target, int abilityId) : base(caster, target)
         {
@@ -33,8 +33,10 @@ namespace TGS.Spells
             Speed = 1100.0f;
             EffectString = @"Abilities\Spells\Undead\DeathCoil\DeathCoilMissile.mdl";
             CasterLaunchZ = 50.0f;
-            DamageAmount = Damage(AbilityLevel);
-            bEnemy = target.IsEnemyTo(Caster.Owner);
+            DamageAmount = Damage + (DamagePerLvl * AbilityLevel);
+            BounceRange = Range + (RangePerLvl * AbilityLevel);
+            BounceMax = BouncesPerLvl * AbilityLevel;
+            bEnemy = Target.IsEnemyTo(Caster.Owner);
             Excluded = group.Create();
             Excluded.Add(Target);
         }
@@ -54,50 +56,32 @@ namespace TGS.Spells
             }
 
             effect.Create(@"Abilities\Spells\Undead\DeathCoil\DeathCoilSpecialArt.mdl", Target, "origin").Dispose();
-            if (BounceCount < Bounces(AbilityLevel))
+            if (BounceCount < BounceMax)
             {
                 BounceCount += 1;
                 Targets = group.Create();
-                GroupEnumUnitsInRange(Targets, Target.X, Target.Y, Range(AbilityLevel), Condition(null));
+                GroupEnumUnitsInRange(Targets, Target.X, Target.Y, BounceRange, Condition(Filter));
                 foreach (unit NearestUnit in Targets.ToList())
                 {
-                    if (!IsUnitInGroup(NearestUnit, Excluded)
-                        && ((NearestUnit.IsEnemyTo(Caster.Owner) && bEnemy)
-                            || (NearestUnit.IsAllyTo(Caster.Owner) && !bEnemy))
-                        && TGSSpells.IsValidTarget(NearestUnit))
-                    {
-                        Active = true;
-                        Excluded.Add(NearestUnit);
-                        Target = NearestUnit;
-                        Targets.Dispose();
-                        DamageAmount = Damage(AbilityLevel) * (1.0f - REDUCTION_PER_BOUNCE);
-                        return;
-                    }
+                    Active = true;
+                    Excluded.Add(NearestUnit);
+                    Target = NearestUnit;
+                    Targets.Dispose();
+                    DamageAmount *= 1.0f - ReductionPerBounce;
+                    return;
                 }
-
-                Excluded.Dispose();
-                Dispose();
             }
-            else
-            {
-                Excluded.Dispose();
-                Dispose();
-            }
+
+            Excluded.Dispose();
+            Dispose();
         }
 
-        private float Damage(int level)
+        private bool Filter()
         {
-            return DAMAGE + (DAMAGE_PER_LVL * level);
-        }
-
-        private float Range(int level)
-        {
-            return RANGE + (RANGE_PER_LVL * level);
-        }
-
-        private int Bounces(int level)
-        {
-            return BOUNCES + (BOUNCES_PER_LVL * level);
+            return !IsUnitInGroup(GetFilterUnit(), Excluded)
+                   && ((GetFilterUnit().IsEnemyTo(Caster.Owner) && bEnemy)
+                       || (GetFilterUnit().IsAllyTo(Caster.Owner) && !bEnemy))
+                   && GetFilterUnit().IsValidTarget();
         }
     }
 }

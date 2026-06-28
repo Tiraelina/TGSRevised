@@ -5,11 +5,11 @@ namespace TGS.Spells
 {
     public class Berserk
     {
-        private timer BerserkAnimTick;
-        private unit Caster;
-        private int DamageBonusAbilityId = Constants.ABILITY_ALT4_ITEM_DAMAGE_BONUS_40;
-        private float Duration = 20.0f;
-        private int GreenBlue = 255;
+        private timer BerserkAnimTick { get; }
+        private unit Caster { get; }
+        private int DamageBonusAbilityId { get; } = Constants.ABILITY_ALT4_ITEM_DAMAGE_BONUS_40;
+        private float Duration { get; set; } = 20.0f;
+        private int GreenBlue { get; set; } = 255;
 
         public Berserk(unit InCaster)
         {

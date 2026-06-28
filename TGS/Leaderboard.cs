@@ -6,9 +6,9 @@ namespace TGS
 {
     public class Leaderboard
     {
-        private static int TotalPlayers;
-        public static int SlotCount;
-        public static multiboard Multiboard;
+        private static int TotalPlayers { get; set; }
+        public static int SlotCount { get; set; }
+        public static multiboard Multiboard { get; set; }
 
         public static void Init()
         {

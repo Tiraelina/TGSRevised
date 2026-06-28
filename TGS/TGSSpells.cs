@@ -30,7 +30,7 @@ namespace TGS
     public class SpellScaling
     {
         private string SpellComponentName { get; set; }
-        public int Index { get; init; }
+        private int Index { get; init; }
         private int ItemId { get; set; }
         private AttributeType ScalingAttribute { get; set; }
         private float DamageBase { get; set; }
@@ -67,9 +67,9 @@ namespace TGS
 
     public static class TGSSpells
     {
-        public static Dictionary<int, int> PocketFactoryLookup = new();
-        public static Dictionary<int, int> ClockwerkGoblinLookup = new();
-        public static List<SpellScaling> SpellScalingList = new();
+        public static Dictionary<int, int> PocketFactoryLookup { get; } = new();
+        public static Dictionary<int, int> ClockwerkGoblinLookup { get; } = new();
+        public static List<SpellScaling> SpellScalingList { get; } = new();
 
         public static void Init()
         {
@@ -205,6 +205,12 @@ namespace TGS
             if (EventDamage <= 0.0f)
             {
                 return false;
+            }
+
+            if (TGSAbilities.ByUnit.TryGetValue(DamageTarget, out TGSHero TargetTGSHero2))
+            {
+                // TODO - Make not hack
+                EventDamage *= (1.0f + TargetTGSHero2.ItemMods.DamageTakenModifier);
             }
 
             // SPELL DAMAGE
@@ -399,8 +405,8 @@ namespace TGS
                 }
 
                 // Bladestorm model
-                if ((TriggerUnit.UnitType != UNIT_OGRH_FERAL_DRUID_HERO
-                     || TriggerUnit.UnitType != UNIT_OPGH_BLADEMASTER_HERO)
+                if ((TriggerUnit.UnitType != UNIT_OGRH_FERAL_DRUID_DAMAGE_HERO
+                     || TriggerUnit.UnitType != UNIT_OPGH_BLADEMASTER_DAMAGE_HERO)
                     && AbilityId == ABILITY_AOWW_BLADESTORM_T)
                 {
                     Players[GetTriggerPlayer()].Bladestorm();
@@ -643,24 +649,24 @@ namespace TGS
             KillDestructable(GetEnumDestructable());
         }
 
-        public static bool IsValidTarget(unit Target)
+        public static bool IsValidTarget(this unit Target)
         {
             //Console.WriteLine($"|cff000000Target:|r |cffffff00Immune:|r {IsUnitType(Target, UNIT_TYPE_MAGIC_IMMUNE)}, |cffffff00Building:|r {IsUnitType(Target, UNIT_TYPE_STRUCTURE)}, |cffffff00Mechanical:|r {IsUnitType(Target, UNIT_TYPE_MECHANICAL)}, |cffffff00Alive:|r {IsUnitAliveBJ(Target)}");
             return !Target.IsUnitType(unittype.MagicImmune)
                    && !Target.IsUnitType(unittype.Structure)
                    && !Target.IsUnitType(unittype.Mechanical)
-                   && Target.Alive;
+                   && !Target.IsUnitType(unittype.Dead);
         }
     }
 
     public class AbilityMissile : BasicMissile
     {
-        public int AbilityId;
-        public int AbilityLevel;
-        public float Damage;
-        public int DummyAbilityId;
-        public bool Expired = false;
-        public float Range;
+        protected int AbilityId { get; }
+        protected int AbilityLevel { get; set; }
+        protected float Damage { get; set; }
+        protected int DummyAbilityId { get; set; }
+        protected bool bExpired { get; set; } = false;
+        public float Range { get; set; }
 
         public AbilityMissile(unit caster, float targetX, float targetY, int abilityId) : base(caster, targetX, targetY)
         {
@@ -675,7 +681,7 @@ namespace TGS
 
         public override void OnImpact()
         {
-            if (!Expired)
+            if (!bExpired)
             {
                 Active = true;
             }
@@ -683,7 +689,7 @@ namespace TGS
 
         public override void OnPeriodic()
         {
-            Expired = true;
+            bExpired = true;
             Active = false;
         }
 
@@ -692,8 +698,7 @@ namespace TGS
             if (unit.IsEnemyTo(Caster.Owner))
             {
                 unit Dummy = DummySystem.GetDummy(unit.X, unit.Y, Caster.Owner);
-                Dummy.AddAbility(DummyAbilityId);
-                Dummy.SetAbilityLevel(DummyAbilityId, Caster.GetAbilityLevel(AbilityId));
+                Dummy.AddAbilityAt(DummyAbilityId, Caster.GetAbilityLevel(AbilityId));
                 Dummy.IssueOrder(ORDER_SOUL_BURN, unit);
                 DummySystem.RecycleDummy(Dummy, 0.25f);
             }

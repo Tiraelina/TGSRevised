@@ -10,25 +10,27 @@ namespace TGS.Spells
 {
     public class HealingWave : BasicMissile
     {
-        private int AbilityId;
-        private int AbilityLevel;
-        private int BounceCount;
-        private int BOUNCES = 3;
-        private int BOUNCES_PER_LVL = 1;
-        private float COLLISION_SIZE = 32.0f;
-        private float HEALING = 50.0f;
-        private float HEALING_PER_LVL = 50.0f;
-        private float HealingAmount;
+        private int AbilityId { get; }
+        private int AbilityLevel { get; }
+        private int BounceCount { get; set; }
+        private int Bounces { get; } = 3;
+        private int BouncesPerLvl { get; } = 1;
+        private float HealingBase { get; } = 50.0f;
+        private float HealingPerLvl { get; } = 50.0f;
+        private float HealingAmount { get; set; }
+        private float Range { get; }
+        private float BounceMax { get; }
+        private float ReductionFactor { get; }
 
-        private timer BounceTimer;
-        private bool bFirstHit = true;
-        private group Excluded;
-        private float RANGE = 470.0f;
-        private float RANGE_PER_LVL = 30.0f;
-        private float REDUCTION_PER_BOUNCE = 0.26f;
-        private float REDUCTION_PER_BOUNCE_LEVEL = 0.01f;
-        private group Targets;
-        private unit LastTarget;
+        private timer BounceTimer { get; }
+        private bool bFirstHit { get; set; } = true;
+        private group Excluded { get; }
+        private float RangeBase { get; } = 470.0f;
+        private float RangePerLvl { get; } = 30.0f;
+        private float ReductionPerBounce { get; } = 0.26f;
+        private float ReductionPerBounceLevel { get; } = 0.01f;
+        private group Targets { get; set; }
+        private unit LastTarget { get; set; }
 
         public HealingWave(unit caster, unit target, int abilityId) : base(caster, target)
         {
@@ -37,7 +39,10 @@ namespace TGS.Spells
             Speed = 1500.0f;
             EffectString = @"";
             CasterLaunchZ = 50.0f;
-            HealingAmount = Healing(AbilityLevel);
+            HealingAmount = HealingBase + (HealingPerLvl * AbilityLevel);
+            Range = RangeBase + (RangePerLvl * AbilityLevel);
+            BounceMax = Bounces + (BouncesPerLvl * AbilityLevel);
+            ReductionFactor = ReductionPerBounce - (ReductionPerBounceLevel * AbilityLevel);
             Excluded = group.Create();
             Excluded.Add(Target);
             BounceTimer = timer.Create();
@@ -47,7 +52,7 @@ namespace TGS.Spells
         {
             if (bFirstHit)
             {
-                MakeTag(HealingAmount, Target, TagType.Heal);
+                MakeTag(HealingAmount, Target, TextTags.TagType.Heal);
                 Target.Heal(HealingAmount);
 
                 Lightning PrimaryHealingWave = new("HWPB", Caster, Target)
@@ -62,36 +67,31 @@ namespace TGS.Spells
                 bFirstHit = false;
                 BounceTimer.Start(0.25f, true, () =>
                 {
-                    if (BounceCount < Bounces(AbilityLevel))
+                    if (BounceCount < BounceMax)
                     {
                         BounceCount += 1;
                         Targets = group.Create();
-                        GroupEnumUnitsInRange(Targets, Target.X, Target.Y, Range(AbilityLevel), Condition(null));
+                        GroupEnumUnitsInRange(Targets, Target.X, Target.Y, Range, Condition(Filter));
                         foreach (unit NearestUnit in Targets.ToList())
                         {
-                            if (!IsUnitInGroup(NearestUnit, Excluded)
-                                && NearestUnit.IsAllyTo(Caster.Owner)
-                                && TGSSpells.IsValidTarget(NearestUnit))
+                            Active = true;
+                            Excluded.Add(NearestUnit);
+                            LastTarget = Target;
+                            Target = NearestUnit;
+                            Targets.Dispose();
+                            Lightning SecondaryHealingWave = new("HWSB", LastTarget, Target)
                             {
-                                Active = true;
-                                Excluded.Add(NearestUnit);
-                                LastTarget = Target;
-                                Target = NearestUnit;
-                                Targets.Dispose();
-                                Lightning SecondaryHealingWave = new("HWSB", LastTarget, Target)
-                                {
-                                    Duration = 1.0f,
-                                    FadeDuration = 0.5f,
-                                    CasterHeightOffset = 50f,
-                                    TargetHeightOffset = 50f,
-                                };
-                                LightningSystem.Add(SecondaryHealingWave);
-                                effect.Create(@"Abilities\Spells\Orc\HealingWave\HealingWaveTarget.mdl", Target, "origin").Dispose();
-                                HealingAmount = Healing(AbilityLevel) * (1.0f - Reduction(AbilityLevel));
-                                MakeTag(HealingAmount, Target, TagType.Heal);
-                                Target.Heal(HealingAmount);
-                                return;
-                            }
+                                Duration = 1.0f,
+                                FadeDuration = 0.5f,
+                                CasterHeightOffset = 50f,
+                                TargetHeightOffset = 50f,
+                            };
+                            LightningSystem.Add(SecondaryHealingWave);
+                            effect.Create(@"Abilities\Spells\Orc\HealingWave\HealingWaveTarget.mdl", Target, "origin").Dispose();
+                            HealingAmount = HealingAmount * (1.0f - ReductionFactor);
+                            MakeTag(HealingAmount, Target, TextTags.TagType.Heal);
+                            Target.Heal(HealingAmount);
+                            return;
                         }
                     }
                     BounceTimer.Dispose();
@@ -101,24 +101,11 @@ namespace TGS.Spells
             }
         }
 
-        private float Healing(int level)
+        private bool Filter()
         {
-            return HEALING + (HEALING_PER_LVL * level);
-        }
-
-        private float Range(int level)
-        {
-            return RANGE + (RANGE_PER_LVL * level);
-        }
-
-        private int Bounces(int level)
-        {
-            return BOUNCES + (BOUNCES_PER_LVL * level);
-        }
-
-        private float Reduction(int level)
-        {
-            return REDUCTION_PER_BOUNCE - (REDUCTION_PER_BOUNCE_LEVEL * level);
+            return !IsUnitInGroup(GetFilterUnit(), Excluded)
+                   && GetFilterUnit().IsAllyTo(Caster.Owner)
+                   && GetFilterUnit().IsValidTarget();
         }
     }
 }

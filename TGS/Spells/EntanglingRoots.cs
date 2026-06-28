@@ -27,7 +27,7 @@ namespace TGS.Spells
 
         public override void OnImpact()
         {
-            if (!Expired)
+            if (!bExpired)
             {
                 Active = true;
             }
@@ -35,7 +35,7 @@ namespace TGS.Spells
 
         public override void OnPeriodic()
         {
-            Expired = true;
+            bExpired = true;
             Active = false;
         }
 
@@ -44,8 +44,7 @@ namespace TGS.Spells
             if (unit.IsEnemyTo(Caster.Owner) && TGSSpells.IsValidTarget(unit))
             {
                 unit Dummy = DummySystem.GetDummy(unit.X, unit.Y, Caster.Owner);
-                Dummy.AddAbility(DummyAbilityId);
-                Dummy.SetAbilityLevel(DummyAbilityId, Caster.GetAbilityLevel(AbilityId));
+                Dummy.AddAbilityAt(DummyAbilityId, Caster.GetAbilityLevel(AbilityId));
                 Dummy.IssueOrder(Constants.ORDER_SOUL_BURN, unit);
                 DummySystem.RecycleDummy(Dummy, 0.25f);
             }

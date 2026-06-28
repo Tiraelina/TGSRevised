@@ -8,12 +8,12 @@ namespace TGS.Spells
 {
     public class HolyLightNova
     {
-        private int AbilityId;
-        private unit Caster;
-        private float Damage;
-        private int Level;
-        private unit Target;
-        private group Targets;
+        private int AbilityId { get; }
+        private unit Caster { get; }
+        private float Damage { get; }
+        private int Level { get; }
+        private unit Target { get; }
+        private group Targets { get; }
 
         public HolyLightNova(unit InCaster, unit InTarget, int InAbilityId)
         {

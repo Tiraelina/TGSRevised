@@ -9,8 +9,8 @@ namespace TGS
 {
     public static class Pathing
     {
-        private static Dictionary<region, rect> HumAttackPath = new();
-        private static Dictionary<region, rect> OrcAttackPath = new();
+        private static Dictionary<region, rect> HumAttackPath { get; } = new();
+        private static Dictionary<region, rect> OrcAttackPath { get; } = new();
 
         public static void Init()
         {

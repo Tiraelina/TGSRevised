@@ -9,7 +9,7 @@ namespace TGS.Creeps
         public static void Init()
         {
             CampGroup TempGroup;
-            CreepCamp FrenchmansWest = new(Camp.FrenchmansWest, CreepRespawnTime5m,
+            CreepCamp FrenchmansWest = new(Camp.FrenchmansWest, CreepRespawnTime5Min,
                 _ => { Globals.FrenchmansEndWest.SetShopState(true); },
                 _ => { Globals.FrenchmansEndWest.SetShopState(false); });
             FrenchmansWest.AddUnit(GetUnitAt(-4740.8f, 5742.8f));
@@ -46,8 +46,8 @@ namespace TGS.Creeps
             FrenchmansWest.AddUnit(GetUnitAt(-8641.2f, 6094.2f), DropID.Aura);
 
             TempGroup = new CampGroup();
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSC2_DRAGONSPAWN));
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSC2_DRAGONSPAWN, DropID.HealLesser));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSC2_DRAGONSPAWN_DIVINER));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSC2_DRAGONSPAWN_DIVINER, DropID.HealLesser));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSC3_SPIDERCRAB_MANCATCHER, DropID.Gold50Candy));
 
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_FACELESS_GARGANTUAN, DropID.Gold100Candy));
@@ -80,7 +80,7 @@ namespace TGS.Creeps
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLRV_ELDRITCH_MONSTROSITY, DropID.Aura));
             FrenchmansWest.AddUnitSet(TempGroup);
 
-            CreepCamp GolemWest = new(Camp.GolemWest, CreepRespawnTime4m);
+            CreepCamp GolemWest = new(Camp.GolemWest, CreepRespawnTime4Min);
             GolemWest.AddUnit(GetUnitAt(-1457.2f, 3749.5f));
             GolemWest.AddUnit(GetUnitAt(-1299.2f, 3799.0f));
             GolemWest.AddUnit(GetUnitAt(-1307.5f, 3638.8f), DropID.Gold100Candy);
@@ -91,7 +91,7 @@ namespace TGS.Creeps
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLRV_ELDRITCH_MONSTROSITY, DropID.Gold100Candy));
             GolemWest.AddUnitSet(TempGroup);
 
-            CreepCamp OcculordWest = new(Camp.OcculordWest, CreepRespawnTime5m);
+            CreepCamp OcculordWest = new(Camp.OcculordWest, CreepRespawnTime5Min);
             OcculordWest.AddUnit(GetUnitAt(-8629.0f, 9672.0f));
             OcculordWest.AddUnit(GetUnitAt(-8516.5f, 9847.8f));
             OcculordWest.AddUnit(GetUnitAt(-8316.0f, 9645.5f), DropID.Swiftness);
@@ -112,7 +112,7 @@ namespace TGS.Creeps
             OcculordWest.AddUnit(GetUnitAt(-4252.0f, 9279.5f));
             OcculordWest.AddUnit(GetUnitAt(-4013.0f, 9714.0f), DropID.WoodBundle);
 
-            CreepCamp FrenchmansEast = new(Camp.FrenchmansEast, CreepRespawnTime5m,
+            CreepCamp FrenchmansEast = new(Camp.FrenchmansEast, CreepRespawnTime5Min,
                 _ => { Globals.FrenchmansEndEast.SetShopState(true); },
                 _ => { Globals.FrenchmansEndEast.SetShopState(false); });
             FrenchmansEast.AddUnit(GetUnitAt(4693.0f, 5706.5f), DropID.HealLesser);
@@ -149,8 +149,8 @@ namespace TGS.Creeps
             FrenchmansEast.AddUnit(GetUnitAt(8266.2f, 6430.8f), DropID.Aura);
 
             TempGroup = new CampGroup();
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSC2_DRAGONSPAWN, DropID.HealLesser));
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSC2_DRAGONSPAWN));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSC2_DRAGONSPAWN_DIVINER, DropID.HealLesser));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSC2_DRAGONSPAWN_DIVINER));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSC3_SPIDERCRAB_MANCATCHER, DropID.Gold25Candy));
 
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_FACELESS_GARGANTUAN, DropID.Gold100Candy));
@@ -183,7 +183,7 @@ namespace TGS.Creeps
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLRV_ELDRITCH_MONSTROSITY, DropID.Aura));
             FrenchmansEast.AddUnitSet(TempGroup);
 
-            CreepCamp GolemEast = new(Camp.GolemEast, CreepRespawnTime4m);
+            CreepCamp GolemEast = new(Camp.GolemEast, CreepRespawnTime4Min);
             GolemEast.AddUnit(GetUnitAt(1255.0f, 3859.5f));
             GolemEast.AddUnit(GetUnitAt(1412.0f, 3774.8f));
             GolemEast.AddUnit(GetUnitAt(1290.5f, 3668.0f), DropID.Gold100Candy);
@@ -194,7 +194,7 @@ namespace TGS.Creeps
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLRV_ELDRITCH_MONSTROSITY, DropID.Gold100Candy));
             GolemEast.AddUnitSet(TempGroup);
 
-            CreepCamp OcculordEast = new(Camp.OcculordEast, CreepRespawnTime5m);
+            CreepCamp OcculordEast = new(Camp.OcculordEast, CreepRespawnTime5Min);
             OcculordEast.AddUnit(GetUnitAt(7571.0f, 9699.0f));
             OcculordEast.AddUnit(GetUnitAt(7422.0f, 9562.0f));
             OcculordEast.AddUnit(GetUnitAt(7227.0f, 9813.2f), DropID.Swiftness);
@@ -215,7 +215,7 @@ namespace TGS.Creeps
             OcculordEast.AddUnit(GetUnitAt(3395.8f, 9136.5f));
             OcculordEast.AddUnit(GetUnitAt(3222.5f, 9555.2f), DropID.WoodBundle);
 
-            CreepCamp HeroTop = new(Camp.HeroTop, CreepRespawnTime5m);
+            CreepCamp HeroTop = new(Camp.HeroTop, CreepRespawnTime5Min);
             HeroTop.AddUnit(GetUnitAt(-966.5f, 12722.0f));
             HeroTop.AddUnit(GetUnitAt(802.0f, 13192.0f));
             HeroTop.AddUnit(GetUnitAt(439.5f, 13230.2f));

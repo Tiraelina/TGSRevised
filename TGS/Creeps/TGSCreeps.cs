@@ -11,20 +11,20 @@ namespace TGS.Creeps
 {
     public static class TGSCreeps
     {
-        private static int CreepUpgradeTick = 100;
+        private static int CreepUpgradeTick { get; } = 100;
 #if DEBUG
-    public static float CreepRespawnTime3m = 5.0f;
-    public static float CreepRespawnTime4m = 5.0f;
-    public static float CreepRespawnTime5m = 5.0f;
+        public static float CreepRespawnTime3Min { get; } = 5.0f;
+        public static float CreepRespawnTime4Min { get; } = 5.0f;
+        public static float CreepRespawnTime5Min { get; } = 5.0f;
 #else
-        public static float CreepRespawnTime3m = 180.0f;
-        public static float CreepRespawnTime4m = 240.0f;
-        public static float CreepRespawnTime5m = 300.0f;
+        public static float CreepRespawnTime3Min { get; } = 180.0f;
+        public static float CreepRespawnTime4Min { get; } = 240.0f;
+        public static float CreepRespawnTime5Min { get; } = 300.0f;
 #endif
-        private static int CreepUpgradeLevel;
-        private static int CreepUpgradeLevelMax = 100;
-        public static List<CreepCamp> CreepCamps = new();
-        public static Dictionary<unit, CreepCamp> UnitToCamp = new();
+        private static int CreepUpgradeLevel { get; set; }
+        private static int CreepUpgradeLevelMax { get; } = 100;
+        public static List<CreepCamp> CreepCamps { get; } = new();
+        public static Dictionary<unit, CreepCamp> UnitToCamp { get; } = new();
 
         public static void Init()
         {
@@ -147,17 +147,17 @@ namespace TGS.Creeps
         }
 
         public Camp Camp { get; init; }
-        public int CampLevel { get; set; }
-        public int MaxCampLevel { get; set; }
-        public int Cleared { get; set; }
-        public float RespawnTime { get; init; }
-        public timer RespawnTimer { get; set; }
-        public group UnitGroup { get; set; }
-        public List<CampGroup> Units { get; set; }
-        public List<Point> Location { get; set; }
-        public List<float> Rotation { get; set; }
-        public Action<CreepCamp> OnCleared { get; set; }
-        public Action<CreepCamp> OnRespawn { get; set; }
+        private int CampLevel { get; set; }
+        private int MaxCampLevel { get; set; }
+        private int Cleared { get; set; }
+        private float RespawnTime { get; init; }
+        private timer RespawnTimer { get; set; }
+        private group UnitGroup { get; set; }
+        private List<CampGroup> Units { get; set; }
+        private List<Point> Location { get; set; }
+        private List<float> Rotation { get; set; }
+        private Action<CreepCamp> OnCleared { get; set; }
+        private Action<CreepCamp> OnRespawn { get; set; }
 
         public void UnitDied(unit killedUnit, unit killingUnit)
         {

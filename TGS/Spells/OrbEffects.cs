@@ -11,9 +11,9 @@ namespace TGS.Spells
 {
     public class Feedback : IOrbEffect
     {
-        private float ManaBurnedBase = 2.0f;
-        private float ManaBurnedInc = 8.0f;
-        private float SummonBonusInc = 40.0f;
+        private float ManaBurnedBase { get; } = 2.0f;
+        private float ManaBurnedInc { get; } = 8.0f;
+        private float SummonBonusInc { get; } = 40.0f;
         public unit Owner { get; set; }
         public int Level { get; set; }
         public effect WeaponEffect { get; set; }
@@ -59,8 +59,8 @@ namespace TGS.Spells
 
     public class BlackArrow : IOrbEffect
     {
-        private float DamageBonusInc = 7.5f;
-        private float ManaCost = 8.0f;
+        private float DamageBonusInc { get; } = 7.5f;
+        private float ManaCost { get; } = 8.0f;
         public unit Owner { get; set; }
         public int Level { get; set; }
         public effect WeaponEffect { get; set; }
@@ -97,11 +97,12 @@ namespace TGS.Spells
 
     public class BlackArrowBuff : PassiveBuff
     {
-        private float DurationBase = 1.5f;
-        private float DurationInc = 0.5f;
-        private float LifespanBase = 60.0f;
-        private float LifespanInc = 20.0f;
-        private int Level;
+        private float DurationBase { get; } = 1.5f;
+        private float DurationInc { get; } = 0.5f;
+        private float LifespanBase { get; } = 60.0f;
+        private float LifespanInc { get; } = 20.0f;
+        private int Level { get; }
+
         public BlackArrowBuff(unit caster, unit target, int InLevel) : base(caster, target)
         {
             Level = InLevel;
@@ -154,7 +155,7 @@ namespace TGS.Spells
 
     public class Ooze : IOrbEffect
     {
-        private float DamageBonus = 25.0f;
+        private float DamageBonus { get; } = 25.0f;
         public unit Owner { get; set; }
         public int Level { get; set; }
         public effect WeaponEffect { get; set; }
@@ -187,9 +188,10 @@ namespace TGS.Spells
 
     public class OozeBuff : PassiveBuff
     {
-        private float DurationBase = 6.0f;
-        private float LifespanBase = 600.0f;
-        private int Level;
+        private float DurationBase { get; } = 6.0f;
+        private float LifespanBase { get; } = 600.0f;
+        public int Level { get; }
+
         public OozeBuff(unit caster, unit target, int InLevel) : base(caster, target)
         {
             Level = 6;
@@ -207,8 +209,8 @@ namespace TGS.Spells
 
     public class Pillage : IOrbEffect
     {
-        private float Step = 1.0f;
-        private float CostRatio = 0.05f;
+        private float Step { get; } = 1.0f;
+        private float CostRatio { get; } = 0.05f;
         public unit Owner { get; set; }
         public int Level { get; set; }
         public effect WeaponEffect { get; set; }
@@ -249,9 +251,9 @@ namespace TGS.Spells
 
     public class Cleave : IOrbEffect
     {
-        private float ManaBurnedBase = 2.0f;
-        private float ManaBurnedInc = 8.0f;
-        private float SummonBonusInc = 40.0f;
+        public float ManaBurnedBase { get; } = 2.0f;
+        public float ManaBurnedInc { get; } = 8.0f;
+        public float SummonBonusInc { get; } = 40.0f;
         public unit Owner { get; set; }
         public int Level { get; set; }
         public effect WeaponEffect { get; set; }

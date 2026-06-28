@@ -8,12 +8,12 @@ namespace TGS.Spells
 {
     public class BlessedHammer : OrbitalMissile
     {
-        private int AbilityId;
-        private int AbilityLevel;
-        private float Damage;
-        public bool Expired = false;
-        private float Lifespan;
-        private float LifespanCurrent;
+        private int AbilityId { get; }
+        private int AbilityLevel { get; }
+        private float Damage { get; }
+        private bool bExpired { get; set; } = false;
+        private float Lifespan { get; }
+        private float LifespanCurrent { get; set; }
 
         public BlessedHammer(unit caster, unit target, int abilityId) : base(caster, target)
         {
@@ -34,7 +34,7 @@ namespace TGS.Spells
 
         public override void OnImpact()
         {
-            if (!Expired)
+            if (!bExpired)
             {
                 Active = true;
             }
@@ -46,7 +46,7 @@ namespace TGS.Spells
             TargetsHit.Clear();
             if (LifespanCurrent >= Lifespan)
             {
-                Expired = true;
+                bExpired = true;
                 Active = false;
             }
         }

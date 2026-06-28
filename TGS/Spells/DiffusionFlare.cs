@@ -8,7 +8,7 @@ namespace TGS.Spells
 {
     public class DiffusionFlare : AbilityMissile
     {
-        private float Mana;
+        private float Mana { get; set; }
 
         public DiffusionFlare(unit caster, float targetX, float targetY, int abilityId) : base(caster, targetX, targetY, abilityId)
         {
@@ -34,7 +34,7 @@ namespace TGS.Spells
 
         public override void OnImpact()
         {
-            if (!Expired)
+            if (!bExpired)
             {
                 Active = true;
             }
@@ -42,7 +42,7 @@ namespace TGS.Spells
 
         public override void OnPeriodic()
         {
-            Expired = true;
+            bExpired = true;
             Active = false;
         }
 

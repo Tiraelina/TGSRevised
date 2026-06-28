@@ -8,25 +8,27 @@ namespace TGS.Spells
 {
     public class ChainLightning : BasicMissile
     {
-        private int AbilityId;
-        private int AbilityLevel;
-        private int BounceCount;
-        private int BOUNCES = 2;
-        private int BOUNCES_PER_LVL = 1;
-        private float COLLISION_SIZE = 32.0f;
-        private float DAMAGE = 45.0f;
-        private float DAMAGE_PER_LVL = 45.0f;
-        private float DamageAmount;
+        private int AbilityId { get; }
+        private int AbilityLevel { get; }
+        private int BounceCount { get; set; }
+        private int Bounces { get; } = 2;
+        private int BouncesPerLvl { get; } = 1;
+        private float Damage { get; } = 45.0f;
+        private float DamagePerLvl { get; } = 45.0f;
+        private float DamageAmount { get; set; }
 
-        private timer BounceTimer;
-        private bool bFirstHit = true;
-        private group Excluded;
-        private float RANGE = 470.0f;
-        private float RANGE_PER_LVL = 30.0f;
-        private float REDUCTION_PER_BOUNCE = 0.06f;
-        private float REDUCTION_PER_BOUNCE_LEVEL = 0.01f;
-        private group Targets;
-        private unit LastTarget;
+        private timer BounceTimer { get; }
+        private bool BFirstHit { get; set; } = true;
+        private group Excluded { get; }
+        private float Range { get; } = 470.0f;
+        private float RangePerLvl { get; } = 30.0f;
+        private float ReductionPerBounce { get; } = 0.06f;
+        private float ReductionPerBounceLevel { get; } = 0.01f;
+        private group Targets { get; set; }
+        private unit LastTarget { get; set; }
+        private float ReductionFactor { get; set; }
+        private int BounceMax { get; set; }
+        private float BounceRange { get; set; }
 
         public ChainLightning(unit caster, unit target, int abilityId) : base(caster, target)
         {
@@ -35,7 +37,10 @@ namespace TGS.Spells
             Speed = 1500.0f;
             EffectString = @"";
             CasterLaunchZ = 50.0f;
-            DamageAmount = Damage(AbilityLevel);
+            DamageAmount = Damage + (DamagePerLvl * AbilityLevel);
+            BounceRange = Range + (RangePerLvl * AbilityLevel);
+            BounceMax = Bounces + (BouncesPerLvl * AbilityLevel);
+            ReductionFactor = ReductionPerBounce - (ReductionPerBounceLevel * AbilityLevel);
             Excluded = group.Create();
             Excluded.Add(Target);
             BounceTimer = timer.Create();
@@ -43,7 +48,7 @@ namespace TGS.Spells
 
         public override void OnImpact()
         {
-            if (bFirstHit)
+            if (BFirstHit)
             {
                 Target.Damage(Caster, DamageAmount, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_LIGHTNING);
 
@@ -56,38 +61,33 @@ namespace TGS.Spells
                 };
                 LightningSystem.Add(PrimaryChainLightning);
                 effect.Create(@"Abilities\Weapons\Bolt\BoltImpact.mdl", Target, "origin").Dispose();
-                bFirstHit = false;
+                BFirstHit = false;
                 BounceTimer.Start(0.25f, true, () =>
                 {
-                    if (BounceCount < Bounces(AbilityLevel))
+                    if (BounceCount < BounceMax)
                     {
                         BounceCount += 1;
                         Targets = group.Create();
-                        GroupEnumUnitsInRange(Targets, Target.X, Target.Y, Range(AbilityLevel), Condition(null));
+                        GroupEnumUnitsInRange(Targets, Target.X, Target.Y, BounceRange, Condition(Filter));
                         foreach (unit NearestUnit in Targets.ToList())
                         {
-                            if (!IsUnitInGroup(NearestUnit, Excluded)
-                                && NearestUnit.IsEnemyTo(Caster.Owner)
-                                && TGSSpells.IsValidTarget(NearestUnit))
+                            Active = true;
+                            Excluded.Add(NearestUnit);
+                            LastTarget = Target;
+                            Target = NearestUnit;
+                            Targets.Dispose();
+                            Lightning SecondaryChainLightning = new("CLSB", LastTarget, Target)
                             {
-                                Active = true;
-                                Excluded.Add(NearestUnit);
-                                LastTarget = Target;
-                                Target = NearestUnit;
-                                Targets.Dispose();
-                                Lightning SecondaryChainLightning = new("CLSB", LastTarget, Target)
-                                {
-                                    Duration = 1.0f,
-                                    FadeDuration = 0.5f,
-                                    CasterHeightOffset = 50f,
-                                    TargetHeightOffset = 50f,
-                                };
-                                LightningSystem.Add(SecondaryChainLightning);
-                                effect.Create(@"Abilities\Weapons\Bolt\BoltImpact.mdl", Target, "origin").Dispose();
-                                DamageAmount = Damage(AbilityLevel) * (1.0f - Reduction(AbilityLevel));
-                                Target.Damage(Caster, DamageAmount, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_LIGHTNING);
-                                return;
-                            }
+                                Duration = 1.0f,
+                                FadeDuration = 0.5f,
+                                CasterHeightOffset = 50f,
+                                TargetHeightOffset = 50f,
+                            };
+                            LightningSystem.Add(SecondaryChainLightning);
+                            effect.Create(@"Abilities\Weapons\Bolt\BoltImpact.mdl", Target, "origin").Dispose();
+                            DamageAmount *= (1.0f - ReductionFactor);
+                            Target.Damage(Caster, DamageAmount, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_LIGHTNING);
+                            return;
                         }
                     }
                     BounceTimer.Dispose();
@@ -97,24 +97,11 @@ namespace TGS.Spells
             }
         }
 
-        private float Damage(int level)
+        private bool Filter()
         {
-            return DAMAGE + (DAMAGE_PER_LVL * level);
-        }
-
-        private float Range(int level)
-        {
-            return RANGE + (RANGE_PER_LVL * level);
-        }
-
-        private int Bounces(int level)
-        {
-            return BOUNCES + (BOUNCES_PER_LVL * level);
-        }
-
-        private float Reduction(int level)
-        {
-            return REDUCTION_PER_BOUNCE - (REDUCTION_PER_BOUNCE_LEVEL * level);
+            return !IsUnitInGroup(GetFilterUnit(), Excluded)
+                   && GetFilterUnit().IsEnemyTo(Caster.Owner)
+                   && GetFilterUnit().IsValidTarget();
         }
     }
 }

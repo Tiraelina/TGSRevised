@@ -28,40 +28,40 @@ namespace TGS
 
     public class TGSPlayer
     {
-        public static unit PassiveEnabler;
-        public static timer PassiveBusterTimer;
-        public effect BladestormModel;
-        public timer BladestormTimer;
-        public PlayerColor Color;
-        public timer DeathTimer;
-        public timerdialog DeathTimerDialog;
-        public unit Hero;
-        public TGSHero TGSHeroData;
-        public int HeroId;
-        public int HeroKills;
-        public string Name;
-        public player Player;
-        public int Row;
-        public int UnitKills;
+        private static unit PassiveEnabler { get; set; }
+        private static timer PassiveBusterTimer { get; set; }
+        private effect BladestormModel { get; set; }
+        private timer BladestormTimer { get; set; }
+        private PlayerColor OwnerColor { get; }
+        private timer DeathTimer { get; set; }
+        private timerdialog DeathTimerDialog { get; set; }
+        private unit Hero { get; set; }
+        public TGSHero HeroData { get; set; }
+        public int HeroId { get; set; }
+        private int HeroKills { get; set; }
+        private string Name { get; set; }
+        private player Owner { get; }
+        private int Row { get; }
+        private int UnitKills { get; set; }
 
         public TGSPlayer(player InPlayer)
         {
-            Player = InPlayer;
-            if (Player.Controller == mapcontrol.Computer)
+            Owner = InPlayer;
+            if (Owner.Controller == mapcontrol.Computer)
             {
-                Name = Player.Name;
+                Name = Owner.Name;
             }
             else
             {
                 // Strip tag
-                Name = Player.Name.Remove(Player.Name.Length - 5, 5);
+                Name = Owner.Name.Remove(Owner.Name.Length - 5, 5);
             }
 
-            Color = PlayerColors[Player.Id];
+            OwnerColor = PlayerColors[Owner.Id];
             Row = Leaderboard.SlotCount + 2;
             Leaderboard.SlotCount += 1;
             MultiboardSetItemValueBJ(Leaderboard.Multiboard, 1, Row, Name);
-            MultiboardSetItemColorBJ(Leaderboard.Multiboard, 1, Row, Color.R, Color.G, Color.B, 0);
+            MultiboardSetItemColorBJ(Leaderboard.Multiboard, 1, Row, OwnerColor.R, OwnerColor.G, OwnerColor.B, 0);
             MultiboardSetItemValueBJ(Leaderboard.Multiboard, 3, Row, UnitKills.ToString());
             MultiboardSetItemValueBJ(Leaderboard.Multiboard, 3, Row, HeroKills.ToString());
         }
@@ -69,12 +69,11 @@ namespace TGS
         public void SetHero(unit InHero)
         {
             Hero = InHero;
-            TGSHeroData = new TGSHero(Hero, Player);
+            HeroData = new TGSHero(Hero, Owner);
             HeroId = Hero.UnitType;
-            Hero.AddAbility(ABILITY_A0JU_RETURN);
-            Hero.SetAbilityPermanent(ABILITY_A0JU_RETURN, true);
-            Player.Lumber += 6;
-            PassiveEnabler = unit.Create(Player, UNIT_O003_PASSIVE_BUSTER_TO_WEAR_OFF, Corner.X, Corner.Y);
+            Hero.AddAbility(ABILITY_A0JU_RETURN, true);
+            Owner.Lumber += 6;
+            PassiveEnabler = unit.Create(Owner, UNIT_O003_PASSIVE_BUSTER_TO_WEAR_OFF, Corner.X, Corner.Y);
 
             trigger ReviveTrigger = trigger.Create();
             ReviveTrigger.RegisterDeathEvent(Hero);
@@ -203,7 +202,7 @@ namespace TGS
 
         private void PassiveBusterDeactivate()
         {
-            PassiveEnabler = unit.Create(Player, UNIT_O003_PASSIVE_BUSTER_TO_WEAR_OFF, Corner.X, Corner.Y);
+            PassiveEnabler = unit.Create(Owner, UNIT_O003_PASSIVE_BUSTER_TO_WEAR_OFF, Corner.X, Corner.Y);
             PassiveBusterTimer.Dispose();
         }
     }

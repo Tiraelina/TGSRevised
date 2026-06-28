@@ -10,12 +10,12 @@ namespace TGS
 {
     public static class HeroSelection
     {
-        private static int HumWisps;
-        private static int OrcWisps;
-        private static Point HumSelectors;
-        private static Point OrcSelectors;
-        private static List<SelectedHero> Heroes = new();
-        private static Dictionary<trigger, SelectedHero> TriggerToHero = new();
+        private static int HumWisps { get; set; }
+        private static int OrcWisps { get; set; }
+        private static Point HumSelectors { get; set; }
+        private static Point OrcSelectors { get; set; }
+        private static List<SelectedHero> Heroes { get; } = new();
+        private static Dictionary<trigger, SelectedHero> TriggerToHero { get; } = new();
 
         public static void Init()
         {
@@ -46,7 +46,7 @@ namespace TGS
             Heroes.Add(new SelectedHero(GetUnitAt(-10560.0f, 12288.0f), GetUnitAt(-10659.2f, 12375.2f)));
             Heroes.Add(new SelectedHero(GetUnitAt(-10304.0f, 12544.0f), GetUnitAt(-10385.5f, 12685.8f)));
             Heroes.Add(new SelectedHero(GetUnitAt(-10112.0f, 12608.0f), GetUnitAt(-10152.8f, 12761.5f)));
-            Heroes.Add(new SelectedHero(GetUnitAt(-10432.0f, 12416.0f), GetUnitAt(-10513.5f, 12518.2f)));
+            Heroes.Add(new SelectedHero(GetUnitAt(-10432.0f, 12416.0f), GetUnitAt(-10531.0f, 12547.5f)));
             Heroes.Add(new SelectedHero(GetUnitAt(-10688.0f, 11904.0f), GetUnitAt(-10832.2f, 11901.8f)));
 
             //ORC — circle → hero

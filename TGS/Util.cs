@@ -138,11 +138,11 @@ namespace TGS
             return FourCC.ToUpper();
         }
 
-        public static void SetShopState(this unit Shop, bool Enabled)
+        public static void SetShopState(this unit Shop, bool bEnabled)
         {
-            Shop.NeutralBuildingShowsMinimapIcon = Enabled;
-            Shop.DisableAbility(ABILITY_ANEU_SELECT_HERO, !Enabled, !Enabled);
-            if (Enabled)
+            Shop.NeutralBuildingShowsMinimapIcon = bEnabled;
+            Shop.DisableAbility(ABILITY_ANEU_SELECT_HERO, !bEnabled, !bEnabled);
+            if (bEnabled)
             {
                 if (Globals.ShopEffects.TryGetValue(Shop, out effect Fire))
                 {
@@ -255,6 +255,31 @@ namespace TGS
             boolexpr b = Filter(func);
             GroupEnumUnitsInRange(InGroup, X, Y, Radius, b);
             b.Dispose();
+        }
+    
+        public static void AddAbility(this unit Target, int AbilityId, bool bPermanent)
+        {
+            Target.AddAbility(AbilityId);
+            Target.SetAbilityPermanent(AbilityId, bPermanent);
+        }
+    
+        public static void AddAbilityAt(this unit Target, int AbilityId, int Level)
+        {
+            Target.AddAbility(AbilityId);
+            Target.SetAbilityLevel(AbilityId, Level);
+        }
+    
+        public static void AddAbilityAt(this unit Target, int AbilityId, int Level, bool bPermanent)
+        {
+            Target.AddAbility(AbilityId);
+            Target.SetAbilityLevel(AbilityId, Level);
+            Target.SetAbilityPermanent(AbilityId, bPermanent);
+        }
+    
+        public static void RemoveAbility(this unit Target, int AbilityId, bool bPermanent)
+        {
+            Target.SetAbilityPermanent(AbilityId, bPermanent);
+            Target.RemoveAbility(AbilityId);
         }
     }
 }

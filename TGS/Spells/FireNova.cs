@@ -7,13 +7,13 @@ namespace TGS.Spells
 {
     public class FireNova
     {
-        private int AbilityId;
-        private unit Caster;
-        private float Damage;
-        private effect Explode;
-        private int Level;
-        private unit Target;
-        private group Targets;
+        private int AbilityId { get; }
+        private unit Caster { get; }
+        private float Damage { get; }
+        private effect Explode { get; set; }
+        private int Level { get; }
+        private unit Target { get; }
+        private group Targets { get; }
 
         public FireNova(unit InCaster, unit InTarget, int InAbilityId)
         {
@@ -37,8 +37,7 @@ namespace TGS.Spells
                 if (NearestUnit.IsEnemyTo(Caster.Owner)
                     && TGSSpells.IsValidTarget(NearestUnit))
                 {
-                    Dummy.AddAbility(Constants.ABILITY_ANSO_SOUL_BURN_FIRE_NOVA_DOT);
-                    Dummy.SetAbilityLevel(Constants.ABILITY_ANSO_SOUL_BURN_FIRE_NOVA_DOT, Level);
+                    Dummy.AddAbilityAt(Constants.ABILITY_ANSO_SOUL_BURN_FIRE_NOVA_DOT, Level);
                     Dummy.IssueOrder(Constants.ORDER_SOUL_BURN, NearestUnit);
                     UnitDamageTarget(Caster, NearestUnit, Damage, true, false, ATTACK_TYPE_MAGIC, DAMAGE_TYPE_UNKNOWN, WEAPON_TYPE_WHOKNOWS);
                 }

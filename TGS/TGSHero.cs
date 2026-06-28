@@ -30,35 +30,35 @@ namespace TGS
         public NormalAbility[] NormalAbilities { get; } = new NormalAbility[4];
         public SpecialAbility Special { get; set; }
         public UltimateAbility Ultimate { get; set; }
-        public List<IOrbEffect> Orbs = new();
-        public Dictionary<OrbType, IOrbEffect> OrbLookup = new();
+        public List<IOrbEffect> Orbs { get; } = new();
+        public Dictionary<OrbType, IOrbEffect> OrbLookup { get; } = new();
 
         // Attack
-        public float AttackCritChance = 0.0f;
-        public float AttackCritMult = 2.0f;
-        public float AttackLifeSteal = 0.0f;
-        public float AttackEvasionChance = 0.0f;
-        public float AttackMissChance = 0.0f;
-        public int AttackMultiTargets = 1;
-        public float AttackMultiMult = 0.5f;
+        public float AttackCritChance { get; set; } = 0.0f;
+        public float AttackCritMult { get; } = 2.0f;
+        public float AttackLifeSteal { get; } = 0.0f;
+        public float AttackEvasionChance { get; set; } = 0.0f;
+        public float AttackMissChance { get; } = 0.0f;
+        public int AttackMultiTargets { get; set; } = 1;
+        public float AttackMultiMult { get; } = 0.5f;
 
         // Spell
-        public float SpellStrengthScaling = 0.0f;
-        public float SpellAgilityScaling = 0.0f;
-        public float SpellIntelligenceScaling = 0.0f;
-        public float SpellLifeSteal = 0.0f;
-        public float SpellCritChance = 0.0f;
-        public float SpellCritMult = 1.5f;
-    
+        public float SpellStrengthScaling { get; } = 0.0f;
+        public float SpellAgilityScaling { get; } = 0.0f;
+        public float SpellIntelligenceScaling { get; } = 0.0f;
+        public float SpellLifeSteal { get; } = 0.0f;
+        public float SpellCritChance { get; } = 0.0f;
+        public float SpellCritMult { get; } = 1.5f;
+
         // Ability mods
-        public float CritChanceCrit = 0.0f;
-        public float CritChanceBrawler = 0.0f;
-        public float EvasionEvade = 0.0f;
-        public float EvasionBrawler = 0.0f;
-        public int CleaveMultiTargets = 1;
-    
+        public float CritChanceCrit { get; set; } = 0.0f;
+        public float CritChanceBrawler { get; set; } = 0.0f;
+        public float EvasionEvade { get; set; } = 0.0f;
+        public float EvasionBrawler { get; set; } = 0.0f;
+        public int CleaveMultiTargets { get; set; } = 1;
+
         // Item mods
-        public ItemData ItemMods = new();
+        public ItemData ItemMods { get; } = new();
 
         private static TGSHero Get(unit InUnit)
         {
@@ -89,6 +89,7 @@ namespace TGS
                         ItemMods.CleaveCount += itemData.CleaveCount;
                         ItemMods.CleaveBonus += itemData.CleaveBonus;
                         ItemMods.EvasionChance += itemData.EvasionChance;
+                        ItemMods.DamageTakenModifier += itemData.DamageTakenModifier;
                         foreach (OrbType Orb in itemData.OrbEffects)
                         {
                             ItemMods.OrbEffects.Add(Orb);
@@ -156,6 +157,7 @@ namespace TGS
             ItemMods.CleaveCount = 0;
             ItemMods.CleaveBonus = 0.0f;
             ItemMods.EvasionChance = 0.0f;
+            ItemMods.DamageTakenModifier = 0.0f;
             foreach (var Orb in ItemMods.OrbEffects)
             {
                 RemoveOrb(Orb);
@@ -414,8 +416,7 @@ namespace TGS
         private static void UnlearnNormal(TGSHero InTGSHero, int InSlot, NormalAbility InAbility)
         {
             InTGSHero.Owner.Lumber += NormalAbility.LumberCost - 1;
-            InTGSHero.Unit.SetAbilityPermanent(InAbility.AbilityIds[InSlot], false);
-            InTGSHero.Unit.RemoveAbility(InAbility.AbilityIds[InSlot]);
+            InTGSHero.Unit.RemoveAbility(InAbility.AbilityIds[InSlot], false);
             if (InTGSHero.NormalAbilities[InSlot].OrbType != OrbType.None)
             {
                 InTGSHero.RemoveOrb(InTGSHero.NormalAbilities[InSlot].OrbType);
@@ -466,8 +467,7 @@ namespace TGS
         private static void UnlearnSpecial(TGSHero InTGSHero, SpecialAbility InAbility)
         {
             InTGSHero.Owner.Lumber += SpecialAbility.LumberCost - 1;
-            InTGSHero.Unit.SetAbilityPermanent(InAbility.AbilityId, false);
-            InTGSHero.Unit.RemoveAbility(InAbility.AbilityId);
+            InTGSHero.Unit.RemoveAbility(InAbility.AbilityId, false);
             InTGSHero.Special = null;
             UnlearnMessage(InTGSHero, InAbility.Name);
         }
@@ -481,8 +481,7 @@ namespace TGS
             }
 
             InTGSHero.Owner.Lumber += UltimateAbility.LumberCost - 1;
-            InTGSHero.Unit.SetAbilityPermanent(InAbility.AbilityId, false);
-            InTGSHero.Unit.RemoveAbility(InAbility.AbilityId);
+            InTGSHero.Unit.RemoveAbility(InAbility.AbilityId, false);
             InTGSHero.Ultimate = null;
             UnlearnMessage(InTGSHero, InAbility.Name);
         }

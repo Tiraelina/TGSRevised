@@ -7,14 +7,14 @@ namespace TGS.Spells
 {
     public class WaveSpell
     {
-        private int AbilityId;
-        private unit Caster;
-        private timer CastTimer;
-        private unit Dummy;
-        private int MaxWaves;
-        private int OrderId;
-        private location Target;
-        private int Waves;
+        private int AbilityId { get; }
+        private unit Caster { get; }
+        private timer CastTimer { get; }
+        private unit Dummy { get; set; }
+        private int MaxWaves { get; }
+        private int OrderId { get; }
+        private location Target { get; }
+        private int Waves { get; set; }
 
         public WaveSpell(unit InCaster, int InMaxWaves, int InAbilityId, int InOrderId, location InTarget)
         {
@@ -36,8 +36,7 @@ namespace TGS.Spells
 
         private void CastWave(float X, float Y)
         {
-            Dummy.AddAbility(AbilityId);
-            Dummy.SetAbilityLevel(AbilityId, Caster.GetAbilityLevel(AbilityId));
+            Dummy.AddAbilityAt(AbilityId, Caster.GetAbilityLevel(AbilityId));
             Dummy.IssueOrder(OrderId, X, Y);
         }
 

@@ -33,15 +33,15 @@ namespace TGS.Spells
 
     public class PocketFactoryUnit
     {
-        private int AbilityLevel;
-        private unit Caster;
-        private unit Factory;
-        private trigger FactoryDeath;
-        private timer FactoryInterval;
-        private timer FactoryLifespan;
-        private int GoblinId;
-        private float TargetX;
-        private float TargetY;
+        private int AbilityLevel { get; }
+        private unit Caster { get; }
+        private unit FactoryUnit { get; set; }
+        private trigger FactoryDeath { get; set; }
+        private timer FactoryInterval { get; }
+        private timer FactoryLifespan { get; }
+        private int GoblinId { get; set; }
+        private float TargetX { get; }
+        private float TargetY { get; }
 
         public PocketFactoryUnit(unit caster, int abilityLevel, float targetX, float targetY)
         {
@@ -58,13 +58,13 @@ namespace TGS.Spells
             TGSSpells.PocketFactoryLookup.TryGetValue(AbilityLevel, out int UnitId);
             if (UnitId != 0)
             {
-                Factory = unit.Create(Caster.Owner, UnitId, TargetX, TargetY);
-                Factory.SetAnimation("birth");
-                Summons.ScaleSummon(Caster, Factory);
+                FactoryUnit = unit.Create(Caster.Owner, UnitId, TargetX, TargetY);
+                FactoryUnit.SetAnimation("birth");
+                Summons.ScaleSummon(Caster, FactoryUnit);
                 FactoryLifespan.Start(40.0f + (AbilityLevel * 2.2f), false, KillFactory);
-                Blizzard.SetUnitRallyUnit(Factory, Factory);
+                Blizzard.SetUnitRallyUnit(FactoryUnit, FactoryUnit);
                 FactoryDeath = trigger.Create();
-                FactoryDeath.RegisterUnitEvent(Factory, EVENT_UNIT_DEATH);
+                FactoryDeath.RegisterUnitEvent(FactoryUnit, EVENT_UNIT_DEATH);
                 FactoryDeath.AddAction(Cleanup);
                 TGSSpells.ClockwerkGoblinLookup.TryGetValue(AbilityLevel, out int GoblinUnitId);
                 if (GoblinUnitId != 0)
@@ -77,23 +77,23 @@ namespace TGS.Spells
 
         private void SpawnGoblin()
         {
-            unit Goblin = unit.Create(Caster.Owner, GoblinId, Factory.X, Factory.Y);
+            unit Goblin = unit.Create(Caster.Owner, GoblinId, FactoryUnit.X, FactoryUnit.Y);
             Summons.ScaleSummon(Caster, Goblin);
             Goblin.ApplyTimedLife(FourCC("BNcg"), 12.0f + (AbilityLevel * 1.1f));
-            if (Factory.RallyUnit != null)
+            if (FactoryUnit.RallyUnit != null)
             {
-                Goblin.IssueOrder(ORDER_ATTACK, Factory.RallyUnit.X, Factory.RallyUnit.Y);
+                Goblin.IssueOrder(ORDER_ATTACK, FactoryUnit.RallyUnit.X, FactoryUnit.RallyUnit.Y);
             }
             else
             {
-                Goblin.IssueOrder(ORDER_ATTACK, Factory.RallyPoint.X, Factory.RallyPoint.Y);
+                Goblin.IssueOrder(ORDER_ATTACK, FactoryUnit.RallyPoint.X, FactoryUnit.RallyPoint.Y);
             }
         }
 
         private void KillFactory()
         {
             FactoryDeath.Dispose();
-            Factory.Kill();
+            FactoryUnit.Kill();
             Cleanup();
         }
 
@@ -102,7 +102,7 @@ namespace TGS.Spells
             FactoryLifespan.Dispose();
             FactoryInterval.Dispose();
             FactoryDeath.Dispose();
-            Factory = null;
+            FactoryUnit = null;
         }
     }
 }

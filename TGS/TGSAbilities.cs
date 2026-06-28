@@ -10,13 +10,13 @@ namespace TGS
 {
     public class TGSAbilities
     {
-        public static List<int> AbilityMax = new();
-        public static Dictionary<int, int> HeroToBaseAbility = new();
-        public static readonly Dictionary<unit, TGSHero> ByUnit = new();
-        public static readonly Dictionary<player, TGSHero> ByPlayer = new();
-        public static readonly Dictionary<int, NormalAbility> NormalByItemId = new();
-        public static readonly Dictionary<int, SpecialAbility> SpecialByItemId = new();
-        public static readonly Dictionary<int, UltimateAbility> UltimateByItemId = new();
+        public static List<int> AbilityMax { get; } = new();
+        public static Dictionary<int, int> HeroToBaseAbility { get; } = new();
+        public static Dictionary<unit, TGSHero> ByUnit { get; } = new();
+        public static Dictionary<player, TGSHero> ByPlayer { get; } = new();
+        public static Dictionary<int, NormalAbility> NormalByItemId { get; } = new();
+        public static Dictionary<int, SpecialAbility> SpecialByItemId { get; } = new();
+        public static Dictionary<int, UltimateAbility> UltimateByItemId { get; } = new();
 
         public static void Init()
         {
@@ -55,53 +55,53 @@ namespace TGS
 
         private static void InitAbilLookups()
         {
-            HeroToBaseAbility.Add(UNIT_OTHS_SCION_HERO, ABILITY_A0NR_STORMLASH_Z_TUL_KALAS);
-            HeroToBaseAbility.Add(UNIT_NMAN_NECROMANCER_HERO, ABILITY_A0OB_UNDEAD_ASSASSIN_Z_ARUGAL);
-            HeroToBaseAbility.Add(UNIT_OTHR_GUNNER_HERO, ABILITY_A0O8_CHEMICAL_SPRAY_Z_HODGE);
-            HeroToBaseAbility.Add(UNIT_OPGH_BLADEMASTER_HERO, ABILITY_A0NU_WEASEL_S_SLASH_Z_FELBLADE);
-            HeroToBaseAbility.Add(UNIT_OGRH_FERAL_DRUID_HERO, ABILITY_A0JX_LEAP_ATTACK_Z_GOR);
-            HeroToBaseAbility.Add(UNIT_NAKA_SWOLBOLD_HERO, ABILITY_A0AP_SWOL_CANDLE_SWOLBOLD_Z);
-            HeroToBaseAbility.Add(UNIT_OCB2_TAUREN_CHIEFTAIN_MAIN_TANK_HERO, ABILITY_A0ES_SIEGEBREAKER_Z_CAIRNE);
-            HeroToBaseAbility.Add(UNIT_OGLD_WARLOCK_HERO, ABILITY_A05A_LESSER_INFERNO_Z_GUL_DAN);
-            HeroToBaseAbility.Add(UNIT_ORKN_SHADOW_HUNTER_HERO, ABILITY_A0ET_ENLARGING_POTENCY_ROKHAN_Z);
-            HeroToBaseAbility.Add(UNIT_UTIC_DREADLORD_HERO, ABILITY_A0CY_DARK_CONVERSION_Z_TICHONDRIUS);
-            HeroToBaseAbility.Add(UNIT_UWAR_EREDAR_WARLOCK_HERO, ABILITY_A0KU_DEVOUR_MAGIC_Z_ARCHIMONDE);
-            HeroToBaseAbility.Add(UNIT_UEAR_DEATH_KNIGHT_HERO, ABILITY_S007_HUNGERING_BLADE_Z_EVIL_ARTHAS);
-            HeroToBaseAbility.Add(UNIT_UANB_HORSEMAN_OF_FAMINE_HERO, ABILITY_A0AS_AURA_OF_THE_SCOURGE_Z_LADY_BLAUMEUX);
-            HeroToBaseAbility.Add(UNIT_UKTL_LICH_HERO, ABILITY_A0KO_FREEZING_WAVE_Z_KEL_THUZAD);
-            HeroToBaseAbility.Add(UNIT_UVNG_DOOM_LORD_HERO, ABILITY_A0J9_CORPSE_EXPLOSION_Z_KAZZAK);
-            HeroToBaseAbility.Add(UNIT_USYL_DARK_RANGER_HERO, ABILITY_A0EW_EVENING_THE_SCALES_Z_SYLVANAS);
-            HeroToBaseAbility.Add(UNIT_UMAL_EREDAR_HIERARCH_HERO, ABILITY_A0LK_ORB_OF_ANNIHILATION_Z_KIL_JAEDEN);
-            HeroToBaseAbility.Add(UNIT_NTIN_MURLOC_WARLOCK_HERO, ABILITY_A0KG_SUICIDAL_EXPLOSION_Z_GEN_KUL);
-            HeroToBaseAbility.Add(UNIT_OREX_BEASTMASTER_HERO, ABILITY_A0KB_ROAR_Z_REXXAR);
-            HeroToBaseAbility.Add(UNIT_U001_DEATHSPEAKER_HERO, ABILITY_A0ME_CRITICAL_BLOW_Z_ZUL_GRNOK);
-            HeroToBaseAbility.Add(UNIT_U000_ABOMINATION_HERO, ABILITY_A0NP_BITE_Z_LITTLE_TIMMY);
-            HeroToBaseAbility.Add(UNIT_ODRT_FEL_WARDEN_HERO, ABILITY_A08K_POISON_NOVA_Z_CORDANA);
-            HeroToBaseAbility.Add(UNIT_OCBH_WARLORD_HERO, ABILITY_A0NS_RIPTIDE_Z_ZALZJAR);
-            HeroToBaseAbility.Add(UNIT_NBBC_SLAYER_HERO, ABILITY_A0O7_BOUNTY_HUNTER_Z_MAIM);
+            HeroToBaseAbility.Add(UNIT_OTHS_SCION_ARTILLERY_HERO, ABILITY_A0NR_STORMLASH_Z_TUL_KALAS);
+            HeroToBaseAbility.Add(UNIT_NMAN_NECROMANCER_DAMAGE_HERO, ABILITY_A0OB_UNDEAD_ASSASSIN_Z_ARUGAL);
+            HeroToBaseAbility.Add(UNIT_OTHR_GUNNER_HERO_KILLER_HERO, ABILITY_A0O8_CHEMICAL_SPRAY_Z_HODGE);
+            HeroToBaseAbility.Add(UNIT_OPGH_BLADEMASTER_DAMAGE_HERO, ABILITY_A0NU_WEASEL_S_SLASH_Z_FELBLADE);
+            HeroToBaseAbility.Add(UNIT_OGRH_FERAL_DRUID_DAMAGE_HERO, ABILITY_A0JX_LEAP_ATTACK_Z_GOR);
+            HeroToBaseAbility.Add(UNIT_NAKA_SUCCUBUS_MULTIROLE_HERO, ABILITY_A0AP_SWOL_CANDLE_SWOLBOLD_Z);
+            HeroToBaseAbility.Add(UNIT_OCB2_TAUREN_CHIEFTAIN_TANK_HERO, ABILITY_A0ES_SIEGEBREAKER_Z_CAIRNE);
+            HeroToBaseAbility.Add(UNIT_OGLD_WARLOCK_DAMAGE_HERO, ABILITY_A05A_LESSER_INFERNO_Z_GUL_DAN);
+            HeroToBaseAbility.Add(UNIT_ORKN_SHADOW_HUNTER_SUPPORT_HERO, ABILITY_A0ET_ENLARGING_POTENCY_ROKHAN_Z);
+            HeroToBaseAbility.Add(UNIT_UTIC_DREADLORD_SUPPORT_HERO, ABILITY_A0CY_DARK_CONVERSION_Z_TICHONDRIUS);
+            HeroToBaseAbility.Add(UNIT_UWAR_EREDAR_WARLOCK_DAMAGE_HERO, ABILITY_A0KU_DEVOUR_MAGIC_Z_ARCHIMONDE);
+            HeroToBaseAbility.Add(UNIT_UEAR_DEATH_KNIGHT_MULTIROLE_HERO, ABILITY_S007_HUNGERING_BLADE_Z_EVIL_ARTHAS);
+            HeroToBaseAbility.Add(UNIT_UANB_HORSEMAN_OF_FAMINE_SUPPORT_HERO, ABILITY_A0AS_AURA_OF_THE_SCOURGE_Z_LADY_BLAUMEUX);
+            HeroToBaseAbility.Add(UNIT_UKTL_LICH_DAMAGE_HERO, ABILITY_A0KO_FREEZING_WAVE_Z_KEL_THUZAD);
+            HeroToBaseAbility.Add(UNIT_UVNG_DOOM_LORD_TANK_HERO, ABILITY_A0J9_CORPSE_EXPLOSION_Z_KAZZAK);
+            HeroToBaseAbility.Add(UNIT_USYL_DARK_RANGER_HERO_KILLER_HERO, ABILITY_A0EW_EVENING_THE_SCALES_Z_SYLVANAS);
+            HeroToBaseAbility.Add(UNIT_UMAL_EREDAR_HIERARCH_DAMAGE_HERO, ABILITY_A0LK_ORB_OF_ANNIHILATION_Z_KIL_JAEDEN);
+            HeroToBaseAbility.Add(UNIT_NTIN_MURLOC_WARLOCK_MULTIROLE_HERO, ABILITY_A0KG_SUICIDAL_EXPLOSION_Z_GEN_KUL);
+            HeroToBaseAbility.Add(UNIT_OREX_BEASTMASTER_SUPPORT_HERO, ABILITY_A0KB_ROAR_Z_REXXAR);
+            HeroToBaseAbility.Add(UNIT_U001_DEATHSPEAKER_DAMAGE_HERO, ABILITY_A0ME_CRITICAL_BLOW_Z_ZUL_GRNOK);
+            HeroToBaseAbility.Add(UNIT_U000_ABOMINATION_TANK_HERO, ABILITY_A0NP_BITE_Z_LITTLE_TIMMY);
+            HeroToBaseAbility.Add(UNIT_ODRT_FEL_WARDEN_DAMAGE_HERO, ABILITY_A08K_POISON_NOVA_Z_CORDANA);
+            HeroToBaseAbility.Add(UNIT_OCBH_WARLORD_TANK_HERO, ABILITY_A0NS_RIPTIDE_Z_ZALZJAR);
+            HeroToBaseAbility.Add(UNIT_NBBC_SLAYER_HERO_KILLER_HERO, ABILITY_A0O7_BOUNTY_HUNTER_Z_MAIM);
 
-            HeroToBaseAbility.Add(UNIT_ECEN_FAE_DRAGON_HERO, ABILITY_A0O6_FLOOF_Z_CHUEE);
-            HeroToBaseAbility.Add(UNIT_EFUR_ORACLE_HERO, ABILITY_A0O0_MOONBURN_Z_ASZUNE);
-            HeroToBaseAbility.Add(UNIT_HART_PALADIN_HERO_STR, ABILITY_A0M4_ZEAL_Z_ARTHAS);
-            HeroToBaseAbility.Add(UNIT_HANT_ARCHMAGE_HERO_INT, ABILITY_A0L1_SUPER_SLOW_Z_ANTONIDAS);
-            HeroToBaseAbility.Add(UNIT_HKAL_BLOOD_MAGE_HERO_INT, ABILITY_A0KH_PSYCHO_SHIELD_Z_KAEL);
-            HeroToBaseAbility.Add(UNIT_HJAI_ARCHMAGE_HERO_INT, ABILITY_A0BV_ARCANE_MISSILE_Z_JAINA);
-            HeroToBaseAbility.Add(UNIT_HMBR_MOUNTAIN_KING_MAIN_TANK_HERO_STR, ABILITY_A08M_BLESSED_HAMMER_Z_MURADIN);
-            HeroToBaseAbility.Add(UNIT_HVWD_RANGER_HERO_AGI_DMG, ABILITY_A0IA_QUEL_THALAN_ARROWS_Z_SYLVANAS_WINDRUNNER_LIVING);
-            HeroToBaseAbility.Add(UNIT_EMFR_KEEPER_OF_THE_GROVE_HERO, ABILITY_A0HU_SENTRY_GUN_Z_Z);
-            HeroToBaseAbility.Add(UNIT_EMNS_KEEPER_OF_THE_GROVE_HERO, ABILITY_A0JJ_MEDICINE_OF_FURION_Z_MALFURION);
-            HeroToBaseAbility.Add(UNIT_EEVI_DEMON_HUNTER_HERO, ABILITY_A0JO_TREANT_OF_THE_DEAD_Z);
-            HeroToBaseAbility.Add(UNIT_EILL_NIGHT_ELF_FERAL_DRUID_HERO, ABILITY_A0KQ_STEAL_MANA_Z_IDION);
-            HeroToBaseAbility.Add(UNIT_EWRD_WARDEN_HERO, ABILITY_A0EP_MOONFIRE_Z_MAIEV);
-            HeroToBaseAbility.Add(UNIT_ETYR_PRIESTESS_OF_THE_MOON_HERO, ABILITY_A0EQ_OWL_COMPANION_Z_TYRANDE);
-            HeroToBaseAbility.Add(UNIT_HVSH_SEA_WITCH_HERO, ABILITY_A0L8_PARASITE_Z_VASHJ);
-            HeroToBaseAbility.Add(UNIT_HDGO_SENTINEL_HERO, ABILITY_A0NZ_RESTORATION_Z_SHANDRIS);
-            HeroToBaseAbility.Add(UNIT_NPBM_BREWMASTER_HERO_AGI, ABILITY_A0NY_GNAWING_PANDAS_Z_CHEN);
-            HeroToBaseAbility.Add(UNIT_HUTH_PALADIN_HERO_STR, ABILITY_A0L2_MIND_UNIFICATION_Z_UTHER);
-            HeroToBaseAbility.Add(UNIT_HLGR_DARK_KNIGHT_HERO_STR, ABILITY_A0NW_STEED_CHARGE_Z_GARITHOS);
-            HeroToBaseAbility.Add(UNIT_HPB1_SORCERESS_HERO_INT_ARTY, ABILITY_A0N5_MANA_RIP_Z_DELILAH);
-            HeroToBaseAbility.Add(UNIT_HSSA_DRUIDESS_HERO, ABILITY_A0O2_CAT_FORM_Z_ELRAYSIA_NIGHTFLOWER);
-            HeroToBaseAbility.Add(UNIT_HDDT_CAPTAIN_HERO_STR, ABILITY_A0NQ_COMMANDING_PRESENCE_Z_THALORIEN);
+            HeroToBaseAbility.Add(UNIT_ECEN_FAE_DRAGON_SUPPORT_HERO, ABILITY_A0O6_FLOOF_Z_CHUEE);
+            HeroToBaseAbility.Add(UNIT_EFUR_ORACLE_HERO_KILLER_HERO, ABILITY_A0O0_MOONBURN_Z_ASZUNE);
+            HeroToBaseAbility.Add(UNIT_HART_PALADIN_TANK_HERO_STR, ABILITY_A0M4_ZEAL_Z_ARTHAS);
+            HeroToBaseAbility.Add(UNIT_HANT_ARCHMAGE_DAMAGE_HERO_INT, ABILITY_A0L1_SUPER_SLOW_Z_ANTONIDAS);
+            HeroToBaseAbility.Add(UNIT_HKAL_BLOOD_MAGE_DAMAGE_HERO_INT, ABILITY_A0KH_PSYCHO_SHIELD_Z_KAEL);
+            HeroToBaseAbility.Add(UNIT_HJAI_ARCHMAGE_DAMAGE_HERO_INT, ABILITY_A0BV_ARCANE_MISSILE_Z_JAINA);
+            HeroToBaseAbility.Add(UNIT_HMBR_MOUNTAIN_KING_TANK_HERO_STR, ABILITY_A08M_BLESSED_HAMMER_Z_MURADIN);
+            HeroToBaseAbility.Add(UNIT_HVWD_RANGER_HERO_KILLER_HERO_AGI_DMG, ABILITY_A0IA_QUEL_THALAN_ARROWS_Z_SYLVANAS_WINDRUNNER_LIVING);
+            HeroToBaseAbility.Add(UNIT_EMFR_ENGINEER_SUPPORT_HERO, ABILITY_A0HU_SENTRY_GUN_Z_Z);
+            HeroToBaseAbility.Add(UNIT_EMNS_KEEPER_OF_THE_GROVE_SUPPORT_HERO, ABILITY_A0JJ_MEDICINE_OF_FURION_Z_MALFURION);
+            HeroToBaseAbility.Add(UNIT_EEVI_DEMON_HUNTER_DAMAGE_HERO, ABILITY_A0JO_TREANT_OF_THE_DEAD_Z);
+            HeroToBaseAbility.Add(UNIT_EILL_NIGHT_ELF_FERAL_DRUID_HERO_KILLER_HERO, ABILITY_A0KQ_STEAL_MANA_Z_IDION);
+            HeroToBaseAbility.Add(UNIT_EWRD_WARDEN_MULTIROLE_HERO, ABILITY_A0EP_MOONFIRE_Z_MAIEV);
+            HeroToBaseAbility.Add(UNIT_ETYR_PRIESTESS_OF_THE_MOON_DAMAGE_HERO, ABILITY_A0EQ_OWL_COMPANION_Z_TYRANDE);
+            HeroToBaseAbility.Add(UNIT_HVSH_SEA_WITCH_DAMAGE_HERO, ABILITY_A0L8_PARASITE_Z_VASHJ);
+            HeroToBaseAbility.Add(UNIT_HDGO_SENTINEL_SUPPORT_HERO, ABILITY_A0NZ_RESTORATION_Z_SHANDRIS);
+            HeroToBaseAbility.Add(UNIT_NPBM_BREWMASTER_MULTIROLE_HERO_AGI, ABILITY_A0NY_GNAWING_PANDAS_Z_CHEN);
+            HeroToBaseAbility.Add(UNIT_HUTH_PALADIN_SUPPORT_HERO_STR, ABILITY_A0L2_MIND_UNIFICATION_Z_UTHER);
+            HeroToBaseAbility.Add(UNIT_HLGR_DARK_KNIGHT_TANK_HERO_STR, ABILITY_A0NW_STEED_CHARGE_Z_GARITHOS);
+            HeroToBaseAbility.Add(UNIT_HPB1_SORCERESS_ARTILLERY_HERO_INT_ARTY, ABILITY_A0N5_MANA_RIP_Z_DELILAH);
+            HeroToBaseAbility.Add(UNIT_H00H_DRUIDESS_MULTIROLE_HERO, ABILITY_A0O2_CAT_FORM_Z_ELRAYSIA_NIGHTFLOWER);
+            HeroToBaseAbility.Add(UNIT_H00I_CAPTAIN_TANK_HERO_STR, ABILITY_A0NQ_COMMANDING_PRESENCE_Z_THALORIEN);
         }
 
         private static void RegisterAbilities()
@@ -304,7 +304,7 @@ namespace TGS
         public int ItemId { get; set; }
         public int MaxLevel { get; set; }
         public OrbType OrbType { get; set; }
-        public Action<UltimateAbility, unit> UpdateTooltip;
+        public Action<UltimateAbility, unit> UpdateTooltip { get; }
 
         public UltimateAbility(string name, int itemId, int abilityId, Action<UltimateAbility, unit> InUpdateTooltip = null)
         {
@@ -341,9 +341,7 @@ namespace TGS
             {
                 InTGSHero.Ultimate = this;
                 InTGSHero.SlotLevels[4] = Math.Max(1, InTGSHero.SlotLevels[4]);
-                InTGSHero.Unit.AddAbility(AbilityId);
-                InTGSHero.Unit.SetAbilityLevel(AbilityId, InTGSHero.SlotLevels[4]);
-                InTGSHero.Unit.SetAbilityPermanent(AbilityId, true);
+                InTGSHero.Unit.AddAbilityAt(AbilityId, InTGSHero.SlotLevels[4], true);
                 LearnMessage(InTGSHero);
                 if (UpdateTooltip != null)
                 {
@@ -379,20 +377,14 @@ namespace TGS
             switch (Level)
             {
                 case 1:
-                    InTGSHero.Unit.RemoveAbility(ABILITY_AHMT_MASS_TELEPORT_LVL1_T);
-                    InTGSHero.Unit.SetAbilityPermanent(ABILITY_AHMT_MASS_TELEPORT_LVL1_T, false);
-                    InTGSHero.Unit.AddAbility(ABILITY_AHM2_MASS_TELEPORT_LVL2_T);
-                    InTGSHero.Unit.SetAbilityPermanent(ABILITY_AHM2_MASS_TELEPORT_LVL2_T, true);
+                    InTGSHero.Unit.RemoveAbility(ABILITY_AHMT_MASS_TELEPORT_LVL1_T, false);
+                    InTGSHero.Unit.AddAbilityAt(ABILITY_AHM2_MASS_TELEPORT_LVL2_T, 2, true);
                     InTGSHero.SlotLevels[4] = 2;
-                    InTGSHero.Unit.SetAbilityLevel(ABILITY_AHM2_MASS_TELEPORT_LVL2_T, 2);
                     break;
                 case 2:
-                    InTGSHero.Unit.RemoveAbility(ABILITY_AHM2_MASS_TELEPORT_LVL2_T);
-                    InTGSHero.Unit.SetAbilityPermanent(ABILITY_AHM2_MASS_TELEPORT_LVL2_T, false);
-                    InTGSHero.Unit.AddAbility(ABILITY_AHM3_MASS_TELEPORT_LVL3_T);
-                    InTGSHero.Unit.SetAbilityPermanent(ABILITY_AHM3_MASS_TELEPORT_LVL3_T, true);
+                    InTGSHero.Unit.RemoveAbility(ABILITY_AHM2_MASS_TELEPORT_LVL2_T, false);
+                    InTGSHero.Unit.AddAbilityAt(ABILITY_AHM3_MASS_TELEPORT_LVL3_T, 3, true);
                     InTGSHero.SlotLevels[4] = 3;
-                    InTGSHero.Unit.SetAbilityLevel(ABILITY_AHM3_MASS_TELEPORT_LVL3_T, 3);
                     break;
                 default:
                     InTGSHero.Owner.DisplayTextTo("Mass Teleport already at max level.");
@@ -417,12 +409,12 @@ namespace TGS
 
     public class SpecialAbility : ILearnedAbility
     {
-        public const int LumberCost = 5;
+        public static int LumberCost { get; } = 5;
         public string Name { get; set; }
         public int ItemId { get; set; }
         public int MaxLevel { get; set; }
         public OrbType OrbType { get; set; }
-        public Action<SpecialAbility, unit> UpdateTooltip;
+        public Action<SpecialAbility, unit> UpdateTooltip { get; }
 
         public SpecialAbility(string name, int itemId, int abilityId, Action<SpecialAbility, unit> InUpdateTooltip = null)
         {
@@ -456,9 +448,7 @@ namespace TGS
             }
 
             InTGSHero.Special = this;
-            InTGSHero.Unit.AddAbility(AbilityId);
-            InTGSHero.Unit.SetAbilityLevel(AbilityId, InTGSHero.Unit.Level / 2);
-            InTGSHero.Unit.SetAbilityPermanent(AbilityId, true);
+            InTGSHero.Unit.AddAbilityAt(AbilityId, InTGSHero.Unit.Level / 2, true);
             if (UpdateTooltip != null)
             {
                 InTGSHero.UpdateTooltip(this);
@@ -481,13 +471,13 @@ namespace TGS
 
     public class NormalAbility : ILearnedAbility
     {
-        public const int LumberCost = 2;
+        public static int LumberCost { get; } = 2;
         public int LearnedId { get; set; }
         public string Name { get; set; }
         public int ItemId { get; set; }
         public int MaxLevel { get; set; }
         public OrbType OrbType { get; set; }
-        public Action<NormalAbility, unit> UpdateTooltip;
+        public Action<NormalAbility, unit> UpdateTooltip { get; }
 
         public NormalAbility(string InName, int InItemId, int Q, int W, int E, int R, Action<NormalAbility, unit> InUpdateTooltip = null, OrbType InOrbType = OrbType.None)
         {
@@ -546,9 +536,7 @@ namespace TGS
                 LearnedId = AbilityIds[TargetSlot];
                 InTGSHero.NormalAbilities[TargetSlot] = this;
                 InTGSHero.SlotLevels[TargetSlot] = Math.Max(1, InTGSHero.SlotLevels[TargetSlot]);
-                InTGSHero.Unit.AddAbility(AbilityIds[TargetSlot]);
-                InTGSHero.Unit.SetAbilityLevel(AbilityIds[TargetSlot], InTGSHero.SlotLevels[TargetSlot]);
-                InTGSHero.Unit.SetAbilityPermanent(AbilityIds[TargetSlot], true);
+                InTGSHero.Unit.AddAbilityAt(AbilityIds[TargetSlot], InTGSHero.SlotLevels[TargetSlot], true);
                 if (UpdateTooltip != null)
                 {
                     InTGSHero.UpdateTooltip(this);
