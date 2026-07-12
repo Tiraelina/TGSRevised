@@ -220,6 +220,32 @@ namespace TGS.Creeps
             HeroTop.AddUnit(GetUnitAt(802.0f, 13192.0f));
             HeroTop.AddUnit(GetUnitAt(439.5f, 13230.2f));
             HeroTop.AddUnit(GetUnitAt(1097.2f, 13098.2f));
+
+            CreepCamp DragonWest = new(Camp.DragonWest, CreepRespawnTime5Min);
+            DragonWest.AddUnit(GetUnitAt(-4273.2f, 12442.5f));
+            DragonWest.AddUnit(GetUnitAt(-6996.8f, 11653.2f));
+            DragonWest.AddUnit(GetUnitAt(-7000.5f, 11817.0f));
+            DragonWest.AddUnit(GetUnitAt(-7126.8f, 11896.8f));
+            DragonWest.AddUnit(GetUnitAt(-7076.5f, 12220.5f));
+            DragonWest.AddUnit(GetUnitAt(-6438.5f, 12325.0f));
+            DragonWest.AddUnit(GetUnitAt(-6760.5f, 11617.8f));
+            DragonWest.AddUnit(GetUnitAt(-6520.0f, 11629.5f));
+            DragonWest.AddUnit(GetUnitAt(-6314.8f, 11848.0f));
+            DragonWest.AddUnit(GetUnitAt(-6620.0f, 12445.2f));
+            DragonWest.AddUnit(GetUnitAt(-6857.0f, 12379.8f));
+
+            CreepCamp DragonEast = new(Camp.DragonEast, CreepRespawnTime5Min);
+            DragonEast.AddUnit(GetUnitAt(3072.0f, 12645.5f));
+            DragonEast.AddUnit(GetUnitAt(5255.2f, 13013.0f));
+            DragonEast.AddUnit(GetUnitAt(4871.8f, 12387.5f));
+            DragonEast.AddUnit(GetUnitAt(4868.5f, 12535.2f));
+            DragonEast.AddUnit(GetUnitAt(4778.2f, 12620.5f));
+            DragonEast.AddUnit(GetUnitAt(4844.5f, 12859.5f));
+            DragonEast.AddUnit(GetUnitAt(5334.0f, 12302.0f));
+            DragonEast.AddUnit(GetUnitAt(5112.0f, 12252.5f));
+            DragonEast.AddUnit(GetUnitAt(5487.0f, 12571.8f));
+            DragonEast.AddUnit(GetUnitAt(5393.8f, 12908.8f));
+            DragonEast.AddUnit(GetUnitAt(4952.0f, 12971.2f));
         }
     }
 }

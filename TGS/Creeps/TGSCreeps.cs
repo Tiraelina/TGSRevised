@@ -103,6 +103,8 @@ namespace TGS.Creeps
         HeroBot = 33,
         MoonkinEast = 34,
         MoonkinWest = 35,
+        DragonEast = 36,
+        DragonWest = 37,
     }
 
     public class CampUnits

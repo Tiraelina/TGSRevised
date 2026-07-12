@@ -187,6 +187,8 @@ namespace TGS
                 case Camp.HeroTop:
                 case Camp.GolemWest:
                 case Camp.GolemEast:
+                case Camp.DragonWest:
+                case Camp.DragonEast:
                     return true;
                 default:
                     return false;
