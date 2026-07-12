@@ -13,7 +13,7 @@ namespace TGS
     public class ItemData
     {
         public ItemData(int ItemId, float attackSpeed, float healthRegen, float manaRegen, float baseDamage, float spellBonus, float damageTakenModifier, int cleaveCount = 0,
-            float cleaveBonus = 0.0f, float evasionChance = 0.0f, List<OrbType> InOrbEffects = null)
+            float cleaveBonus = 0.0f, float evasionChance = 0.0f, float unavoidableDamage = 0.0f, List<OrbType> InOrbEffects = null)
         {
             AttackSpeed = attackSpeed;
             HealthRegen = healthRegen;
@@ -24,6 +24,7 @@ namespace TGS
             CleaveBonus = cleaveBonus;
             EvasionChance = evasionChance;
             DamageTakenModifier = damageTakenModifier;
+            UnavoidableDamage = unavoidableDamage;
             if (InOrbEffects != null)
             {
                 OrbEffects = InOrbEffects;
@@ -41,6 +42,7 @@ namespace TGS
             CleaveBonus = 0.0f;
             EvasionChance = 0.0f;
             DamageTakenModifier = 0.0f;
+            UnavoidableDamage = 0.0f;
         }
 
         public float AttackSpeed { get; set; }
@@ -52,6 +54,7 @@ namespace TGS
         public float CleaveBonus { get; set; }
         public float EvasionChance { get; set; }
         public float DamageTakenModifier { get; set; }
+        public float UnavoidableDamage { get; set; }
         public List<OrbType> OrbEffects { get; } = new();
     }
 
@@ -88,8 +91,10 @@ namespace TGS
                 , -25.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
             new ItemData(ITEM_I09P_CAT_PAW
                 , 70.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0, 0.0f, 0.1f);
+            List<OrbType> OrbEffects = new();
+            OrbEffects.Add(OrbType.Pillage);
             new ItemData(ITEM_I0AW_SHATTER_BLADE_OF_STORMWIND
-                , 0.0f, 16.0f, 0.0f, 20.0f, 0.0f, 0.0f, 2, 0.25f);
+                , 0.0f, 16.0f, 0.0f, 20.0f, 0.0f, 0.0f, 2, 0.25f, 0.0f, 0.0f, OrbEffects);
             new ItemData(ITEM_JDRN_YARN_BALL
                 , 50.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
             new ItemData(ITEM_SRTL_WHIPLASH
@@ -128,10 +133,12 @@ namespace TGS
                 , 25.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
             new ItemData(ABILITY_A0KP_SCORCHING_RAY_PYRO_STAFF
                 , 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.5f);
-            List<OrbType> OrbEffects = new();
+            OrbEffects.Clear();
             OrbEffects.Add(OrbType.Ooze);
             new ItemData(ITEM_ODEF_ORB_OF_SHADOWS
-                , 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0, 0.0f, 0.0f, OrbEffects);
+                , 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0, 0.0f, 0.0f, 0.0f, OrbEffects);
+            new ItemData(ITEM_I0AT_DRAGONLANCE
+                , 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0, 0.0f, 0.0f, 30.0f);
         }
 
         public static void Init()

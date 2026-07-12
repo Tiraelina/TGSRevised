@@ -342,6 +342,10 @@ namespace TGS
                 InTGSHero.Ultimate = this;
                 InTGSHero.SlotLevels[4] = Math.Max(1, InTGSHero.SlotLevels[4]);
                 InTGSHero.Unit.AddAbilityAt(AbilityId, InTGSHero.SlotLevels[4], true);
+                if (AbilityId == ABILITY_A0N2_TRUESTRIKE_T)
+                {
+                    InTGSHero.AttackUnavoidable = 50.0f * InTGSHero.SlotLevels[4];
+                }
                 LearnMessage(InTGSHero);
                 if (UpdateTooltip != null)
                 {
@@ -363,6 +367,11 @@ namespace TGS
 
             InTGSHero.SlotLevels[4]++;
             InTGSHero.Unit.SetAbilityLevel(AbilityId, InTGSHero.SlotLevels[4]);
+
+            if (AbilityId == ABILITY_A0N2_TRUESTRIKE_T)
+            {
+                InTGSHero.AttackUnavoidable = 50.0f * InTGSHero.SlotLevels[4];
+            }
             if (UpdateTooltip != null)
             {
                 InTGSHero.UpdateTooltip(this);

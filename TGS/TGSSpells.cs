@@ -284,11 +284,19 @@ namespace TGS
                 TGSAbilities.ByUnit.TryGetValue(DamageSource, out var SourceHero);
             
                 // MISS
-                if (GetRandomReal(0f,1f) < SourceHero.AttackMissChance)
+                if (!SourceHero.Unit.HasAbility(ABILITY_A0N2_TRUESTRIKE_T) || GetRandomReal(0f,1f) < SourceHero.AttackMissChance)
                 {
-                    BlzSetEventDamage(0.0f);
-                    BlzSetEventDamageType(DAMAGE_TYPE_UNKNOWN);
-                    MakeTag(EventDamage, DamageTarget, TagType.Miss);
+                    if (SourceHero.ItemMods.UnavoidableDamage > 0.0f)
+                    {
+                        BlzSetEventDamage(SourceHero.ItemMods.UnavoidableDamage);
+                        MakeTag(EventDamage, DamageTarget, TagType.Normal);
+                    }
+                    else
+                    {
+                        BlzSetEventDamage(0.0f);
+                        BlzSetEventDamageType(DAMAGE_TYPE_UNKNOWN);
+                        MakeTag(EventDamage, DamageTarget, TagType.Miss);
+                    }
                     return true;
                 }
 
@@ -299,11 +307,19 @@ namespace TGS
                     {
                         // EVASION - Clamped at 50%
                         float EvasionBonus = Math.Min(TargetTGSHero.AttackEvasionChance + TargetTGSHero.ItemMods.EvasionChance, 0.5f);
-                        if (GetRandomReal(0f, 1f) < EvasionBonus)
+                        if (!SourceHero.Unit.HasAbility(ABILITY_A0N2_TRUESTRIKE_T) || GetRandomReal(0f, 1f) < EvasionBonus)
                         {
-                            BlzSetEventDamage(0.0f);
-                            BlzSetEventDamageType(DAMAGE_TYPE_UNKNOWN);
-                            MakeTag(EventDamage, DamageTarget, TagType.Evade);
+                            if (SourceHero.ItemMods.UnavoidableDamage > 0.0f)
+                            {
+                                BlzSetEventDamage(SourceHero.ItemMods.UnavoidableDamage);
+                                MakeTag(EventDamage, DamageTarget, TagType.Normal);
+                            }
+                            else
+                            {
+                                BlzSetEventDamage(0.0f);
+                                BlzSetEventDamageType(DAMAGE_TYPE_UNKNOWN);
+                                MakeTag(EventDamage, DamageTarget, TagType.Evade);
+                            }
                             return true;
                         }
                     }
@@ -325,6 +341,8 @@ namespace TGS
                         Orb.OnHit(DamageSource, DamageTarget, ref EventDamage);
                     }
                 }
+
+                EventDamage += SourceHero.ItemMods.UnavoidableDamage + SourceHero.AttackUnavoidable;
                 BlzSetEventDamage(EventDamage);
                 MakeTag(EventDamage, DamageTarget, OutTag);
             

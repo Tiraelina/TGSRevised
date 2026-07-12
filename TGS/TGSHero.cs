@@ -41,6 +41,7 @@ namespace TGS
         public float AttackMissChance { get; } = 0.0f;
         public int AttackMultiTargets { get; set; } = 1;
         public float AttackMultiMult { get; } = 0.5f;
+        public float AttackUnavoidable { get; set; } = 0.0f;
 
         // Spell
         public float SpellStrengthScaling { get; } = 0.0f;
@@ -90,6 +91,7 @@ namespace TGS
                         ItemMods.CleaveBonus += itemData.CleaveBonus;
                         ItemMods.EvasionChance += itemData.EvasionChance;
                         ItemMods.DamageTakenModifier += itemData.DamageTakenModifier;
+                        ItemMods.UnavoidableDamage += itemData.UnavoidableDamage;
                         foreach (OrbType Orb in itemData.OrbEffects)
                         {
                             ItemMods.OrbEffects.Add(Orb);
@@ -158,6 +160,7 @@ namespace TGS
             ItemMods.CleaveBonus = 0.0f;
             ItemMods.EvasionChance = 0.0f;
             ItemMods.DamageTakenModifier = 0.0f;
+            ItemMods.UnavoidableDamage = 0.0f;
             foreach (var Orb in ItemMods.OrbEffects)
             {
                 RemoveOrb(Orb);
@@ -480,6 +483,10 @@ namespace TGS
                 InTGSHero.Unit.RemoveAbility(ABILITY_AHM3_MASS_TELEPORT_LVL3_T);
             }
 
+            if (InAbility.AbilityId == ABILITY_A0N2_TRUESTRIKE_T)
+            {
+                InTGSHero.AttackUnavoidable = 0.0f;
+            }
             InTGSHero.Owner.Lumber += UltimateAbility.LumberCost - 1;
             InTGSHero.Unit.RemoveAbility(InAbility.AbilityId, false);
             InTGSHero.Ultimate = null;
