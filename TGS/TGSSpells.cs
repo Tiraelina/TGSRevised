@@ -284,7 +284,7 @@ namespace TGS
                 TGSAbilities.ByUnit.TryGetValue(DamageSource, out var SourceHero);
             
                 // MISS
-                if (!SourceHero.Unit.HasAbility(ABILITY_A0N2_TRUESTRIKE_T) || GetRandomReal(0f,1f) < SourceHero.AttackMissChance)
+                if (SourceHero.Unit.GetAbilityLevel(ABILITY_A0N2_TRUESTRIKE_T) !> 0 || GetRandomReal(0f,1f) < SourceHero.AttackMissChance)
                 {
                     if (SourceHero.ItemMods.UnavoidableDamage > 0.0f)
                     {
@@ -307,7 +307,7 @@ namespace TGS
                     {
                         // EVASION - Clamped at 50%
                         float EvasionBonus = Math.Min(TargetTGSHero.AttackEvasionChance + TargetTGSHero.ItemMods.EvasionChance, 0.5f);
-                        if (!SourceHero.Unit.HasAbility(ABILITY_A0N2_TRUESTRIKE_T) || GetRandomReal(0f, 1f) < EvasionBonus)
+                        if (SourceHero.Unit.GetAbilityLevel(ABILITY_A0N2_TRUESTRIKE_T) !> 0 || GetRandomReal(0f, 1f) < EvasionBonus)
                         {
                             if (SourceHero.ItemMods.UnavoidableDamage > 0.0f)
                             {
