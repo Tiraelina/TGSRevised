@@ -83,8 +83,11 @@ namespace TGS
                     if (itemData != null)
                     {
                         ItemMods.AttackSpeed += itemData.AttackSpeed;
-                        ItemMods.HealthRegen += itemData.HealthRegen;
-                        ItemMods.ManaRegen += itemData.ManaRegen;
+                        ItemMods.HealthRegenBonus += itemData.HealthRegenBonus;
+                        ItemMods.HealthRegenPercentage += itemData.HealthRegenPercentage;
+                        ItemMods.ManaRegenBonus += itemData.ManaRegenBonus;
+                        ItemMods.ManaRegenFactor += itemData.ManaRegenFactor;
+                        ItemMods.ManaRegenPercentage += itemData.ManaRegenPercentage;
                         ItemMods.BaseDamage += itemData.BaseDamage;
                         ItemMods.SpellBonus += itemData.SpellBonus;
                         ItemMods.CleaveCount += itemData.CleaveCount;
@@ -152,8 +155,11 @@ namespace TGS
         public void ResetItemStats()
         {
             ItemMods.AttackSpeed = 0.0f;
-            ItemMods.HealthRegen = 0.0f;
-            ItemMods.ManaRegen = 0.0f;
+            ItemMods.HealthRegenBonus = 0.0f;
+            ItemMods.HealthRegenPercentage = 0.0f;
+            ItemMods.ManaRegenBonus = 0.0f;
+            ItemMods.ManaRegenFactor = 0.0f;
+            ItemMods.ManaRegenPercentage = 0.0f;
             ItemMods.BaseDamage = 0.0f;
             ItemMods.SpellBonus = 0.0f;
             ItemMods.CleaveCount = 0;

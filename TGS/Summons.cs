@@ -593,15 +593,21 @@ namespace TGS
 #endif
                 float ItemBaseDamage = 0.0f;
                 float ItemAttackSpeed = 0.0f;
-                float ItemHealthRegen = 0.0f;
-                float ItemManaRegen = 0.0f;
+                float ItemHealthRegenBonus = 0.0f;
+                float ItemHealthRegenPercentage = 0.0f;
+                float ItemManaRegenBonus = 0.0f;
+                float ItemManaRegenFactor = 0.0f;
+                float ItemManaRegenPercentage = 0.0f;
                 TGSAbilities.ByPlayer.TryGetValue(Summon.Owner, out TGSHero SummonerHero);
                 if (SummonerHero != null)
                 {
                     ItemBaseDamage = SummonerHero.ItemMods.BaseDamage;
                     ItemAttackSpeed = SummonerHero.ItemMods.AttackSpeed;
-                    ItemHealthRegen = SummonerHero.ItemMods.HealthRegen;
-                    ItemManaRegen = SummonerHero.ItemMods.ManaRegen;
+                    ItemHealthRegenBonus = SummonerHero.ItemMods.HealthRegenBonus;
+                    ItemHealthRegenPercentage = SummonerHero.ItemMods.HealthRegenPercentage;
+                    ItemManaRegenBonus = SummonerHero.ItemMods.ManaRegenBonus;
+                    ItemManaRegenFactor = SummonerHero.ItemMods.ManaRegenFactor;
+                    ItemManaRegenPercentage = SummonerHero.ItemMods.ManaRegenPercentage;
                     if (SummonStats.bUsePlayerAsSummoner)
                     {
                         Summoner = SummonerHero.Unit;
@@ -617,23 +623,25 @@ namespace TGS
                         break;
                     }
                 }
+                
+                // Needs to be resolved before regeneration.
+                Summon.MaxLife += (int)Math.Round(Summoner.MaxLife * (SummonStats.LifeScalar + (SummonStats.LifeScalarPerLevel * Level)));
+                Summon.Life = Summon.MaxLife;
+                Summon.MaxMana += (int)Math.Round(Summoner.MaxMana * (SummonStats.ManaScalar + (SummonStats.ManaScalarPerLevel * Level)));
+                Summon.Mana = Summon.MaxMana;
 
                 // Primary attribute increases base damage. Add average of dice.
                 float BaseDamage = (Summoner.AttackBaseDamage1 + ((Summoner.AttackDiceSides1 / 2.0f) * Summoner.AttackDiceNumber1)) + ItemBaseDamage;
 
                 // Attributes do not affect these.
-                float LifeRegen = Summoner.HitPointsRegeneration + (Summoner.Strength * 0.05f) + ItemHealthRegen;
-                float ManaRegen = Summoner.ManaRegeneration + (Summoner.Intelligence * 0.1f) + ItemManaRegen;
+                float LifeRegen = Summoner.HitPointsRegeneration + (Summoner.Strength * 0.05f) + ItemHealthRegenBonus + (Summon.MaxLife * ItemHealthRegenPercentage);
+                float ManaRegen = ((Summoner.ManaRegeneration + ItemManaRegenBonus) * ItemManaRegenFactor) + (Summon.MaxMana * ItemManaRegenPercentage);
                 float AttackSpeedRaw = ((Summoner.Agility * 2.0f) + ItemAttackSpeed) * (SummonStats.AttackSpeedScalar + (SummonStats.AttackSpeedScalarPerLevel * Level));
                 float AttackSpeed = 1.0f + (AttackSpeedRaw / 100.0f);
                 float BaseSpeed1 = Summon.AttackCooldown1;
                 float BaseSpeed2 = Summon.AttackCooldown2;
 
-                Summon.MaxLife += (int)Math.Round(Summoner.MaxLife * (SummonStats.LifeScalar + (SummonStats.LifeScalarPerLevel * Level)));
-                Summon.Life = Summon.MaxLife;
                 Summon.HitPointsRegeneration += LifeRegen * (SummonStats.LifeRegenScalar + (SummonStats.LifeRegenScalarPerLevel * Level));
-                Summon.MaxMana += (int)Math.Round(Summoner.MaxMana * (SummonStats.ManaScalar + (SummonStats.ManaScalarPerLevel * Level)));
-                Summon.Mana = Summon.MaxMana;
                 Summon.ManaRegeneration += ManaRegen * (SummonStats.ManaRegenScalar + (SummonStats.ManaRegenScalarPerLevel * Level));
                 Summon.AttackBaseDamage1 += (int)Math.Round(BaseDamage * (SummonStats.DamageScalar + (SummonStats.DamageScalarPerLevel * Level)));
                 Summon.AttackBaseDamage2 += (int)Math.Round(BaseDamage * (SummonStats.DamageScalar + (SummonStats.DamageScalarPerLevel * Level)));
