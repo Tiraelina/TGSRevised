@@ -193,7 +193,8 @@ namespace TGS
         private static void ResearchKillGain()
         {
             // Research
-            if (GetDyingUnit().Owner == player.Create(PLAYER_NEUTRAL_AGGRESSIVE))
+            if (GetDyingUnit().Owner == player.Create(PLAYER_NEUTRAL_AGGRESSIVE)
+                && !GetDyingUnit().IsUnitType(unittype.Summoned))
             {
                 // I'm pretty sure creeps can't kill creeps so...
                 int ResearchIncrease = Math.Max(1, GetDyingUnit().Level * 2);
