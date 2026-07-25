@@ -333,14 +333,14 @@ namespace TGS
                 //     OrbLookup.Add(InOrbType, Orb);
                 //     break;
                 // }
-                // case OrbType.Incinerate:
-                // {
-                //     Incinerate Orb = new();
-                //     Orb.Aquire(Unit, InOrbLevel);
-                //     Orbs.Add(Orb);
-                //     OrbLookup.Add(InOrbType, Orb);
-                //     break;
-                // }
+                case OrbType.Incinerate:
+                {
+                    Incinerate Orb = new();
+                    Orb.Aquire(Unit, InOrbLevel);
+                    Orbs.Add(Orb);
+                    OrbLookup.Add(InOrbType, Orb);
+                    break;
+                }
                 case OrbType.Pillage:
                 {
                     Pillage Orb = new();
@@ -477,6 +477,10 @@ namespace TGS
         {
             InTGSHero.Owner.Lumber += SpecialAbility.LumberCost - 1;
             InTGSHero.Unit.RemoveAbility(InAbility.AbilityId, false);
+            if (InTGSHero.Special.OrbType != OrbType.None)
+            {
+                InTGSHero.RemoveOrb(InTGSHero.Special.OrbType);
+            }
             InTGSHero.Special = null;
             UnlearnMessage(InTGSHero, InAbility.Name);
         }
@@ -495,6 +499,10 @@ namespace TGS
             }
             InTGSHero.Owner.Lumber += UltimateAbility.LumberCost - 1;
             InTGSHero.Unit.RemoveAbility(InAbility.AbilityId, false);
+            if (InTGSHero.NormalAbilities[4].OrbType != OrbType.None)
+            {
+                InTGSHero.RemoveOrb(InTGSHero.NormalAbilities[4].OrbType);
+            }
             InTGSHero.Ultimate = null;
             UnlearnMessage(InTGSHero, InAbility.Name);
         }
@@ -540,9 +548,8 @@ namespace TGS
                 SpecialAbility SpecialAbil = Get(GetTriggerPlayer()).Special;
                 if (SpecialAbil != null)
                 {
-                    GetTriggerUnit().SetAbilityLevel(SpecialAbil.AbilityId, GetLevelingUnit().Level / 2);
+                    SpecialAbil.LevelUpExisting(LevelingTGSHero);
                 }
-                LevelingTGSHero.UpdateTooltips();
             }
 
             TGSAbilities.HeroToBaseAbility.TryGetValue(GetTriggerUnit().UnitType, out int Value);

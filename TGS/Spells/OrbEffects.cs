@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using WCSharp.Api;
 using WCSharp.Api.Enums;
 using WCSharp.Buffs;
+using WCSharp.Shared.Extensions;
 using static TGS.Util;
 using static Constants;
 using static TGS.TextTags;
@@ -150,6 +153,118 @@ namespace TGS.Spells
             Boner.ApplyTimedLife(FourCC("BTLF"), LifespanBase + LifespanInc * Level);
             Summons.ScaleSummon(Caster, Boner);
 
+        }
+    }
+
+    public class Incinerate : IOrbEffect
+    {
+        private float DamageBonusBase { get; } = 20.0f;
+        private float DamageBonusInc { get; } = 5.0f;
+        public unit Owner { get; set; }
+        public int Level { get; set; }
+        public effect WeaponEffect { get; set; }
+
+        public void Aquire(unit InOwner, int InLevel)
+        {
+            Owner = InOwner;
+            Level = InLevel;
+        }
+
+        public void Remove()
+        {
+        }
+
+        public void OnHit(unit Source, unit Target, ref float Damage)
+        {
+            IncinerateBuff Buff = new IncinerateBuff(Source, Target, Level);
+            BuffSystem.Add(Buff, StackBehaviour.Stack);
+            IList<Buff> Buffs = BuffSystem.GetBuffsOnUnit(Target);
+            if (Buffs.FirstOrDefault(buff => buff.GetType() == typeof(IncinerateBuff)) is IncinerateBuff ExistingBuff)
+            {
+                Damage += (DamageBonusBase + (DamageBonusInc * Level)) * ExistingBuff.Stacks;
+            }
+            else
+            {
+                Damage += DamageBonusBase + (DamageBonusInc * Level);
+            }
+            Damage *= Source.Intelligence * 0.4f / 100.0f;
+        }
+
+        public string GetName()
+        {
+            return $"Incinerate Level {Level}";
+        }
+    }
+
+    public class IncinerateBuff : PassiveBuff
+    {
+        private float DurationBase { get; } = 2.0f;
+        private float InnerRadiusBase { get; } = 100.0f;
+        private float InnerRadiusInc { get; } = 13.0f;
+        private float OuterRadiusBase { get; } = 245.0f;
+        private float OuterRadiusInc { get; } = 30.0f;
+        private float InnerDamageBase { get; } = 75.0f;
+        private float InnerDamageInc { get; } = 25.0f;
+        private float OuterDamageBase { get; } = 35.0f;
+        private float OuterDamageInc { get; } = 15.0f;
+        private group InnerTargets { get; set; }
+        private group OuterTargets { get; set; }
+        private int Level { get; }
+        public effect TargetEffect { get; set; }
+
+        public IncinerateBuff(unit caster, unit target, int InLevel) : base(caster, target)
+        {
+            Level = InLevel;
+            Duration = DurationBase;
+        }
+
+        public override void OnApply()
+        {
+            if (TargetEffect != null)
+            {
+                TargetEffect = effect.Create(@"Abilities\Spells\Other\Incinerate\IncinerateBuff.mdl", Target, "origin");
+            }
+        }
+
+        public override void OnExpire()
+        {
+            TargetEffect.Dispose();
+        }
+
+        public override void OnDeath(bool bKillingBlow)
+        {
+            TargetEffect.Dispose();
+            float InnerRadius = InnerRadiusBase + (InnerRadiusInc * Level);
+            float InnerDamage = InnerDamageBase + (InnerDamageInc * Level);
+            InnerDamage *= Caster.Intelligence * 0.4f / 100.0f;
+            float OuterRadius = OuterRadiusBase + (OuterRadiusInc * Level);
+            float OuterDamage = OuterDamageBase + (OuterDamageInc * Level);
+            OuterDamage *= Caster.Intelligence * 0.4f / 100.0f;
+            AddSpecialEffectTarget(@"Abilities\Spells\Other\Incinerate\FireLordDeathExplode.mdl", Target, "origin").Dispose();
+            
+            InnerTargets = group.Create();
+            GroupEnumUnitsInRange(InnerTargets, Target.X, Target.Y, InnerRadius, Condition(Filter));
+            foreach (unit NearestUnit in InnerTargets.ToList())
+            {
+                NearestUnit.Damage(Caster, InnerDamage);
+            }
+            
+            OuterTargets = group.Create();
+            GroupEnumUnitsInRange(OuterTargets, Target.X, Target.Y, OuterRadius, Condition(Filter));
+            foreach (unit NearestUnit in InnerTargets.ToList())
+            {
+                NearestUnit.Damage(Caster, OuterDamage);
+            }
+            
+            InnerTargets.Dispose();
+            OuterTargets.Dispose();
+        }
+
+        private bool Filter()
+        {
+            return GetFilterUnit().IsEnemyTo(Caster.Owner)
+                   && GetFilterUnit().IsValidTarget()
+                   && !InnerTargets.Contains(GetFilterUnit());
         }
     }
 

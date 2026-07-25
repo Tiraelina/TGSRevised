@@ -264,7 +264,7 @@ namespace TGS
             new SpecialAbility("Arcane Intellect", ITEM_I07X_ARCANE_INTELLECT_SPECIAL, ABILITY_A0KK_ARCANE_INTELLECT_X);
             new SpecialAbility("Passive Buster", ITEM_I090_PASSIVE_BUSTER_UTILITY, ABILITY_A005_PASSIVE_BUSTER_X);
             new SpecialAbility("Falling Sword", ITEM_I08R_VOLCANO_ULTIMATE, ABILITY_A08T_VOLCANO_X);
-            new SpecialAbility("Incinerate", ITEM_I08X_INCINERATE_SPECIAL, ABILITY_ANIC_INCINERATE_X);
+            new SpecialAbility("Incinerate", ITEM_I08X_INCINERATE_SPECIAL, ABILITY_A0P8_INCINERATE_X, null, OrbType.Incinerate);
             new SpecialAbility("Monster Hunter", ITEM_I0BA_MONSTER_HUNTER_PASSIVE, ABILITY_ANDE_BIG_GAME_HUNTER_DEMOLISH_X);
             new SpecialAbility("Devour Magic", ITEM_I03L_DEVOUR_MAGIC_UTILITY, ABILITY_A0N7_DEVOUR_MAGIC_X);
             new UltimateAbility("Bloat", ITEM_I02B_BLOAT_ULTIMATE, ABILITY_AHAV_BLOAT_T);
@@ -306,7 +306,7 @@ namespace TGS
         public OrbType OrbType { get; set; }
         public Action<UltimateAbility, unit> UpdateTooltip { get; }
 
-        public UltimateAbility(string name, int itemId, int abilityId, Action<UltimateAbility, unit> InUpdateTooltip = null)
+        public UltimateAbility(string name, int itemId, int abilityId, Action<UltimateAbility, unit> InUpdateTooltip = null, OrbType InOrbType = OrbType.None)
         {
             Name = name;
             ItemId = itemId;
@@ -314,6 +314,8 @@ namespace TGS
             MaxLevel = 3;
             TGSAbilities.UltimateByItemId.Add(itemId, this);
             UpdateTooltip = InUpdateTooltip;
+
+            OrbType = InOrbType;
         }
 
         public int AbilityId { get; private set; }
@@ -347,6 +349,10 @@ namespace TGS
                     InTGSHero.AttackUnavoidable = 50.0f * InTGSHero.SlotLevels[4];
                 }
                 LearnMessage(InTGSHero);
+                if (OrbType != OrbType.None)
+                {
+                    InTGSHero.AddOrb(OrbType, InTGSHero.SlotLevels[4]);
+                }
                 if (UpdateTooltip != null)
                 {
                     InTGSHero.UpdateTooltip(this);
@@ -377,6 +383,13 @@ namespace TGS
                 InTGSHero.UpdateTooltip(this);
             }
             LearnMessage(InTGSHero);
+            if (OrbType != OrbType.None)
+            {
+                if (InTGSHero.OrbLookup.TryGetValue(OrbType, out IOrbEffect Value))
+                {
+                    Value.Level = InTGSHero.SlotLevels[4];
+                }
+            }
             return true;
         }
 
@@ -425,7 +438,7 @@ namespace TGS
         public OrbType OrbType { get; set; }
         public Action<SpecialAbility, unit> UpdateTooltip { get; }
 
-        public SpecialAbility(string name, int itemId, int abilityId, Action<SpecialAbility, unit> InUpdateTooltip = null)
+        public SpecialAbility(string name, int itemId, int abilityId, Action<SpecialAbility, unit> InUpdateTooltip = null, OrbType InOrbType = OrbType.None)
         {
             Name = name;
             ItemId = itemId;
@@ -433,6 +446,8 @@ namespace TGS
             MaxLevel = 1;
             TGSAbilities.SpecialByItemId.Add(itemId, this);
             UpdateTooltip = InUpdateTooltip;
+
+            OrbType = InOrbType;
         }
 
         public int AbilityId { get; private set; }
@@ -463,8 +478,25 @@ namespace TGS
                 InTGSHero.UpdateTooltip(this);
             }
             LearnMessage(InTGSHero);
+            if (OrbType != OrbType.None)
+            {
+                InTGSHero.AddOrb(OrbType, InTGSHero.Unit.Level / 2);
+            }
 
             return true;
+        }
+
+        public void LevelUpExisting(TGSHero InTGSHero)
+        {
+            InTGSHero.Unit.SetAbilityLevel(AbilityId, GetLevelingUnit().Level / 2);
+            if (OrbType != OrbType.None)
+            {
+                if (InTGSHero.OrbLookup.TryGetValue(OrbType, out IOrbEffect Value))
+                {
+                    Value.Level = GetLevelingUnit().Level / 2;
+                }
+            }
+            InTGSHero.UpdateTooltips();
         }
 
         public void LearnMessage(TGSHero InTGSHero, int InSlot = 0)

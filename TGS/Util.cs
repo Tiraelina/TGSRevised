@@ -283,5 +283,10 @@ namespace TGS
             Target.SetAbilityPermanent(AbilityId, bPermanent);
             Target.RemoveAbility(AbilityId);
         }
+        
+        public static void Damage(this unit Target, unit Attacker, float Damage)
+        {
+            UnitDamageTarget(Attacker, Target, Damage, false, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS);
+        }
     }
 }
