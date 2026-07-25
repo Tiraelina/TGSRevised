@@ -23,21 +23,25 @@ namespace TGS
                 TotalPlayers += 1;
             }
 
-            CreateMultiboardBJ(3, TotalPlayers + 1, "Score Board");
+            CreateMultiboardBJ(4, TotalPlayers + 1, "Score Board");
             Multiboard = GetLastCreatedMultiboard();
             MultiboardSetItemStyleBJ(Multiboard, 0, 0, true, false);
             MultiboardSetItemWidthBJ(Multiboard, 1, 0, 8.00f);
-            MultiboardSetItemWidthBJ(Multiboard, 2, 0, 5.00f);
+            MultiboardSetItemWidthBJ(Multiboard, 2, 0, 3.00f);
             MultiboardSetItemValueBJ(Multiboard, 2, 0, "0");
             MultiboardSetItemWidthBJ(Multiboard, 3, 0, 5.00f);
             MultiboardSetItemValueBJ(Multiboard, 3, 0, "0");
+            MultiboardSetItemWidthBJ(Multiboard, 4, 0, 3.50f);
+            MultiboardSetItemValueBJ(Multiboard, 4, 0, "0");
 
             MultiboardSetItemValueBJ(Multiboard, 1, 1, "Player");
             MultiboardSetItemColorBJ(Multiboard, 1, 1, 100.00f, 80.00f, 0.00f, 0.00f);
             MultiboardSetItemValueBJ(Multiboard, 2, 1, "Kills");
-            MultiboardSetItemColorBJ(Multiboard, 2, 1, 100.00f, 40.00f, 0.00f, 0.00f);
+            MultiboardSetItemColorBJ(Multiboard, 2, 1, 100.00f, 60.00f, 0.00f, 0.00f);
             MultiboardSetItemValueBJ(Multiboard, 3, 1, "Hero Kills");
-            MultiboardSetItemColorBJ(Multiboard, 3, 1, 100.00f, 0.00f, 0.00f, 0.00f);
+            MultiboardSetItemColorBJ(Multiboard, 3, 1, 100.00f, 40.00f, 0.00f, 0.00f);
+            MultiboardSetItemValueBJ(Multiboard, 4, 1, "Deaths");
+            MultiboardSetItemColorBJ(Multiboard, 4, 1, 100.00f, 20.00f, 0.00f, 0.00f);
 
             MultiboardDisplayBJ(true, Multiboard);
 

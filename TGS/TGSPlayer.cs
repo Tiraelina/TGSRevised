@@ -34,7 +34,7 @@ namespace TGS
         private timer BladestormTimer { get; set; }
         private PlayerColor OwnerColor { get; }
         private timer DeathTimer { get; set; }
-        private timerdialog DeathTimerDialog { get; set; }
+        private timer DeathTicker { get; set; }
         private unit Hero { get; set; }
         public TGSHero HeroData { get; set; }
         public int HeroId { get; set; }
@@ -43,6 +43,7 @@ namespace TGS
         private player Owner { get; }
         private int Row { get; }
         private int UnitKills { get; set; }
+        private int Deaths { get; set; }
 
         public TGSPlayer(player InPlayer)
         {
@@ -64,6 +65,7 @@ namespace TGS
             MultiboardSetItemColorBJ(Leaderboard.Multiboard, 1, Row, OwnerColor.R, OwnerColor.G, OwnerColor.B, 0);
             MultiboardSetItemValueBJ(Leaderboard.Multiboard, 3, Row, UnitKills.ToString());
             MultiboardSetItemValueBJ(Leaderboard.Multiboard, 3, Row, HeroKills.ToString());
+            MultiboardSetItemValueBJ(Leaderboard.Multiboard, 4, Row, Deaths.ToString());
         }
 
         public void SetHero(unit InHero)
@@ -103,15 +105,37 @@ namespace TGS
             MultiboardSetItemValueBJ(Leaderboard.Multiboard, 3, Row, HeroKills.ToString());
         }
 
+        private void AddDeath()
+        {
+            Deaths += 1;
+            MultiboardSetItemValueBJ(Leaderboard.Multiboard, 4, Row, Deaths.ToString());
+        }
+
         public void Died()
         {
             BladestormModel.Dispose();
-            PolledWait(1.5f);
-            DeathTimer = timer.Create();
-            DeathTimer.Start(10.0f + Math.Min(15.0f, Hero.Level) * 3.0f, false, Revive);
-            DeathTimerDialog = timerdialog.Create(DeathTimer);
-            DeathTimerDialog.SetTitle(Name);
-            DeathTimerDialog.IsDisplayed = true;
+            timer DeathDelay = timer.Create();
+            DeathDelay.Start(1.5f, false, () =>
+            {
+                float ReviveTime = 10.0f + Math.Min(15.0f, Hero.Level) * 3.0f;
+                DeathTimer = timer.Create();
+                DeathTicker = timer.Create();
+                DeathTimer.Start(ReviveTime, false, Revive);
+                DeathTicker.Start(1.0f, true, () =>
+                {
+                    if (!Hero.IsUnitType(unittype.Dead))
+                    {
+                        MultiboardSetItemValueBJ(Leaderboard.Multiboard, 4, Row, Deaths.ToString());
+                        DeathTicker.Dispose();
+                    }
+                    else
+                    {
+                        MultiboardSetItemValueBJ(Leaderboard.Multiboard, 4, Row, $"{Deaths} ({DeathTimer.Remaining * -1.0f})");
+                    }
+                });
+                AddDeath();
+                DeathDelay.Dispose();
+            });
         }
 
         public void Bladestorm()
@@ -169,7 +193,6 @@ namespace TGS
 
         public void Revive()
         {
-            DeathTimerDialog.Dispose();
             if (Hero.IsAllyTo(player.Create(5)))
             {
                 Hero.Revive(HumFountain.X, HumFountain.Y);
