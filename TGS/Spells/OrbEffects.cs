@@ -291,7 +291,7 @@ namespace TGS.Spells
         {
             var ASS = new OozeBuff(Source, Target, Level);
             BuffSystem.Add(ASS, StackBehaviour.StackPlayer);
-            Damage += DamageBonus * Level;
+            Damage += DamageBonus;
             AddSpecialEffectTarget(@"Abilities\Spells\Other\BlackArrow\BlackArrowMissile.mdl", Target, "origin").Dispose();
         }
 
@@ -318,7 +318,6 @@ namespace TGS.Spells
             unit Ooze = unit.Create(Caster.Owner, UNIT_N02H_SHADOW_OOZE_SHADOW_ORB, Target.X, Target.Y);
             Ooze.ApplyTimedLife(FourCC("BTLF"), LifespanBase);
             Summons.ScaleSummon(Caster, Ooze);
-
         }
     }
 
