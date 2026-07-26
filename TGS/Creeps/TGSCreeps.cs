@@ -11,7 +11,7 @@ namespace TGS.Creeps
 {
     public static class TGSCreeps
     {
-        private static int CreepUpgradeTick { get; } = 100;
+        private static int CreepUpgradeTick { get; } = 1;
 #if DEBUG
         public static float CreepRespawnTime3Min { get; } = 5.0f;
         public static float CreepRespawnTime4Min { get; } = 5.0f;
