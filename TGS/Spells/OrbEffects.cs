@@ -187,7 +187,7 @@ namespace TGS.Spells
             {
                 Damage += DamageBonusBase + (DamageBonusInc * Level);
             }
-            Damage *= Source.Intelligence * 0.4f / 100.0f;
+            Damage += Damage * (Source.Intelligence * 0.4f / 100.0f);
         }
 
         public string GetName()
@@ -236,10 +236,10 @@ namespace TGS.Spells
             TargetEffect.Dispose();
             float InnerRadius = InnerRadiusBase + (InnerRadiusInc * Level);
             float InnerDamage = InnerDamageBase + (InnerDamageInc * Level);
-            InnerDamage *= Caster.Intelligence * 0.4f / 100.0f;
+            InnerDamage += InnerDamage * (Caster.Intelligence * 0.4f / 100.0f);
             float OuterRadius = OuterRadiusBase + (OuterRadiusInc * Level);
             float OuterDamage = OuterDamageBase + (OuterDamageInc * Level);
-            OuterDamage *= Caster.Intelligence * 0.4f / 100.0f;
+            OuterDamage += OuterDamage * (Caster.Intelligence * 0.4f / 100.0f);
             AddSpecialEffectTarget(@"Abilities\Spells\Other\Incinerate\FireLordDeathExplode.mdl", Target, "origin").Dispose();
             
             InnerTargets = group.Create();
