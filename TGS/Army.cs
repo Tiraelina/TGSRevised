@@ -53,7 +53,7 @@ namespace TGS
             Factory NewFactory;
             NewFactory = new Factory(player.Create(12), HumBarracksTop);
             List<FactorySpawn> Spawns = new List<FactorySpawn>();
-            Spawns.Add(new FactorySpawn(UNIT_HFOO_FOOTMAN, UNIT_HCTH_CRUSADER, false, 1));
+            Spawns.Add(new FactorySpawn(UNIT_HFOO_SWORDSMAN, UNIT_HCTH_CRUSADER, false, 1));
             Spawns.Add(new FactorySpawn(UNIT_HRIF_RIFLEMAN, UNIT_HHES_SENTINEL, false, 1));
             Spawns.Add(new FactorySpawn(UNIT_HKNI_HUNTRESS, UNIT_HHDL_PALADIN, true, 0));
             foreach (FactorySpawn SpawnedUnit in Spawns)
@@ -180,7 +180,7 @@ namespace TGS
             Factory NewFactory;
             NewFactory = new Factory(player.Create(15), OrcBarracksTop);
             List<FactorySpawn> Spawns = new List<FactorySpawn>();
-            Spawns.Add(new FactorySpawn(UNIT_OGRU_GRUNT, UNIT_NCHG_CHAOS_GRUNT, false, 1));
+            Spawns.Add(new FactorySpawn(UNIT_OGRU_BERSERKER, UNIT_NCHG_CHAOS_GRUNT, false, 1));
             Spawns.Add(new FactorySpawn(UNIT_OHUN_CRYPT_FIEND, UNIT_NFTB_TROLL_AXE_BERSERKER, false, 1));
             Spawns.Add(new FactorySpawn(UNIT_ORAI_ABOMINATION, UNIT_NCHR_CHAOS_RAIDER, true, 0));
             foreach (FactorySpawn SpawnedUnit in Spawns)

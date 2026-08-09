@@ -36,7 +36,7 @@ namespace TGS.Creeps
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSRN_STORMREAVER_WORM_CASTER));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSRN_STORMREAVER_WORM_CASTER));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSRN_STORMREAVER_WORM_CASTER, DropID.Swiftness));
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSRW_STORMREAVER_WORM_WRANGLER, DropID.Gold100Candy));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSRW_PARASITE, DropID.Gold100Candy));
             GoblinWest.AddUnitSet(TempGroup);
 
             CreepCamp PigeonWest = new(Camp.PigeonWest, CreepRespawnTime5Min);
@@ -75,7 +75,7 @@ namespace TGS.Creeps
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSRN_STORMREAVER_WORM_CASTER));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSRN_STORMREAVER_WORM_CASTER));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSRN_STORMREAVER_WORM_CASTER, DropID.Swiftness));
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSRW_STORMREAVER_WORM_WRANGLER, DropID.Gold100Candy));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSRW_PARASITE, DropID.Gold100Candy));
             GoblinEast.AddUnitSet(TempGroup);
 
             CreepCamp PigeonEast = new(Camp.PigeonEast, CreepRespawnTime5Min);

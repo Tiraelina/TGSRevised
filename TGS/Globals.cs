@@ -486,7 +486,7 @@ namespace TGS
         {
             if (HumConditionFilter.Contains(GetTriggerPlayer()) && GetRandomInt(1, 10) == 1)
             {
-                if (GetAttacker().UnitType == UNIT_OGRU_GRUNT
+                if (GetAttacker().UnitType == UNIT_OGRU_BERSERKER
                     || GetAttacker().UnitType == UNIT_OTAU_SEER
                     || GetAttacker().UnitType == UNIT_OKOD_KODO_BEAST)
                 {
