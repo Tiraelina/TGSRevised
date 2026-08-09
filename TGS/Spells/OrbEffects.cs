@@ -234,10 +234,10 @@ namespace TGS.Spells
         public override void OnDeath(bool bKillingBlow)
         {
             TargetEffect.Dispose();
-            float InnerRadius = InnerRadiusBase + (InnerRadiusInc * Level);
+            float InnerRadius = InnerRadiusBase + Target.CollisionSize + (InnerRadiusInc * Level);
             float InnerDamage = InnerDamageBase + (InnerDamageInc * Level);
             InnerDamage += InnerDamage * (Caster.Intelligence * 0.4f / 100.0f);
-            float OuterRadius = OuterRadiusBase + (OuterRadiusInc * Level);
+            float OuterRadius = OuterRadiusBase + Target.CollisionSize + (OuterRadiusInc * Level);
             float OuterDamage = OuterDamageBase + (OuterDamageInc * Level);
             OuterDamage += OuterDamage * (Caster.Intelligence * 0.4f / 100.0f);
             AddSpecialEffectTarget(@"Abilities\Spells\Other\Incinerate\FireLordDeathExplode.mdl", Target, "origin").Dispose();
@@ -247,6 +247,7 @@ namespace TGS.Spells
             foreach (unit NearestUnit in InnerTargets.ToList())
             {
                 NearestUnit.Damage(Caster, InnerDamage);
+                Console.WriteLine(NearestUnit.Name + " Inner");
             }
             
             OuterTargets = group.Create();
@@ -254,10 +255,12 @@ namespace TGS.Spells
             foreach (unit NearestUnit in InnerTargets.ToList())
             {
                 NearestUnit.Damage(Caster, OuterDamage);
+                Console.WriteLine(NearestUnit.Name + " Outer");
             }
             
             InnerTargets.Dispose();
             OuterTargets.Dispose();
+            Console.WriteLine("CAT");
         }
 
         private bool Filter()
