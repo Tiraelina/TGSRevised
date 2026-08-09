@@ -181,7 +181,8 @@ namespace TGS.Spells
             IList<Buff> Buffs = BuffSystem.GetBuffsOnUnit(Target);
             if (Buffs.FirstOrDefault(buff => buff.GetType() == typeof(IncinerateBuff)) is IncinerateBuff ExistingBuff)
             {
-                Damage += (DamageBonusBase + (DamageBonusInc * Level)) * ExistingBuff.Stacks;
+                int Stacks = Math.Min(ExistingBuff.Stacks, 10);
+                Damage += (DamageBonusBase + (DamageBonusInc * Level)) * Stacks;
             }
             else
             {
@@ -236,9 +237,9 @@ namespace TGS.Spells
             TargetEffect.Dispose();
             float InnerRadius = InnerRadiusBase + Target.CollisionSize + (InnerRadiusInc * Level);
             float InnerDamage = InnerDamageBase + (InnerDamageInc * Level);
-            InnerDamage += InnerDamage * (Caster.Intelligence * 0.4f / 100.0f);
+            InnerDamage += (InnerDamage * (Caster.Intelligence * 0.4f / 100.0f)) * (Stacks * 0.25f);
             float OuterRadius = OuterRadiusBase + Target.CollisionSize + (OuterRadiusInc * Level);
-            float OuterDamage = OuterDamageBase + (OuterDamageInc * Level);
+            float OuterDamage = (OuterDamageBase + (OuterDamageInc * Level)) * (Stacks * 0.25f);
             OuterDamage += OuterDamage * (Caster.Intelligence * 0.4f / 100.0f);
             AddSpecialEffectTarget(@"Abilities\Spells\Other\Incinerate\FireLordDeathExplode.mdl", Target, "origin").Dispose();
             
