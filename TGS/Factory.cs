@@ -26,6 +26,8 @@ namespace TGS
         public List<FactorySpawn> SpawnedUnits { get; }
         public unit Unit { get; set; }
         public string UnitName { get; }
+        public timer PendingTimeout { get; set; }
+        public timer ConstructionTimeout { get; set; }
 
         public Factory(player InOwner, unit inUnit)
         {
@@ -42,12 +44,41 @@ namespace TGS
 
         public void SetNewFactory(unit NewFactory)
         {
+            PendingTimeout.Pause();
+            PendingTimeout.Dispose();
             State = FactoryState.UnderConstruction;
             PlayerUnitEvents.Register(UnitEvent.Dies, Died, NewFactory);
             Army.FactoryLookup.Add(NewFactory, this);
             Unit = NewFactory;
+            ConstructionTimeout = timer.Create();
+            ConstructionTimeout.Start(75.0f, false, ConstructionFailed);
 #if DEBUG
             Console.WriteLine($"{Unit.Name} {Unit.UnitType.Id2String()} new under construction");
+#endif
+        }
+
+        public void SetPendingConstruction(force InForce, unit InBuyingUnit, item InSoldItem)
+        {
+            State = FactoryState.Pending;
+            QuestMessageBJ(InForce, bj_QUESTMESSAGE_HINT,
+                $"{InBuyingUnit.Owner.Name} bought |cffff8000{InSoldItem.Name}|cffffffff to rebuild |cffff8000{UnitName}");
+            PingMinimapLocForForce(InForce, FactoryLocation, 5.0f);
+            PendingTimeout = timer.Create();
+            PendingTimeout.Start(20.0f, false, ConstructionFailed);
+        }
+
+        private void ConstructionFailed()
+        {
+            State = FactoryState.Dead;
+        }
+
+        public void SetAlive()
+        {
+            ConstructionTimeout.Pause();
+            ConstructionTimeout.Dispose();
+            State = FactoryState.Alive;
+#if DEBUG
+            Console.WriteLine($"{Unit.Name} {Unit.UnitType.Id2String()} finished construction");
 #endif
         }
 
@@ -96,6 +127,11 @@ namespace TGS
 
         private void Died()
         {
+            if (State == FactoryState.UnderConstruction)
+            {
+                ConstructionTimeout.Pause();
+                ConstructionTimeout.Dispose();
+            }
             State = FactoryState.Dead;
             PlayerUnitEvents.Unregister(UnitEvent.Dies, Died, Unit);
             Army.FactoryLookup.Remove(Unit);

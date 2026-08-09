@@ -390,10 +390,7 @@ namespace TGS
                         && NewFactory.IsUnitType(unittype.Ancient)
                         && NewFactory.IsUnitType(unittype.Sapper))
                     {
-                        FactoryLookup[GetTriggerUnit()].State = FactoryState.Alive;
-#if DEBUG
-                        Console.WriteLine($"{GetTriggerUnit().Name} {GetTriggerUnit().UnitType.Id2String()} finished construction");
-#endif
+                        FactoryLookup[GetTriggerUnit()].SetAlive();
                     }
                 }
             });
@@ -654,10 +651,7 @@ namespace TGS
 
         private static void BuildFactory(Factory Spawner, force Force)
         {
-            Spawner.State = FactoryState.Pending;
-            QuestMessageBJ(Force, bj_QUESTMESSAGE_HINT,
-                $"{GetBuyingUnit().Owner.Name} bought |cffff8000{GetSoldItem().Name}|cffffffff to rebuild |cffff8000{Spawner.UnitName}");
-            PingMinimapLocForForce(Force, Spawner.FactoryLocation, 5.0f);
+            Spawner.SetPendingConstruction(Force, GetBuyingUnit(), GetSoldItem());
             unit Tony;
             if (Spawner.Owner.IsAlly(player.Create(5)))
             {
