@@ -248,20 +248,17 @@ namespace TGS.Spells
             foreach (unit NearestUnit in InnerTargets.ToList())
             {
                 NearestUnit.Damage(Caster, InnerDamage);
-                Console.WriteLine(NearestUnit.Name + " Inner");
             }
-            
+
             OuterTargets = group.Create();
             GroupEnumUnitsInRange(OuterTargets, Target.X, Target.Y, OuterRadius, Condition(Filter));
-            foreach (unit NearestUnit in InnerTargets.ToList())
+            foreach (unit NearestUnit in OuterTargets.ToList())
             {
                 NearestUnit.Damage(Caster, OuterDamage);
-                Console.WriteLine(NearestUnit.Name + " Outer");
             }
             
             InnerTargets.Dispose();
             OuterTargets.Dispose();
-            Console.WriteLine("CAT");
         }
 
         private bool Filter()
