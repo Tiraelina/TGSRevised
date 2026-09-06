@@ -130,12 +130,12 @@ namespace TGS.Creeps
             TempGroup = new CampGroup();
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSRV_REVENANT_OF_THE_SEAS, DropID.Swiftness));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSRV_REVENANT_OF_THE_SEAS));
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_FACELESS_GARGANTUAN, DropID.Gold50Candy));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_HARBOR_LORD, DropID.Gold50Candy));
             GateNorth.AddUnitSet(TempGroup);
 
             TempGroup = new CampGroup();
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_FACELESS_GARGANTUAN, DropID.Swiftness));
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_FACELESS_GARGANTUAN));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_HARBOR_LORD, DropID.Swiftness));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_HARBOR_LORD));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLRV_ELDRITCH_MONSTROSITY, DropID.Gold100Candy));
             GateNorth.AddUnitSet(TempGroup);
 
@@ -149,12 +149,12 @@ namespace TGS.Creeps
             TempGroup = new CampGroup();
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSRV_REVENANT_OF_THE_SEAS, DropID.Swiftness));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSRV_REVENANT_OF_THE_SEAS));
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_FACELESS_GARGANTUAN, DropID.Gold50Candy));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_HARBOR_LORD, DropID.Gold50Candy));
             GateSouth.AddUnitSet(TempGroup);
 
             TempGroup = new CampGroup();
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_FACELESS_GARGANTUAN, DropID.Swiftness));
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_FACELESS_GARGANTUAN));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_HARBOR_LORD, DropID.Swiftness));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_HARBOR_LORD));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLRV_ELDRITCH_MONSTROSITY, DropID.Gold100Candy));
             GateSouth.AddUnitSet(TempGroup);
         }

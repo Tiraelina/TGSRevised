@@ -50,9 +50,9 @@ namespace TGS.Creeps
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSC2_DRAGONSPAWN_DIVINER, DropID.HealLesser));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSC3_SPIDERCRAB_MANCATCHER, DropID.Gold50Candy));
 
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_FACELESS_GARGANTUAN, DropID.Gold100Candy));
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_FACELESS_GARGANTUAN, DropID.Gold100Candy));
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_FACELESS_GARGANTUAN, DropID.HealRune));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_HARBOR_LORD, DropID.Gold100Candy));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_HARBOR_LORD, DropID.Gold100Candy));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_HARBOR_LORD, DropID.HealRune));
 
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMRV_MUR_GUL_OVERSEER));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMSN_MUR_GUL_WHIPLASHER));
@@ -153,9 +153,9 @@ namespace TGS.Creeps
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSC2_DRAGONSPAWN_DIVINER));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NSC3_SPIDERCRAB_MANCATCHER, DropID.Gold25Candy));
 
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_FACELESS_GARGANTUAN, DropID.Gold100Candy));
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_FACELESS_GARGANTUAN, DropID.Gold100Candy));
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_FACELESS_GARGANTUAN, DropID.HealRune));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_HARBOR_LORD, DropID.Gold100Candy));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_HARBOR_LORD, DropID.Gold100Candy));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NTRD_HARBOR_LORD, DropID.HealRune));
 
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMSN_MUR_GUL_WHIPLASHER));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NMSN_MUR_GUL_WHIPLASHER));

@@ -456,7 +456,7 @@ namespace TGS
             SummonIds.Clear();
             SummonIds.Add(UNIT_NHYH_HYDRA_HATCHLING_SUMMONABLE);
             AbilityIds.Clear();
-            AbilityIds.Add(ABILITY_A093_SUMMON_HYDRA_HATCHLING_SUMMON_STAFF);
+            AbilityIds.Add(ABILITY_A093_SUMMON_HYDRA_HATCHLING_SUMMONER_S_STAFF);
             new SummonScalar(SummonIds, AbilityIds,
                 0.1f, 0.02f, 0.1f, 0.02f,
                 0.1f, 0.02f, 0.1f, 0.02f,

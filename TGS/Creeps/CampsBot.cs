@@ -44,9 +44,9 @@ namespace TGS.Creeps
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NJGA_ELDER_YETI_FISTER));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NJGB_BIG_ABOMINABLE_FRENCHMAN, DropID.Gold50Candy));
 
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLDS_MAKRURA_REAPER, DropID.HealRune));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLDS_MUR_GUL_SIEGEMAGE, DropID.HealRune));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLSN_WALRUS_BONEGRINDER, DropID.Gold50Candy));
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLDS_MAKRURA_REAPER));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLDS_MUR_GUL_SIEGEMAGE));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLKL_MAKRURA_LURKER, DropID.QuadDamage));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLKL_MAKRURA_LURKER, DropID.Gold100Candy));
 
@@ -127,9 +127,9 @@ namespace TGS.Creeps
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NJGA_ELDER_YETI_FISTER));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NJGB_BIG_ABOMINABLE_FRENCHMAN, DropID.Gold100Candy));
 
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLDS_MAKRURA_REAPER));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLDS_MUR_GUL_SIEGEMAGE));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLSN_WALRUS_BONEGRINDER, DropID.HealRune));
-            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLDS_MAKRURA_REAPER, DropID.Gold50Candy));
+            TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLDS_MUR_GUL_SIEGEMAGE, DropID.Gold50Candy));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLKL_MAKRURA_LURKER, DropID.QuadDamage));
             TempGroup.CampUnitIDs.Add(new CampUnits(UNIT_NLKL_MAKRURA_LURKER, DropID.Gold100Candy));
 
