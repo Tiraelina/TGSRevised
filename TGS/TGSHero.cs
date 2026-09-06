@@ -99,7 +99,9 @@ namespace TGS
                         {
                             ItemMods.OrbEffects.Add(Orb);
                             AddOrb(Orb, 0);
+#if DEBUG
                             Console.WriteLine(Orb.ToString());
+#endif
                         }
                     }
                 }
